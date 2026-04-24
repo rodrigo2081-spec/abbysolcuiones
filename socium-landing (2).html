@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Socium — Gestión de socios y membresías</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#0B1B3F;
+  --navy2:#132352;
+  --teal:#0D9E8E;
+  --teal-light:#12C4B1;
+  --teal-pale:#E8F8F6;
+  --blue-mid:#1D4ED8;
+  --slate:#64748B;
+  --slate-light:#94A3B8;
+  --bg:#F8FAFC;
+  --white:#FFFFFF;
+  --text:#0F172A;
+  --border:#E2E8F0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 2.5rem;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(11,27,63,0.97);backdrop-filter:blur(10px)}
+.logo{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;letter-spacing:-0.02em;display:flex;align-items:center;gap:0.4rem}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--teal);display:inline-block;margin-left:1px}
+.nav-links{display:flex;gap:2rem;align-items:center;list-style:none}
+.nav-links a{color:rgba(255,255,255,0.65);text-decoration:none;font-size:0.88rem;font-weight:400;transition:color 0.2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:var(--teal)!important;color:#fff!important;padding:0.55rem 1.3rem;border-radius:8px;font-weight:500!important}
+.nav-cta:hover{background:var(--teal-light)!important}
+
+/* HERO */
+.hero{background:var(--navy);min-height:100vh;padding:8rem 2.5rem 5rem;position:relative;overflow:hidden;display:flex;align-items:center}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.hero-glow{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(13,158,142,0.15) 0%,transparent 70%);top:-200px;right:-150px;pointer-events:none}
+.hero-glow2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(29,78,216,0.2) 0%,transparent 70%);bottom:-100px;left:5%;pointer-events:none}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:1}
+.hero-tag{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(13,158,142,0.15);color:var(--teal-light);font-size:0.78rem;font-weight:500;padding:0.35rem 1rem;border-radius:100px;margin-bottom:1.75rem;border:1px solid rgba(13,158,142,0.3);letter-spacing:0.04em;text-transform:uppercase}
+.pulse{width:6px;height:6px;background:var(--teal-light);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
+h1{font-family:'Syne',sans-serif;font-size:3.6rem;line-height:1.05;font-weight:800;color:#fff;letter-spacing:-0.03em;margin-bottom:1.5rem}
+h1 .accent{color:var(--teal-light)}
+h1 .thin{font-weight:400;color:rgba(255,255,255,0.7)}
+.hero-sub{font-size:1.05rem;color:rgba(255,255,255,0.6);max-width:480px;margin-bottom:2.5rem;line-height:1.75;font-weight:300}
+.cta-group{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:1.5rem}
+.btn-teal{background:var(--teal);color:#fff;padding:0.85rem 2rem;border-radius:10px;text-decoration:none;font-weight:500;font-size:1rem;transition:all 0.2s;display:inline-block;font-family:'Inter',sans-serif}
+.btn-teal:hover{background:var(--teal-light);transform:translateY(-1px)}
+.btn-ghost{color:rgba(255,255,255,0.8);text-decoration:none;font-weight:400;font-size:0.95rem;display:inline-flex;align-items:center;gap:0.4rem;padding:0.85rem 1.5rem;border:1px solid rgba(255,255,255,0.15);border-radius:10px;transition:all 0.2s}
+.btn-ghost:hover{border-color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.05)}
+.hero-trust{display:flex;align-items:center;gap:0.75rem;font-size:0.8rem;color:rgba(255,255,255,0.4)}
+.trust-sep{width:1px;height:14px;background:rgba(255,255,255,0.15)}
+
+/* MOCKUP */
+.hero-visual{position:relative}
+.mockup-shell{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:1px;position:relative;animation:fadeUp 0.9s 0.2s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.mockup{background:#fff;border-radius:15px;overflow:hidden}
+.mock-bar{background:#F1F5F9;padding:10px 14px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #E2E8F0}
+.mbd{width:9px;height:9px;border-radius:50%}
+.mock-url{flex:1;background:#fff;border-radius:4px;padding:3px 10px;font-size:0.65rem;color:#94A3B8;font-family:'Inter',sans-serif;text-align:center}
+.mock-body{padding:14px}
+.mock-toprow{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.mock-title{font-family:'Syne',sans-serif;font-size:0.8rem;font-weight:700;color:var(--navy)}
+.mock-month{font-size:0.65rem;color:var(--slate);background:#F1F5F9;padding:3px 8px;border-radius:5px}
+.mock-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.mk{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:9px}
+.mk-l{font-size:0.6rem;color:var(--slate);font-weight:500;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px}
+.mk-v{font-size:1.1rem;font-weight:600;font-family:'Syne',sans-serif;color:var(--navy)}
+.mk-v.g{color:#059669}.mk-v.r{color:#DC2626}
+.mock-tbl{border:1px solid #E2E8F0;border-radius:8px;overflow:hidden;font-size:0.65rem}
+.mt{display:grid;grid-template-columns:1fr auto auto;gap:6px;padding:6px 9px;align-items:center;border-bottom:1px solid #F1F5F9}
+.mt:last-child{border-bottom:none}
+.mt.hdr{background:#F8FAFC;font-weight:500;color:var(--slate);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.04em}
+.chip{padding:2px 7px;border-radius:20px;font-size:0.58rem;font-weight:500}
+.cg{background:#DCFCE7;color:#15803D}
+.cr{background:#FEE2E2;color:#DC2626}
+.cw{background:#FEF9C3;color:#B45309}
+.mock-float{position:absolute;background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:10px 12px;box-shadow:0 8px 30px rgba(11,27,63,0.12);font-size:0.72rem;display:flex;align-items:center;gap:8px;animation:fadeUp 1s both}
+.mf1{top:-16px;right:-16px;animation-delay:0.6s}
+.mf2{bottom:24px;left:-20px;animation-delay:0.9s}
+.mf-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.mf-teal{background:var(--teal-pale)}
+.mf-blue{background:#EFF6FF}
+.mf-label{font-weight:500;color:var(--navy);font-size:0.72rem}
+.mf-sub{font-size:0.62rem;color:var(--slate)}
+
+/* LOGOS STRIP */
+.strip{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.5rem 2.5rem}
+.strip-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:2rem;flex-wrap:wrap}
+.strip-label{font-size:0.78rem;font-weight:500;color:var(--slate);white-space:nowrap}
+.strip-logos{display:flex;gap:2rem;align-items:center;flex-wrap:wrap;flex:1}
+.strip-logo{font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;color:#CBD5E1;letter-spacing:-0.01em}
+
+/* SECTIONS */
+.sec{padding:5rem 2.5rem;max-width:1200px;margin:0 auto}
+.sec-wide{padding:5rem 2.5rem}
+.label{font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);margin-bottom:0.75rem}
+h2{font-family:'Syne',sans-serif;font-size:2.6rem;font-weight:800;line-height:1.1;letter-spacing:-0.02em;color:var(--navy);margin-bottom:1rem}
+h2 .a{color:var(--teal)}
+.lead{font-size:1rem;color:var(--slate);max-width:500px;line-height:1.75}
+.badge-sm{display:inline-block;padding:3px 9px;border-radius:20px;font-size:0.72rem;font-weight:500}
+.b-ok{background:#DCFCE7;color:#15803D}
+.b-rd{background:#FEE2E2;color:#DC2626}
+.b-wn{background:#FEF9C3;color:#B45309}
+
+/* PARA QUIENES */
+.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:3rem}
+.who-card{background:#fff;padding:1.75rem;transition:background 0.2s}
+.who-card:hover{background:#F8FAFC}
+.wc-icon{font-size:1.75rem;margin-bottom:0.85rem}
+.wc-title{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:var(--navy);margin-bottom:0.35rem}
+.wc-desc{font-size:0.82rem;color:var(--slate);line-height:1.55}
+
+/* FEATURES DARK */
+.feat-wrap{background:var(--navy2);padding:5rem 2.5rem}
+.feat-inner{max-width:1200px;margin:0 auto}
+.feat-wrap h2{color:#fff}.feat-wrap h2 .a{color:var(--teal-light)}
+.feat-wrap .label{color:var(--teal-light)}
+.feat-wrap .lead{color:rgba(255,255,255,0.5)}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.06);border-radius:16px;overflow:hidden;margin-top:3rem}
+.feat{background:rgba(255,255,255,0.02);padding:1.75rem;transition:background 0.2s;border:none}
+.feat:hover{background:rgba(255,255,255,0.05)}
+.feat-num{font-family:'Syne',sans-serif;font-size:0.7rem;font-weight:700;color:var(--teal-light);letter-spacing:0.06em;margin-bottom:0.75rem;opacity:0.7}
+.feat-icon{width:42px;height:42px;border-radius:10px;background:rgba(13,158,142,0.15);border:1px solid rgba(13,158,142,0.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:1rem}
+.feat-title{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:#fff;margin-bottom:0.5rem}
+.feat-desc{font-size:0.82rem;color:rgba(255,255,255,0.45);line-height:1.65}
+
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:3rem;position:relative}
+.steps::before{content:'';position:absolute;top:22px;left:calc(12.5%);right:calc(12.5%);height:1px;background:linear-gradient(90deg,var(--teal),var(--blue-mid));z-index:0}
+.step{text-align:center;position:relative;z-index:1}
+.step-num{width:44px;height:44px;border-radius:50%;background:var(--navy);border:2px solid var(--teal);color:var(--teal);font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
+.step-title{font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;color:var(--navy);margin-bottom:0.4rem}
+.step-desc{font-size:0.8rem;color:var(--slate)}
+
+/* PRECIOS */
+.price-section{background:var(--navy);padding:5rem 2.5rem}
+.price-section h2{color:#fff}.price-section .a{color:var(--teal-light)}
+.price-section .label{color:var(--teal-light)}
+.price-section .lead{color:rgba(255,255,255,0.5)}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;max-width:1000px;margin:3rem auto 0;align-items:start}
+.pc{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:2rem;position:relative;transition:border-color 0.2s}
+.pc.featured{background:var(--teal);border-color:var(--teal);position:relative;transform:scale(1.03)}
+.pc-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#fff;color:var(--teal);font-size:0.7rem;font-weight:700;padding:0.3rem 1rem;border-radius:100px;white-space:nowrap;font-family:'Syne',sans-serif;letter-spacing:0.03em}
+.pc-name{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.5);margin-bottom:0.75rem}
+.pc.featured .pc-name{color:rgba(255,255,255,0.8)}
+.pc-price{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;color:#fff;line-height:1;margin-bottom:0.25rem}
+.pc-per{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:1.5rem}
+.pc.featured .pc-per{color:rgba(255,255,255,0.7)}
+.pc-feats{list-style:none;display:flex;flex-direction:column;gap:0.65rem;margin-bottom:1.75rem}
+.pc-feats li{font-size:0.84rem;color:rgba(255,255,255,0.65);display:flex;align-items:flex-start;gap:0.6rem;line-height:1.4}
+.pc.featured .pc-feats li{color:rgba(255,255,255,0.9)}
+.pc-feats li::before{content:'';width:16px;height:16px;border-radius:50%;background:rgba(13,158,142,0.25);border:1.5px solid rgba(13,158,142,0.5);flex-shrink:0;margin-top:1px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 5' stroke='%230D9E8E' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-size:cover}
+.pc.featured .pc-feats li::before{background-color:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.5);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 5' stroke='white' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")}
+.pc-cta{display:block;text-align:center;padding:0.8rem;border-radius:9px;text-decoration:none;font-weight:500;font-size:0.9rem;transition:all 0.2s;font-family:'Inter',sans-serif}
+.cta-teal{background:var(--teal);color:#fff}.cta-teal:hover{background:var(--teal-light)}
+.cta-white{background:#fff;color:var(--teal)}.cta-white:hover{opacity:0.92}
+.cta-ghost{border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.8)}.cta-ghost:hover{background:rgba(255,255,255,0.07)}
+.price-note{text-align:center;font-size:0.8rem;color:rgba(255,255,255,0.3);margin-top:1.5rem}
+
+/* TESTIMONIOS */
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem}
+.test{background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.75rem}
+.stars{display:flex;gap:2px;margin-bottom:1rem}
+.star{color:#F59E0B;font-size:0.9rem}
+.test-q{font-size:0.88rem;color:var(--slate);line-height:1.7;margin-bottom:1.25rem}
+.test-a{display:flex;align-items:center;gap:0.75rem}
+.ta-av{width:36px;height:36px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#fff;font-family:'Syne',sans-serif;flex-shrink:0}
+.ta-n{font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;color:var(--navy)}
+.ta-r{font-size:0.75rem;color:var(--slate)}
+
+/* FAQ */
+.faq{max-width:720px;margin:3rem auto 0}
+.faq-item{border-bottom:1px solid var(--border);padding:1.25rem 0;cursor:pointer}
+.faq-q{display:flex;justify-content:space-between;align-items:center;font-weight:500;font-size:0.95rem;color:var(--navy)}
+.faq-q .arr{color:var(--teal);font-size:1.1rem;transition:transform 0.2s;user-select:none}
+.faq-a{font-size:0.88rem;color:var(--slate);line-height:1.7;margin-top:0.75rem;display:none}
+.faq-item.open .faq-a{display:block}
+.faq-item.open .arr{transform:rotate(45deg)}
+
+/* CTA FINAL */
+.cta-final{background:linear-gradient(135deg,var(--teal) 0%,#0B6E63 100%);padding:5rem 2.5rem;text-align:center;position:relative;overflow:hidden}
+.cta-final::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:rgba(255,255,255,0.05);top:-200px;left:-100px}
+.cta-final::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,0.04);bottom:-150px;right:-50px}
+.cta-final h2{color:#fff;font-family:'Syne',sans-serif;font-size:2.6rem;font-weight:800;position:relative;z-index:1;max-width:600px;margin:0 auto 1rem}
+.cta-final .sub{color:rgba(255,255,255,0.75);margin:0 auto 2.5rem;font-size:1rem;position:relative;z-index:1;max-width:480px}
+.btn-white{background:#fff;color:var(--teal);padding:0.9rem 2.25rem;border-radius:10px;text-decoration:none;font-weight:600;font-size:1rem;transition:all 0.2s;display:inline-block;position:relative;z-index:1;font-family:'Syne',sans-serif}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.15)}
+.cta-badges{display:flex;justify-content:center;gap:1.5rem;margin-top:1.5rem;flex-wrap:wrap;position:relative;z-index:1}
+.cb{font-size:0.78rem;color:rgba(255,255,255,0.65);display:flex;align-items:center;gap:0.4rem}
+.cb::before{content:'✓';color:rgba(255,255,255,0.9);font-weight:600}
+
+/* FOOTER */
+footer{background:var(--navy);padding:2.5rem;color:rgba(255,255,255,0.35)}
+.foot-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.foot-logo{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800;color:#fff}
+.foot-logo span{color:var(--teal-light)}
+.foot-links{display:flex;gap:1.5rem}
+.foot-links a{color:rgba(255,255,255,0.35);text-decoration:none;font-size:0.82rem;transition:color 0.2s}
+.foot-links a:hover{color:rgba(255,255,255,0.7)}
+.foot-copy{text-align:center;font-size:0.75rem;margin-top:1.5rem;border-top:1px solid rgba(255,255,255,0.06);padding-top:1.5rem;max-width:1200px;margin:1.5rem auto 0}
+
+
+/* SCREENSHOTS */
+.screens-wrap{background:#F1F5F9;padding:5rem 2.5rem}
+.screens-inner{max-width:1200px;margin:0 auto}
+.screens-tabs{display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap}
+.stab{padding:0.5rem 1.1rem;border-radius:8px;font-size:0.82rem;font-weight:500;cursor:pointer;border:1.5px solid var(--border);background:#fff;color:var(--slate);transition:all 0.2s}
+.stab.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.screen-frame{background:#fff;border-radius:16px;border:1px solid var(--border);overflow:hidden;box-shadow:0 20px 60px rgba(11,27,63,0.08)}
+.sf-bar{background:#F8FAFC;padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.sf-dot{width:10px;height:10px;border-radius:50%}
+.sf-url{flex:1;background:#fff;border-radius:5px;padding:4px 12px;font-size:0.68rem;color:#94A3B8;text-align:center;border:1px solid var(--border)}
+.sf-body{padding:20px}
+.screen-view{display:none}.screen-view.on{display:block}
+
+/* ANIM */
+.fu{opacity:0;transform:translateY(20px);transition:opacity 0.55s ease,transform 0.55s ease}
+.fu.vis{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  .hero-inner,.feat-grid,.price-grid,.test-grid{grid-template-columns:1fr}
+  .feat-grid{grid-template-columns:1fr 1fr}
+  .hero-visual{display:none}
+  h1{font-size:2.4rem}
+  h2{font-size:2rem}
+  .steps{grid-template-columns:1fr 1fr}
+  .steps::before{display:none}
+  nav{padding:0 1.5rem}
+  .nav-links li:nth-child(-n+3){display:none}
+  .who-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .hero-inner,.feat-grid,.who-grid,.steps,.test-grid,.price-grid{grid-template-columns:1fr}
+  h1{font-size:2rem}
+  nav{padding:0 1.25rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Socium<span class="logo-dot"></span></div>
+  <ul class="nav-links">
+    <li><a href="#quienes">Para quiénes</a></li>
+    <li><a href="#features">Funciones</a></li>
+    <li><a href="#precios">Precios</a></li>
+    <li><a href="#contacto" class="nav-cta">Probá gratis</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag"><span class="pulse"></span>Software de gestión de socios</div>
+      <h1>Tu organización,<br><span class="accent">en control</span><br><span class="thin">total.</span></h1>
+      <p class="hero-sub">Membresías, cuotas, morosos y caja, todo en un panel. Notificaciones automáticas por WhatsApp, fichas por socio y balance mensual en tiempo real.</p>
+      <div class="cta-group">
+        <a href="#contacto" class="btn-teal">Probá gratis 60 días →</a>
+        <a href="#features" class="btn-ghost">Ver funciones</a>
+      </div>
+      <div class="hero-trust">
+        <span>Sin tarjeta de crédito</span>
+        <div class="trust-sep"></div>
+        <span>En español</span>
+        <div class="trust-sep"></div>
+        <span>Soporte local</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="mock-float mf1">
+        <div class="mf-icon mf-teal">✓</div>
+        <div><div class="mf-label">Pago registrado</div><div class="mf-sub">Suárez abonó $35.000</div></div>
+      </div>
+      <div class="mockup-shell">
+        <div class="mockup">
+          <div class="mock-bar">
+            <div class="mbd" style="background:#FC605B"></div>
+            <div class="mbd" style="background:#FDBE40"></div>
+            <div class="mbd" style="background:#35CD4B"></div>
+            <div class="mock-url">app.socium.ar/panel</div>
+          </div>
+          <div class="mock-body">
+            <div class="mock-toprow">
+              <div class="mock-title">Panel general — 2026</div>
+              <div class="mock-month">Abril</div>
+            </div>
+            <div class="mock-kpis">
+              <div class="mk"><div class="mk-l">Socios</div><div class="mk-v">26</div></div>
+              <div class="mk"><div class="mk-l">Al día</div><div class="mk-v g">19</div></div>
+              <div class="mk"><div class="mk-l">Deuda</div><div class="mk-v r">$580k</div></div>
+            </div>
+            <div class="mock-tbl">
+              <div class="mt hdr"><span>Socio</span><span>Pagó</span><span>Estado</span></div>
+              <div class="mt"><span>Suárez Tomás</span><span style="color:#059669;font-weight:500">$35.000</span><span class="chip cg">Al día</span></div>
+              <div class="mt"><span>Zelaya Fernanda</span><span style="color:#94A3B8">—</span><span class="chip cr">Deuda</span></div>
+              <div class="mt"><span>Quispe Roberto</span><span style="color:#059669;font-weight:500">$91.000</span><span class="chip cw">Pagó/debe</span></div>
+              <div class="mt"><span>Domínguez Pilar</span><span style="color:#059669;font-weight:500">$35.000</span><span class="chip cg">Al día</span></div>
+              <div class="mt"><span>Farizano Bruno</span><span style="color:#94A3B8">—</span><span class="chip cr">Deuda</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mock-float mf2">
+        <div class="mf-icon mf-blue">📲</div>
+        <div><div class="mf-label">Recordatorio enviado</div><div class="mf-sub">7 socios notificados por WA</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-inner">
+    <span class="strip-label">Usado por organizaciones como</span>
+    <div class="strip-logos">
+      <span class="strip-logo">Rioja FC</span>
+      <span class="strip-logo">Mutual Obrera del Sur</span>
+      <span class="strip-logo">CPCE Córdoba</span>
+      <span class="strip-logo">Asoc. Italiana BsAs</span>
+      <span class="strip-logo">Club Tucumán Rugby</span>
+      <span class="strip-logo">Colegio Médico NOA</span>
+    </div>
+  </div>
+</div>
+
+<!-- PARA QUIENES -->
+<div class="sec" id="quienes">
+  <div class="label fu">Para quiénes</div>
+  <h2 class="fu">Hecho para <span class="a">organizaciones</span><br>con socios</h2>
+  <p class="lead fu">Cualquier institución que maneje cuotas, membresías y necesite controlar su caja sin depender de planillas.</p>
+  <div class="who-grid fu">
+    <div class="who-card"><div class="wc-icon">🏛️</div><div class="wc-title">Clubes sociales</div><div class="wc-desc">Membresías, categorías y seguimiento de mora por sección o actividad.</div></div>
+    <div class="who-card"><div class="wc-icon">🤝</div><div class="wc-title">Mutuales</div><div class="wc-desc">Aportes, prestaciones y cuotas con historial completo por afiliado.</div></div>
+    <div class="who-card"><div class="wc-icon">📋</div><div class="wc-title">Colegios profesionales</div><div class="wc-desc">Matrículas, habilitaciones y control de matriculados activos e inactivos.</div></div>
+    <div class="who-card"><div class="wc-icon">⚽</div><div class="wc-title">Asociaciones deportivas</div><div class="wc-desc">Fichas de jugadores, pases y estados de cuenta por categoría.</div></div>
+    <div class="who-card"><div class="wc-icon">🏛</div><div class="wc-title">Logias y fraternidades</div><div class="wc-desc">Gestión discreta, segura y ordenada de todos los miembros.</div></div>
+    <div class="who-card"><div class="wc-icon">🌿</div><div class="wc-title">ONGs y fundaciones</div><div class="wc-desc">Aportes recurrentes, donantes y seguimiento de compromisos económicos.</div></div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="feat-wrap" id="features">
+  <div class="feat-inner">
+    <div class="label fu">Funciones principales</div>
+    <h2 class="fu">Todo lo que tu tesorero<br><span class="a">necesitaba</span></h2>
+    <p class="lead fu">Diseñado con administradores reales. Sin curvas de aprendizaje, sin funciones inútiles.</p>
+    <div class="feat-grid fu">
+      <div class="feat">
+        <div class="feat-num">01</div>
+        <div class="feat-icon">📊</div>
+        <div class="feat-title">Panel anual de socios</div>
+        <div class="feat-desc">Resumen visual de los 12 meses con estado de cada socio: pagó, debe, o tiene saldo a favor. Todo de un vistazo.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-num">02</div>
+        <div class="feat-icon">🧠</div>
+        <div class="feat-title">Saldos inteligentes</div>
+        <div class="feat-desc">La deuda se calcula solo hasta el mes actual. Si un socio paga de más, el excedente descuenta deuda anterior automáticamente.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-num">03</div>
+        <div class="feat-icon">💬</div>
+        <div class="feat-title">Recordatorios por WhatsApp</div>
+        <div class="feat-desc">Un clic para notificar a todos los morosos del mes. El mensaje incluye nombre y monto. Solo avisa a quienes no pagaron ese mes.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-num">04</div>
+        <div class="feat-icon">👤</div>
+        <div class="feat-title">Ficha por socio</div>
+        <div class="feat-desc">Historial completo: pagos, fechas, descuentos de deuda, saldo acumulado y estado mes a mes. Toda la historia en una sola pantalla.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-num">05</div>
+        <div class="feat-icon">📈</div>
+        <div class="feat-title">Ingresos y egresos</div>
+        <div class="feat-desc">Registrá sacos, aportes, ágapes, capita, cuota de lote, filantropía y más. Balance positivo/negativo automático por mes.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-num">06</div>
+        <div class="feat-icon">🏦</div>
+        <div class="feat-title">Caja vs. banco</div>
+        <div class="feat-desc">Ingresás el saldo de la cuenta bancaria y el sistema te muestra la diferencia contra la caja calculada. Detectás inconsistencias al instante.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<div class="sec-wide" style="background:#fff">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="label fu" style="text-align:center">Proceso</div>
+    <h2 class="fu" style="text-align:center;max-width:520px;margin:0 auto 0.75rem">Empezás hoy.<br>Sin complicaciones.</h2>
+    <p class="lead fu" style="text-align:center;margin:0 auto">Sin instalaciones, sin IT, sin migración de datos compleja.</p>
+    <div class="steps">
+      <div class="step fu"><div class="step-num">1</div><div class="step-title">Cargás tus socios</div><div class="step-desc">Importás desde Excel o los cargás uno a uno. Lleva minutos.</div></div>
+      <div class="step fu"><div class="step-num">2</div><div class="step-title">Configurás cuotas</div><div class="step-desc">Montos, categorías, tipos especiales (capita, reducida). Todo personalizable.</div></div>
+      <div class="step fu"><div class="step-num">3</div><div class="step-title">Registrás pagos</div><div class="step-desc">Un clic por pago. El saldo, la deuda y el historial se actualizan solos.</div></div>
+      <div class="step fu"><div class="step-num">4</div><div class="step-title">Notificás morosos</div><div class="step-desc">Un clic y WhatsApp avisa a todos los que no pagaron este mes.</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- SCREENSHOTS -->
+<section class="screens-wrap">
+  <div class="screens-inner">
+    <div class="label fu" style="text-align:center">El sistema en acción</div>
+    <h2 class="fu" style="text-align:center;max-width:520px;margin:0 auto 1rem">Mirá cómo <span class="a">funciona</span> por dentro</h2>
+    <p class="lead fu" style="text-align:center;margin:0 auto 2.5rem">Capturas reales de la plataforma. Lo que ves es lo que usás.</p>
+    <div class="screens-tabs fu">
+      <button class="stab on" onclick="showScreen('panel',this)">Panel general</button>
+      <button class="stab" onclick="showScreen('ficha',this)">Ficha de socio</button>
+      <button class="stab" onclick="showScreen('mes',this)">Detalle mensual</button>
+      <button class="stab" onclick="showScreen('caja',this)">Caja y banco</button>
+    </div>
+    <div class="screen-frame fu">
+      <div class="sf-bar">
+        <div class="sf-dot" style="background:#FC605B"></div>
+        <div class="sf-dot" style="background:#FDBE40"></div>
+        <div class="sf-dot" style="background:#35CD4B"></div>
+        <div class="sf-url" id="sf-url-txt">app.socium.ar/panel-general</div>
+      </div>
+      <div class="sf-body">
+
+        <!-- PANEL GENERAL -->
+        <div class="screen-view on" id="sv-panel">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+            <div style="font-family:Syne,sans-serif;font-weight:800;font-size:1rem;color:#0B1B3F">Panel general — 2026</div>
+            <div style="display:flex;gap:8px">
+              <span style="font-size:0.7rem;background:#F1F5F9;color:#64748B;padding:4px 10px;border-radius:6px">Mes actual: Abril</span>
+              <span style="font-size:0.7rem;background:#0D9E8E;color:#fff;padding:4px 10px;border-radius:6px;cursor:pointer">+ Registrar pago</span>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:16px">
+            <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:10px;text-align:center"><div style="font-size:0.58rem;color:#94A3B8;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em">Socios</div><div style="font-size:1.3rem;font-weight:700;color:#0B1B3F;font-family:Syne">26</div></div>
+            <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:10px;text-align:center"><div style="font-size:0.58rem;color:#94A3B8;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em">Al día</div><div style="font-size:1.3rem;font-weight:700;color:#059669;font-family:Syne">19</div></div>
+            <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:10px;text-align:center"><div style="font-size:0.58rem;color:#94A3B8;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em">Con deuda</div><div style="font-size:1.3rem;font-weight:700;color:#DC2626;font-family:Syne">7</div></div>
+            <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:10px;text-align:center"><div style="font-size:0.58rem;color:#94A3B8;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em">Deuda total</div><div style="font-size:1rem;font-weight:700;color:#DC2626;font-family:Syne">$580k</div></div>
+            <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:10px;text-align:center"><div style="font-size:0.58rem;color:#94A3B8;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em">Recaudado</div><div style="font-size:1rem;font-weight:700;color:#0B1B3F;font-family:Syne">$945k</div></div>
+            <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:10px;text-align:center"><div style="font-size:0.58rem;color:#94A3B8;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em">Esperado</div><div style="font-size:1rem;font-weight:700;color:#0B1B3F;font-family:Syne">$1.14M</div></div>
+          </div>
+          <div style="border:1px solid #E2E8F0;border-radius:10px;overflow:hidden;font-size:0.7rem">
+            <div style="display:grid;grid-template-columns:160px 70px 80px repeat(4,40px) 60px;gap:4px;padding:7px 10px;background:#F8FAFC;color:#94A3B8;font-weight:600;font-size:0.6rem;text-transform:uppercase;letter-spacing:.04em">
+              <span>Socio</span><span>Estado</span><span style="text-align:right">Saldo</span><span style="text-align:center">Ene</span><span style="text-align:center">Feb</span><span style="text-align:center">Mar</span><span style="text-align:center">Abr</span><span></span>
+            </div>
+            <div style="display:grid;grid-template-columns:160px 70px 80px repeat(4,40px) 60px;gap:4px;padding:7px 10px;border-top:1px solid #F1F5F9;align-items:center">
+              <span style="font-weight:500;color:#0D9E8E;cursor:pointer">Suárez Tomás</span>
+              <span style="background:#DCFCE7;color:#15803D;padding:2px 6px;border-radius:20px;font-size:0.58rem;font-weight:600">Al día</span>
+              <span style="text-align:right;color:#059669">-</span>
+              <span style="text-align:center"><span style="background:#DCFCE7;color:#15803D;padding:1px 5px;border-radius:3px;font-size:0.58rem">OK</span></span>
+              <span style="text-align:center"><span style="background:#DCFCE7;color:#15803D;padding:1px 5px;border-radius:3px;font-size:0.58rem">OK</span></span>
+              <span style="text-align:center"><span style="background:#DCFCE7;color:#15803D;padding:1px 5px;border-radius:3px;font-size:0.58rem">OK</span></span>
+              <span style="text-align:center"><span style="background:#DCFCE7;color:#15803D;padding:1px 5px;border-radius:3px;font-size:0.58rem">OK</span></span>
+              <span></span>
+            </div>
+            <div style="display:grid;grid-template-columns:160px 70px 80px repeat(4,40px) 60px;gap:4px;padding:7px 10px;border-top:1px solid #F1F5F9;align-items:center;background:#FFF9F9">
+              <span style="font-weight:500;color:#0D9E8E;cursor:pointer">Zelaya Fernanda</span>
+              <span style="background:#FEE2E2;color:#DC2626;padding:2px 6px;border-radius:20px;font-size:0.58rem;font-weight:600">Deuda</span>
+              <span style="text-align:right;color:#DC2626;font-weight:600">$96.000</span>
+              <span style="text-align:center"><span style="background:#FEE2E2;color:#DC2626;padding:1px 5px;border-radius:3px;font-size:0.58rem">X</span></span>
+              <span style="text-align:center"><span style="background:#FEE2E2;color:#DC2626;padding:1px 5px;border-radius:3px;font-size:0.58rem">X</span></span>
+              <span style="text-align:center"><span style="background:#FEE2E2;color:#DC2626;padding:1px 5px;border-radius:3px;font-size:0.58rem">X</span></span>
+              <span style="text-align:center"><span style="background:#FEE2E2;color:#DC2626;padding:1px 5px;border-radius:3px;font-size:0.58rem">X</span></span>
+              <span style="display:flex;gap:3px"><span style="background:#25D366;color:#fff;padding:2px 5px;border-radius:4px;font-size:0.58rem;cursor:pointer">WA</span></span>
+            </div>
+            <div style="display:grid;grid-template-columns:160px 70px 80px repeat(4,40px) 60px;gap:4px;padding:7px 10px;border-top:1px solid #F1F5F9;align-items:center">
+              <span style="font-weight:500;color:#0D9E8E;cursor:pointer">Quispe Roberto</span>
+              <span style="background:#FEF9C3;color:#B45309;padding:2px 6px;border-radius:20px;font-size:0.58rem;font-weight:600">Pagó/debe</span>
+              <span style="text-align:right;color:#B45309;font-weight:600">$40.000</span>
+              <span style="text-align:center"><span style="background:#DCFCE7;color:#15803D;padding:1px 5px;border-radius:3px;font-size:0.58rem">OK</span></span>
+              <span style="text-align:center"><span style="background:#DCFCE7;color:#15803D;padding:1px 5px;border-radius:3px;font-size:0.58rem">Pag</span></span>
+              <span style="text-align:center"><span style="background:#DCFCE7;color:#15803D;padding:1px 5px;border-radius:3px;font-size:0.58rem">OK</span></span>
+              <span style="text-align:center"><span style="background:#FEE2E2;color:#DC2626;padding:1px 5px;border-radius:3px;font-size:0.58rem">X</span></span>
+              <span></span>
+            </div>
+            <div style="display:grid;grid-template-columns:160px 70px 80px repeat(4,40px) 60px;gap:4px;padding:7px 10px;border-top:1px solid #F1F5F9;align-items:center">
+              <span style="font-weight:500;color:#0D9E8E;cursor:pointer">Domínguez Pilar</span>
+              <span style="background:#DCFCE7;color:#15803D;padding:2px 6px;border-radius:20px;font-size:0.58rem;font-weight:600">Al día</span>
+              <span style="text-align:right;color:#059669">-</span>
+              <span style="text-align:center"><span style="background:#DCFCE7;color:#15803D;padding:1px 5px;border-radius:3px;font-size:0.58rem">OK</span></span>
+              <span style="text-align:center"><span style="background:#DCFCE7;color:#15803D;padding:1px 5px;border-radius:3px;font-size:0.58rem">OK</span></span>
+              <span style="text-align:center"><span style="background:#DCFCE7;color:#15803D;padding:1px 5px;border-radius:3px;font-size:0.58rem">OK</span></span>
+              <span style="text-align:center"><span style="background:#DCFCE7;color:#15803D;padding:1px 5px;border-radius:3px;font-size:0.58rem">OK</span></span>
+              <span></span>
+            </div>
+            <div style="padding:6px 10px;border-top:1px solid #F1F5F9;text-align:center;font-size:0.62rem;color:#94A3B8">y 22 socios más...</div>
+          </div>
+        </div>
+
+        <!-- FICHA SOCIO -->
+        <div class="screen-view" id="sv-ficha">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+            <div style="width:44px;height:44px;border-radius:50%;background:#0B1B3F;display:flex;align-items:center;justify-content:center;font-family:Syne,sans-serif;font-weight:800;color:#fff;font-size:14px">ZF</div>
+            <div>
+              <div style="font-family:Syne,sans-serif;font-weight:800;font-size:1rem;color:#0B1B3F">Zelaya Fernanda</div>
+              <div style="font-size:0.72rem;color:#94A3B8">Afiliada regular · Tel: 351 7001234</div>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px">
+              <span style="background:#DCFCE7;color:#15803D;padding:5px 12px;border-radius:7px;font-size:0.72rem;font-weight:600;cursor:pointer">Registrar pago</span>
+              <span style="background:#25D366;color:#fff;padding:5px 12px;border-radius:7px;font-size:0.72rem;font-weight:600;cursor:pointer">WhatsApp</span>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px">
+            <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:10px"><div style="font-size:0.6rem;color:#DC2626;margin-bottom:3px;font-weight:500">SALDO ACUMULADO</div><div style="font-size:1.3rem;font-weight:700;color:#DC2626;font-family:Syne">$96.000</div><div style="font-size:0.65rem;color:#DC2626;opacity:.7">debe 3 meses</div></div>
+            <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:10px"><div style="font-size:0.6rem;color:#94A3B8;margin-bottom:3px;font-weight:500">TOTAL PAGADO 2026</div><div style="font-size:1.3rem;font-weight:700;color:#0B1B3F;font-family:Syne">$32.000</div></div>
+            <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:10px"><div style="font-size:0.6rem;color:#94A3B8;margin-bottom:3px;font-weight:500">ESTADO ACTUAL</div><div style="font-size:0.95rem;font-weight:700;color:#DC2626;font-family:Syne">Con deuda</div></div>
+          </div>
+          <div style="border:1px solid #E2E8F0;border-radius:10px;overflow:hidden;font-size:0.7rem">
+            <div style="display:grid;grid-template-columns:80px 70px 100px 80px 85px 70px;gap:4px;padding:7px 10px;background:#F8FAFC;color:#94A3B8;font-weight:600;font-size:0.6rem;text-transform:uppercase;letter-spacing:.04em">
+              <span>Mes</span><span style="text-align:right">Cuota</span><span>Pagos</span><span style="text-align:right">Pagado</span><span style="text-align:right">Desc. deuda</span><span style="text-align:right">Saldo</span>
+            </div>
+            <div style="display:grid;grid-template-columns:80px 70px 100px 80px 85px 70px;gap:4px;padding:7px 10px;border-top:1px solid #F1F5F9;background:#FFF9F9">
+              <span>Enero</span><span style="text-align:right">$32.000</span><span style="font-size:0.62rem;color:#94A3B8">—</span><span style="text-align:right;color:#94A3B8">—</span><span style="text-align:right;color:#94A3B8">—</span><span style="text-align:right;font-weight:600;color:#DC2626">$32.000</span>
+            </div>
+            <div style="display:grid;grid-template-columns:80px 70px 100px 80px 85px 70px;gap:4px;padding:7px 10px;border-top:1px solid #F1F5F9">
+              <span>Febrero</span><span style="text-align:right">$32.000</span><span style="font-size:0.62rem;color:#059669">04/02 · Excel</span><span style="text-align:right;color:#059669;font-weight:600">$32.000</span><span style="text-align:right;color:#3B82F6">—</span><span style="text-align:right;font-weight:600;color:#DC2626">$32.000</span>
+            </div>
+            <div style="display:grid;grid-template-columns:80px 70px 100px 80px 85px 70px;gap:4px;padding:7px 10px;border-top:1px solid #F1F5F9;background:#FFF9F9">
+              <span>Marzo</span><span style="text-align:right">$35.000</span><span style="font-size:0.62rem;color:#94A3B8">—</span><span style="text-align:right;color:#94A3B8">—</span><span style="text-align:right;color:#94A3B8">—</span><span style="text-align:right;font-weight:600;color:#DC2626">$67.000</span>
+            </div>
+            <div style="display:grid;grid-template-columns:80px 70px 100px 80px 85px 70px;gap:4px;padding:7px 10px;border-top:1px solid #F1F5F9;background:#FFF9F9">
+              <span>Abril</span><span style="text-align:right">$35.000</span><span style="font-size:0.62rem;color:#94A3B8">—</span><span style="text-align:right;color:#94A3B8">—</span><span style="text-align:right;color:#94A3B8">—</span><span style="text-align:right;font-weight:600;color:#DC2626">$96.000 debe</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DETALLE MENSUAL -->
+        <div class="screen-view" id="sv-mes">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+            <div style="font-family:Syne,sans-serif;font-weight:800;font-size:1rem;color:#0B1B3F">Detalle — Marzo 2026</div>
+            <div style="display:flex;gap:6px">
+              <span style="font-size:0.68rem;background:#DCFCE7;color:#15803D;padding:4px 10px;border-radius:6px;cursor:pointer;font-weight:500">+ Ingreso</span>
+              <span style="font-size:0.68rem;background:#FEE2E2;color:#DC2626;padding:4px 10px;border-radius:6px;cursor:pointer;font-weight:500">+ Egreso</span>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px">
+            <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:10px"><div style="font-size:0.6rem;color:#15803D;margin-bottom:3px;font-weight:500">CUOTAS COBRADAS</div><div style="font-size:1.1rem;font-weight:700;color:#15803D;font-family:Syne">$1.087.519</div></div>
+            <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:10px"><div style="font-size:0.6rem;color:#15803D;margin-bottom:3px;font-weight:500">OTROS INGRESOS</div><div style="font-size:1.1rem;font-weight:700;color:#15803D;font-family:Syne">$54.000</div></div>
+            <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:10px"><div style="font-size:0.6rem;color:#DC2626;margin-bottom:3px;font-weight:500">EGRESOS</div><div style="font-size:1.1rem;font-weight:700;color:#DC2626;font-family:Syne">$638.600</div></div>
+            <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:10px"><div style="font-size:0.6rem;color:#15803D;margin-bottom:3px;font-weight:500">BALANCE</div><div style="font-size:1.1rem;font-weight:700;color:#15803D;font-family:Syne">+ $502.919</div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div style="border:1px solid #E2E8F0;border-radius:10px;overflow:hidden">
+              <div style="padding:8px 12px;background:#F0FDF4;font-size:0.7rem;font-weight:600;color:#15803D;border-bottom:1px solid #BBF7D0">Ingresos</div>
+              <div style="padding:8px 12px;display:flex;justify-content:space-between;font-size:0.7rem;border-bottom:1px solid #F1F5F9"><span style="color:#64748B">Cuotas socios</span><span style="font-weight:600;color:#15803D">+$1.087.519</span></div>
+              <div style="padding:8px 12px;display:flex;justify-content:space-between;font-size:0.7rem;border-bottom:1px solid #F1F5F9"><span style="color:#64748B">Saco (tenidas)</span><span style="font-weight:600;color:#15803D">+$31.000</span></div>
+              <div style="padding:8px 12px;display:flex;justify-content:space-between;font-size:0.7rem;border-bottom:1px solid #F1F5F9"><span style="color:#64748B">Saco (ordinaria)</span><span style="font-weight:600;color:#15803D">+$13.470</span></div>
+              <div style="padding:8px 12px;display:flex;justify-content:space-between;font-size:0.7rem"><span style="color:#64748B">Aporte Lanfranco</span><span style="font-weight:600;color:#15803D">+$10.000</span></div>
+            </div>
+            <div style="border:1px solid #E2E8F0;border-radius:10px;overflow:hidden">
+              <div style="padding:8px 12px;background:#FEF2F2;font-size:0.7rem;font-weight:600;color:#DC2626;border-bottom:1px solid #FECACA">Egresos</div>
+              <div style="padding:8px 12px;display:flex;justify-content:space-between;font-size:0.7rem;border-bottom:1px solid #F1F5F9"><span style="color:#64748B">Capita GL</span><span style="font-weight:600;color:#DC2626">-$450.000</span></div>
+              <div style="padding:8px 12px;display:flex;justify-content:space-between;font-size:0.7rem;border-bottom:1px solid #F1F5F9"><span style="color:#64748B">Cuota Lote 14/42</span><span style="font-weight:600;color:#DC2626">-$157.100</span></div>
+              <div style="padding:8px 12px;display:flex;justify-content:space-between;font-size:0.7rem"><span style="color:#64748B">Varios (llaves)</span><span style="font-weight:600;color:#DC2626">-$31.500</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CAJA Y BANCO -->
+        <div class="screen-view" id="sv-caja">
+          <div style="font-family:Syne,sans-serif;font-weight:800;font-size:1rem;color:#0B1B3F;margin-bottom:16px">Caja y cuenta bancaria</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px">
+            <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:14px">
+              <div style="font-size:0.6rem;color:#94A3B8;font-weight:500;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Saldo inicio año</div>
+              <div style="font-size:1.1rem;font-weight:700;color:#0B1B3F;font-family:Syne;margin-bottom:6px">$0</div>
+              <div style="background:#fff;border:1px solid #E2E8F0;border-radius:5px;padding:4px 8px;font-size:0.65rem;color:#94A3B8">editable</div>
+            </div>
+            <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:14px">
+              <div style="font-size:0.6rem;color:#15803D;font-weight:500;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Caja actual</div>
+              <div style="font-size:1.1rem;font-weight:700;color:#15803D;font-family:Syne">$1.891.947</div>
+              <div style="font-size:0.62rem;color:#15803D;opacity:.7;margin-top:4px">calculado auto</div>
+            </div>
+            <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:14px">
+              <div style="font-size:0.6rem;color:#94A3B8;font-weight:500;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Saldo banco</div>
+              <div style="font-size:1.1rem;font-weight:700;color:#0B1B3F;font-family:Syne;margin-bottom:6px">$1.750.000</div>
+              <div style="background:#fff;border:1px solid #E2E8F0;border-radius:5px;padding:4px 8px;font-size:0.65rem;color:#94A3B8">ingresás vos</div>
+            </div>
+            <div style="background:#FEF9C3;border:1px solid #FDE68A;border-radius:10px;padding:14px">
+              <div style="font-size:0.6rem;color:#B45309;font-weight:500;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Diferencia</div>
+              <div style="font-size:1.1rem;font-weight:700;color:#B45309;font-family:Syne">+$141.947</div>
+              <div style="font-size:0.62rem;color:#B45309;margin-top:4px">caja supera banco</div>
+            </div>
+          </div>
+          <div style="border:1px solid #E2E8F0;border-radius:10px;overflow:hidden">
+            <div style="padding:10px 14px;background:#F8FAFC;font-size:0.7rem;font-weight:600;color:#64748B;border-bottom:1px solid #E2E8F0">Evolución mensual de la caja — 2026</div>
+            <div style="padding:14px;display:flex;align-items:flex-end;gap:6px;height:80px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+                <div style="background:#0D9E8E;border-radius:3px 3px 0 0;width:100%;height:45px;position:relative"><span style="position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:0.55rem;color:#059669;font-weight:600;white-space:nowrap">+$263k</span></div>
+                <div style="font-size:0.55rem;color:#94A3B8">Ene</div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+                <div style="background:#0D9E8E;border-radius:3px 3px 0 0;width:100%;height:30px;position:relative"><span style="position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:0.55rem;color:#059669;font-weight:600;white-space:nowrap">+$128k</span></div>
+                <div style="font-size:0.55rem;color:#94A3B8">Feb</div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+                <div style="background:#0D9E8E;border-radius:3px 3px 0 0;width:100%;height:55px;position:relative"><span style="position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:0.55rem;color:#059669;font-weight:600;white-space:nowrap">+$503k</span></div>
+                <div style="font-size:0.55rem;color:#94A3B8">Mar</div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+                <div style="background:#E2E8F0;border-radius:3px 3px 0 0;width:100%;height:20px"><span style="display:block;margin-top:-16px;font-size:0.55rem;color:#94A3B8;text-align:center">$0</span></div>
+                <div style="font-size:0.55rem;color:#94A3B8">Abr</div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+                <div style="background:#E2E8F0;opacity:0.4;border-radius:3px 3px 0 0;width:100%;height:8px"></div>
+                <div style="font-size:0.55rem;color:#CBD5E1">May</div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+                <div style="background:#E2E8F0;opacity:0.4;border-radius:3px 3px 0 0;width:100%;height:8px"></div>
+                <div style="font-size:0.55rem;color:#CBD5E1">Jun</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<div class="sec">
+  <div class="label fu">Testimonios</div>
+  <h2 class="fu">Lo que dicen <span class="a">nuestros</span> clientes</h2>
+  <div class="test-grid">
+    <div class="test fu">
+      <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <p class="test-q">Antes solo el tesorero entendía la planilla. Con Socium cualquiera de la comisión puede ver el estado de la caja en dos minutos. Cambia todo.</p>
+      <div class="test-a"><div class="ta-av">MR</div><div><div class="ta-n">Marcos Rodríguez</div><div class="ta-r">Tesorero · Club Social Belgrano</div></div></div>
+    </div>
+    <div class="test fu">
+      <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <p class="test-q">El recordatorio por WhatsApp nos ahorró horas de llamados. La morosidad bajó un 40% el primer mes. Los socios pagan antes de que se les acumule.</p>
+      <div class="test-a"><div class="ta-av">LP</div><div><div class="ta-n">Laura Pereyra</div><div class="ta-r">Administradora · Mutual Ferroviaria</div></div></div>
+    </div>
+    <div class="test fu">
+      <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <p class="test-q">Tenemos socios que pagan de más para saldar deuda vieja. Socium lo descuenta automáticamente. Antes lo hacíamos a mano y siempre había errores.</p>
+      <div class="test-a"><div class="ta-av">JC</div><div><div class="ta-n">Jorge Castillo</div><div class="ta-r">Secretario · Col. de Ingenieros</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRECIOS -->
+<section class="price-section" id="precios">
+  <div style="max-width:1100px;margin:0 auto;text-align:center">
+    <div class="label fu">Planes</div>
+    <h2 class="fu">60 días gratis.<br>Después, <span class="a">simple y claro.</span></h2>
+    <p class="lead fu" style="margin:0 auto">Sin contratos. Sin letra chica. Cancelás cuando querés.</p>
+  </div>
+  <div class="price-grid fu">
+    <div class="pc">
+      <div class="pc-name">Gratis</div>
+      <div class="pc-price">$0</div>
+      <div class="pc-per">para siempre · hasta 30 socios</div>
+      <ul class="pc-feats">
+        <li>Hasta 30 socios</li>
+        <li>Panel general anual</li>
+        <li>Registro manual de pagos</li>
+        <li>Fichas por socio</li>
+        <li>WhatsApp manual</li>
+      </ul>
+      <a href="#contacto" class="pc-cta cta-teal">Empezar gratis</a>
+    </div>
+    <div class="pc featured">
+      <div class="pc-tag">⭐ Más elegido</div>
+      <div class="pc-name">Organización</div>
+      <div class="pc-price">$28.000</div>
+      <div class="pc-per">por mes · hasta 150 socios · 60 días de prueba gratis</div>
+      <ul class="pc-feats">
+        <li>Hasta 150 socios</li>
+        <li>Todo del plan Gratis</li>
+        <li>Recordatorios WA automáticos</li>
+        <li>Ingresos y egresos por categoría</li>
+        <li>Caja vs. cuenta bancaria</li>
+        <li>Balance mensual automático</li>
+        <li>Múltiples usuarios / comisión</li>
+        <li>Soporte prioritario en español</li>
+      </ul>
+      <a href="#contacto" class="pc-cta cta-white">Empezar 60 días gratis</a>
+    </div>
+    <div class="pc">
+      <div class="pc-name">Enterprise</div>
+      <div class="pc-price" style="font-size:1.8rem;padding-top:0.4rem">A medida</div>
+      <div class="pc-per">más de 150 socios · precio personalizado</div>
+      <ul class="pc-feats">
+        <li>Socios ilimitados</li>
+        <li>Todo del plan Organización</li>
+        <li>Múltiples sedes / filiales</li>
+        <li>Reportes exportables</li>
+        <li>Integración con otros sistemas</li>
+        <li>Capacitación incluida</li>
+        <li>SLA y soporte dedicado</li>
+      </ul>
+      <a href="#contacto" class="pc-cta cta-ghost">Contactar ventas</a>
+    </div>
+  </div>
+  <p class="price-note fu">Todos los precios en pesos argentinos · IVA no incluido</p>
+</section>
+
+<!-- FAQ -->
+<div class="sec">
+  <div class="label fu" style="text-align:center">Preguntas frecuentes</div>
+  <h2 class="fu" style="text-align:center">Todo lo que<br>querés saber</h2>
+  <div class="faq fu">
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">¿Cómo funciona la prueba de 60 días? <span class="arr">+</span></div>
+      <div class="faq-a">Activás tu cuenta y tenés 60 días completos con todas las funciones del plan Organización, sin límites. No pedimos tarjeta de crédito. Al finalizar elegís si querés continuar o no.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">¿Puedo importar mis datos desde Excel? <span class="arr">+</span></div>
+      <div class="faq-a">Sí. El sistema acepta importación desde Excel con la lista de socios, deudas iniciales y pagos históricos. Nuestro equipo te ayuda en el proceso de migración sin costo adicional.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">¿Cómo funcionan los recordatorios de WhatsApp? <span class="arr">+</span></div>
+      <div class="faq-a">Con un clic en el panel generás un mensaje personalizado para cada socio moroso (o uno grupal). El mensaje incluye su nombre y monto de deuda. Solo se notifica a quienes no pagaron ese mes, aunque tengan deuda acumulada de meses anteriores.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">¿Qué pasa si un socio paga más de lo que debe? <span class="arr">+</span></div>
+      <div class="faq-a">El sistema detecta el excedente automáticamente y lo aplica a la deuda acumulada de meses anteriores. La ficha del socio muestra exactamente cuánto se descontó en cada mes y cuál es el saldo restante.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">¿Cuántos usuarios pueden acceder? <span class="arr">+</span></div>
+      <div class="faq-a">En el plan Organización podés invitar a todos los miembros de la comisión directiva con roles diferenciados (tesorero, secretario, solo lectura). Cada uno accede con su propia cuenta.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">¿Puedo cancelar en cualquier momento? <span class="arr">+</span></div>
+      <div class="faq-a">Sí, sin costo ni penalidad. Cancelás desde el panel o escribiéndonos. Tus datos quedan disponibles para exportar por 30 días más.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA FINAL -->
+<section class="cta-final" id="contacto">
+  <h2>¿Listo para dejar las planillas en el pasado?</h2>
+  <p class="sub">Probá Socium 60 días sin costo. Sin tarjeta. Sin compromiso. Empezás hoy.</p>
+  <a href="mailto:hola@socium.ar" class="btn-white">Empezar prueba gratis →</a>
+  <div class="cta-badges">
+    <span class="cb">60 días de prueba gratis</span>
+    <span class="cb">Sin tarjeta de crédito</span>
+    <span class="cb">Soporte en español</span>
+    <span class="cb">Configuración en minutos</span>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-logo">Sociu<span>m</span></div>
+    <div class="foot-links">
+      <a href="#">Términos</a>
+      <a href="#">Privacidad</a>
+      <a href="mailto:hola@socium.ar">hola@socium.ar</a>
+    </div>
+  </div>
+  <div class="foot-copy">© 2026 Socium · Gestión de socios y membresías · Argentina 🇦🇷</div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});
+},{threshold:0.12});
+document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+function toggleFaq(el){el.classList.toggle('open');}
+function showScreen(name,btn){
+  document.querySelectorAll('.screen-view').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.stab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('sv-'+name).classList.add('on');
+  btn.classList.add('on');
+  const urls={'panel':'app.socium.ar/panel-general','ficha':'app.socium.ar/socio/zelaya-fernanda','mes':'app.socium.ar/mes/marzo-2026','caja':'app.socium.ar/caja-y-banco'};
+  document.getElementById('sf-url-txt').textContent=urls[name]||'app.socium.ar';
+}
+</script>
+</body>
+</html>

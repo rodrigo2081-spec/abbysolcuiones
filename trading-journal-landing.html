@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trading Journal — Abby Investment</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d1f3c;
+    --blue: #1a6bb5;
+    --blue-mid: #1557a0;
+    --green: #16a34a;
+    --green-mid: #15803d;
+    --green-light: #f0fdf4;
+    --green-accent: #22c55e;
+    --teal: #0d9488;
+    --white: #ffffff;
+    --off-white: #f8fafc;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-400: #9ca3af;
+    --gray-600: #6b7280;
+    --gray-700: #374151;
+    --gray-900: #111827;
+    --border: 0.5px solid #e5e7eb;
+    --radius: 10px;
+    --font: 'Sora', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--white);
+    color: var(--gray-900);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,31,60,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+    padding: 0 40px;
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo {
+    width: 30px; height: 30px;
+    background: var(--green);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: white;
+    font-family: var(--mono);
+  }
+  .nav-name {
+    font-size: 13px; font-weight: 600; color: white; letter-spacing: 0.02em;
+  }
+  .nav-name span { color: var(--green-accent); }
+  .nav-links {
+    display: flex; align-items: center; gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.65);
+    text-decoration: none; letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: white; }
+  .nav-cta {
+    background: var(--green) !important;
+    color: white !important;
+    padding: 7px 16px;
+    border-radius: 7px;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+  }
+  .nav-cta:hover { background: var(--green-mid) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 100px 40px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(22,163,74,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(22,163,74,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(22,163,74,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(22,163,74,0.12);
+    border: 0.5px solid rgba(22,163,74,0.3);
+    border-radius: 99px;
+    padding: 5px 14px;
+    font-size: 10px; font-weight: 600;
+    color: var(--green-accent);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .badge-dot {
+    width: 6px; height: 6px;
+    background: var(--green-accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .hero h1 {
+    font-size: clamp(38px, 6vw, 68px);
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .hero h1 .accent { color: var(--green-accent); }
+  .hero h1 .line2 { display: block; color: rgba(255,255,255,0.55); font-weight: 300; }
+  .hero-sub {
+    font-size: 15px; font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .hero-actions {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    position: relative;
+  }
+  .btn-primary {
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 13px 28px;
+    font-size: 13px; font-weight: 600;
+    font-family: var(--font);
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: var(--green-mid); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    border: 0.5px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 13px 28px;
+    font-size: 13px; font-weight: 500;
+    font-family: var(--font);
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-secondary:hover {
+    border-color: rgba(255,255,255,0.4);
+    color: white;
+  }
+  .hero-stats {
+    display: flex; gap: 40px; justify-content: center; flex-wrap: wrap;
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 0.5px solid rgba(255,255,255,0.08);
+    position: relative;
+  }
+  .hero-stat {
+    text-align: center;
+  }
+  .hero-stat-value {
+    font-family: var(--mono);
+    font-size: 26px; font-weight: 500;
+    color: white;
+    display: block;
+  }
+  .hero-stat-value .green { color: var(--green-accent); }
+  .hero-stat-label {
+    font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.4);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-top: 4px; display: block;
+  }
+
+  /* ── TICKER ── */
+  .ticker-bar {
+    background: #0a1628;
+    border-top: 0.5px solid rgba(255,255,255,0.06);
+    border-bottom: 0.5px solid rgba(255,255,255,0.06);
+    padding: 10px 0;
+    overflow: hidden;
+  }
+  .ticker-track {
+    display: flex; gap: 48px;
+    animation: ticker 25s linear infinite;
+    white-space: nowrap;
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .ticker-item {
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px; color: rgba(255,255,255,0.5);
+  }
+  .ticker-item .sym { color: rgba(255,255,255,0.8); font-weight: 500; }
+  .ticker-item .up { color: var(--green-accent); }
+  .ticker-item .down { color: #ef4444; }
+
+  /* ── SECTIONS ── */
+  section { padding: 80px 40px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--green);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 700; color: var(--gray-900);
+    line-height: 1.2; letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+  .section-sub {
+    font-size: 14px; color: var(--gray-600);
+    max-width: 500px; line-height: 1.7;
+  }
+
+  /* ── FEATURES ── */
+  .features-section { background: var(--gray-50); }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+  }
+  .feature-card {
+    background: white;
+    border: 0.5px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .feature-card:hover {
+    border-color: var(--green);
+    transform: translateY(-2px);
+  }
+  .feature-icon {
+    width: 40px; height: 40px;
+    background: var(--green-light);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+  .feature-title {
+    font-size: 14px; font-weight: 600; color: var(--gray-900);
+    margin-bottom: 8px; letter-spacing: -0.01em;
+  }
+  .feature-desc {
+    font-size: 12px; color: var(--gray-600); line-height: 1.7;
+  }
+
+  /* ── DASHBOARD PREVIEW ── */
+  .preview-section { background: var(--navy); padding: 80px 40px; }
+  .preview-section .section-label { color: var(--green-accent); }
+  .preview-section .section-title { color: white; }
+  .preview-section .section-sub { color: rgba(255,255,255,0.5); }
+  .dashboard-mock {
+    margin-top: 48px;
+    background: #0a1628;
+    border: 0.5px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .mock-topbar {
+    background: #111f38;
+    border-bottom: 0.5px solid rgba(255,255,255,0.06);
+    padding: 12px 20px;
+    display: flex; align-items: center; gap: 20px;
+  }
+  .mock-dots { display: flex; gap: 6px; }
+  .mock-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .mock-topbar-title {
+    font-size: 11px; color: rgba(255,255,255,0.4);
+    font-family: var(--mono); flex: 1; text-align: center;
+  }
+  .mock-body {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 12px;
+  }
+  .mock-kpi {
+    background: #111f38;
+    border: 0.5px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .mock-kpi-label {
+    font-size: 9px; color: rgba(255,255,255,0.35);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .mock-kpi-val {
+    font-family: var(--mono);
+    font-size: 18px; font-weight: 500;
+    color: white;
+  }
+  .mock-kpi-val.g { color: var(--green-accent); }
+  .mock-kpi-val.r { color: #ef4444; }
+  .mock-kpi-change {
+    font-size: 9px; font-family: var(--mono);
+    color: var(--green-accent); margin-top: 4px;
+  }
+  .mock-chart-row {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .mock-chart {
+    background: #111f38;
+    border: 0.5px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 16px;
+    height: 140px;
+    position: relative; overflow: hidden;
+  }
+  .mock-chart-title {
+    font-size: 10px; color: rgba(255,255,255,0.4);
+    margin-bottom: 12px; letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .chart-bars {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 80px; padding-bottom: 4px;
+  }
+  .bar {
+    flex: 1; border-radius: 2px 2px 0 0;
+    transition: opacity 0.2s;
+  }
+  .bar.profit { background: rgba(34,197,94,0.7); }
+  .bar.loss { background: rgba(239,68,68,0.5); }
+  .mock-trades {
+    background: #111f38;
+    border: 0.5px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 16px;
+    overflow: hidden;
+  }
+  .mock-trades-title {
+    font-size: 10px; color: rgba(255,255,255,0.4);
+    margin-bottom: 12px; letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .trade-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.04);
+    font-family: var(--mono); font-size: 10px;
+  }
+  .trade-row:last-child { border-bottom: none; }
+  .trade-sym { color: rgba(255,255,255,0.7); }
+  .trade-dir {
+    font-size: 9px; padding: 2px 7px; border-radius: 99px; font-weight: 600;
+  }
+  .buy { background: rgba(22,163,74,0.2); color: var(--green-accent); }
+  .sell { background: rgba(239,68,68,0.2); color: #ef4444; }
+  .trade-pnl { font-weight: 500; }
+  .pnl-pos { color: var(--green-accent); }
+  .pnl-neg { color: #ef4444; }
+
+  /* ── WORKFLOW ── */
+  .workflow-section { background: white; }
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-top: 48px;
+    position: relative;
+  }
+  .steps-grid::before {
+    content: '';
+    position: absolute;
+    top: 24px; left: 12%; right: 12%;
+    height: 0.5px;
+    background: var(--gray-200);
+  }
+  .step {
+    text-align: center;
+    padding: 0 16px;
+    position: relative;
+  }
+  .step-num {
+    width: 48px; height: 48px;
+    background: white;
+    border: 0.5px solid var(--gray-200);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono);
+    font-size: 13px; font-weight: 500;
+    color: var(--gray-900);
+    margin: 0 auto 20px;
+    position: relative; z-index: 1;
+    transition: all 0.2s;
+  }
+  .step:hover .step-num {
+    background: var(--green);
+    border-color: var(--green);
+    color: white;
+  }
+  .step-title {
+    font-size: 13px; font-weight: 600;
+    color: var(--gray-900); margin-bottom: 8px;
+  }
+  .step-desc {
+    font-size: 11px; color: var(--gray-600); line-height: 1.7;
+  }
+
+  /* ── METRICS ── */
+  .metrics-section { background: var(--gray-50); }
+  .metrics-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; margin-top: 48px; align-items: center;
+  }
+  .metrics-list { display: flex; flex-direction: column; gap: 12px; }
+  .metric-item {
+    background: white;
+    border: 0.5px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 14px 18px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .metric-name { font-size: 12px; color: var(--gray-700); font-weight: 500; }
+  .metric-badge {
+    font-family: var(--mono);
+    font-size: 11px; font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 99px;
+  }
+  .metric-badge.g {
+    background: var(--green-light);
+    color: var(--green);
+    border: 0.5px solid rgba(22,163,74,0.2);
+  }
+  .metric-badge.b {
+    background: #eff6ff;
+    color: var(--blue);
+    border: 0.5px solid rgba(26,107,181,0.2);
+  }
+  .metrics-visual {
+    background: white;
+    border: 0.5px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 28px;
+  }
+  .mv-title {
+    font-size: 11px; color: var(--gray-400);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 20px; font-weight: 600;
+  }
+  .equity-curve {
+    width: 100%; height: 120px;
+  }
+  .win-rate-display {
+    margin-top: 20px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .wr-ring {
+    width: 60px; height: 60px; flex-shrink: 0;
+  }
+  .wr-info {}
+  .wr-value {
+    font-family: var(--mono); font-size: 24px; font-weight: 500;
+    color: var(--green);
+  }
+  .wr-label { font-size: 10px; color: var(--gray-400); margin-top: 2px; }
+
+  /* ── PRICING ── */
+  .pricing-section { background: white; }
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin-top: 48px; align-items: start;
+  }
+  .price-card {
+    border: 0.5px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 28px 24px;
+    position: relative;
+    background: white;
+  }
+  .price-card.featured {
+    border-color: var(--green);
+    background: linear-gradient(180deg, rgba(22,163,74,0.03) 0%, white 100%);
+  }
+  .featured-badge {
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    background: var(--green);
+    color: white;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 12px; border-radius: 99px;
+  }
+  .plan-name {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--gray-600); margin-bottom: 8px;
+  }
+  .plan-price {
+    font-family: var(--mono);
+    font-size: 32px; font-weight: 500;
+    color: var(--gray-900); line-height: 1;
+    margin-bottom: 4px;
+  }
+  .plan-price span { font-size: 13px; color: var(--gray-400); }
+  .plan-desc {
+    font-size: 11px; color: var(--gray-600);
+    margin-bottom: 24px; line-height: 1.6;
+  }
+  .plan-features {
+    list-style: none; display: flex; flex-direction: column; gap: 8px;
+    margin-bottom: 24px;
+  }
+  .plan-features li {
+    font-size: 12px; color: var(--gray-700);
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .plan-features li::before {
+    content: '✓';
+    color: var(--green); font-weight: 700; font-size: 12px; flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .plan-features li.off { color: var(--gray-400); }
+  .plan-features li.off::before { content: '–'; color: var(--gray-300); }
+  .btn-plan {
+    display: block; width: 100%;
+    text-align: center;
+    padding: 11px 20px;
+    border-radius: 8px;
+    font-size: 13px; font-weight: 600;
+    font-family: var(--font);
+    cursor: pointer; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-plan.primary {
+    background: var(--green); color: white; border: none;
+  }
+  .btn-plan.primary:hover { background: var(--green-mid); }
+  .btn-plan.outline {
+    background: transparent;
+    border: 0.5px solid var(--gray-200);
+    color: var(--gray-700);
+  }
+  .btn-plan.outline:hover { border-color: var(--green); color: var(--green); }
+
+  /* ── TESTIMONIALS ── */
+  .testi-section { background: var(--gray-50); }
+  .testi-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin-top: 48px;
+  }
+  .testi-card {
+    background: white;
+    border: 0.5px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .testi-stars { color: #fbbf24; font-size: 12px; margin-bottom: 12px; }
+  .testi-text {
+    font-size: 12px; color: var(--gray-700);
+    line-height: 1.7; margin-bottom: 16px;
+    font-style: italic;
+  }
+  .testi-author {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .testi-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--green-light);
+    border: 0.5px solid rgba(22,163,74,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600; color: var(--green);
+    font-family: var(--mono);
+  }
+  .testi-name { font-size: 12px; font-weight: 600; color: var(--gray-900); }
+  .testi-role { font-size: 10px; color: var(--gray-400); }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--navy);
+    text-align: center; padding: 80px 40px;
+  }
+  .cta-section .section-title { color: white; }
+  .cta-section .section-sub { color: rgba(255,255,255,0.5); margin: 0 auto 36px; }
+  .cta-guarantee {
+    margin-top: 20px;
+    font-size: 11px; color: rgba(255,255,255,0.35);
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080f1e;
+    border-top: 0.5px solid rgba(255,255,255,0.06);
+    padding: 40px;
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-brand {
+    font-size: 12px; color: rgba(255,255,255,0.3);
+  }
+  .footer-brand strong { color: rgba(255,255,255,0.6); }
+  .footer-links {
+    display: flex; gap: 24px; list-style: none;
+  }
+  .footer-links a {
+    font-size: 11px; color: rgba(255,255,255,0.3);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: rgba(255,255,255,0.6); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.6s ease forwards; }
+  .delay-1 { animation-delay: 0.1s; opacity: 0; }
+  .delay-2 { animation-delay: 0.2s; opacity: 0; }
+  .delay-3 { animation-delay: 0.3s; opacity: 0; }
+  .delay-4 { animation-delay: 0.4s; opacity: 0; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    section { padding: 60px 20px; }
+    .features-grid, .pricing-grid, .testi-grid { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .metrics-grid { grid-template-columns: 1fr; }
+    .mock-body { grid-template-columns: 1fr 1fr; }
+    .mock-chart-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">
+    <div class="nav-logo">TJ</div>
+    <span class="nav-name">Trading<span>Journal</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Funciones</a></li>
+    <li><a href="#how">Cómo funciona</a></li>
+    <li><a href="#metrics">Métricas</a></li>
+    <li><a href="#pricing">Planes</a></li>
+    <li><a href="#cta" class="nav-cta">Comenzar gratis →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-badge fade-up">
+    <span class="badge-dot"></span>
+    Sistema de Bitácora Profesional
+  </div>
+
+  <h1 class="fade-up delay-1">
+    Registrá cada operación.<br>
+    <span class="accent">Mejorá cada decisión.</span>
+    <span class="line2">Tu ventaja empieza en los datos.</span>
+  </h1>
+
+  <p class="hero-sub fade-up delay-2">
+    Trading Journal es el sistema de bitácora inteligente de Abby Investment. 
+    Analizá tu rendimiento, identificá patrones y tomá decisiones respaldadas por datos reales.
+  </p>
+
+  <div class="hero-actions fade-up delay-3">
+    <a href="#cta" class="btn-primary">🚀 Empezar gratis</a>
+    <a href="#how" class="btn-secondary">Ver demo →</a>
+  </div>
+
+  <div class="hero-stats fade-up delay-4">
+    <div class="hero-stat">
+      <span class="hero-stat-value"><span class="green">+34%</span></span>
+      <span class="hero-stat-label">Mejora promedio en win rate</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-value">2,500+</span>
+      <span class="hero-stat-label">Traders activos</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-value"><span class="green">98%</span></span>
+      <span class="hero-stat-label">Satisfacción usuarios</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-value">MT4/5</span>
+      <span class="hero-stat-label">Integración directa</span>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-bar">
+  <div class="ticker-track" id="ticker"></div>
+</div>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="container">
+    <p class="section-label">Funcionalidades</p>
+    <h2 class="section-title">Todo lo que necesitás para evolucionar como trader</h2>
+    <p class="section-sub">Diseñado específicamente para traders en mercados Forex, índices y materias primas.</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <div class="feature-title">Registro detallado de operaciones</div>
+        <div class="feature-desc">Capturá par, dirección, lotes, entrada, salida, SL/TP, P&L, sesión y notas. Todo en un solo lugar, ordenado y accesible.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Dashboard de performance</div>
+        <div class="feature-desc">Visualizá tu curva de equity, tasa de acierto, profit factor, drawdown máximo y expectativa matemática en tiempo real.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <div class="feature-title">Integración MT4/MT5</div>
+        <div class="feature-desc">Importá tu historial de operaciones directamente desde MetaTrader. Sin doble carga, sin errores manuales.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <div class="feature-title">Análisis de patrones</div>
+        <div class="feature-desc">Detectá qué sesiones, pares, configuraciones y condiciones de mercado generan tus mejores resultados consistentes.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-title">Gestión del riesgo</div>
+        <div class="feature-desc">Controlá tu riesgo por operación, por día y por semana. Alertas automáticas si superás tus límites establecidos.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📸</div>
+        <div class="feature-title">Screenshots de gráficos</div>
+        <div class="feature-desc">Adjuntá capturas de pantalla de tus setups directamente a cada trade para revisión y aprendizaje posterior.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD PREVIEW -->
+<section class="preview-section">
+  <div class="container">
+    <p class="section-label">Vista previa</p>
+    <h2 class="section-title">Un dashboard diseñado para traders serios</h2>
+    <p class="section-sub">Interfaz limpia, datos precisos. Sin ruido visual, sin distracciones.</p>
+
+    <div class="dashboard-mock">
+      <div class="mock-topbar">
+        <div class="mock-dots">
+          <div class="mock-dot" style="background:#ff5f57"></div>
+          <div class="mock-dot" style="background:#febc2e"></div>
+          <div class="mock-dot" style="background:#28c840"></div>
+        </div>
+        <div class="mock-topbar-title">Trading Journal — Dashboard · Abby Investment</div>
+      </div>
+      <div class="mock-body">
+        <div class="mock-kpi">
+          <div class="mock-kpi-label">P&L Neto</div>
+          <div class="mock-kpi-val g">+$4,820</div>
+          <div class="mock-kpi-change">▲ +12.4% este mes</div>
+        </div>
+        <div class="mock-kpi">
+          <div class="mock-kpi-label">Win Rate</div>
+          <div class="mock-kpi-val">67.3%</div>
+          <div class="mock-kpi-change" style="color:#94a3b8">▲ +3.1% vs mes ant.</div>
+        </div>
+        <div class="mock-kpi">
+          <div class="mock-kpi-label">Profit Factor</div>
+          <div class="mock-kpi-val g">2.14</div>
+          <div class="mock-kpi-change">● Excelente</div>
+        </div>
+        <div class="mock-kpi">
+          <div class="mock-kpi-label">Max Drawdown</div>
+          <div class="mock-kpi-val r">-3.8%</div>
+          <div class="mock-kpi-change" style="color:#94a3b8">Bajo control</div>
+        </div>
+
+        <div class="mock-chart-row">
+          <div class="mock-chart">
+            <div class="mock-chart-title">P&L mensual por día</div>
+            <div class="chart-bars">
+              <div class="bar profit" style="height:55%"></div>
+              <div class="bar profit" style="height:70%"></div>
+              <div class="bar loss" style="height:30%"></div>
+              <div class="bar profit" style="height:85%"></div>
+              <div class="bar profit" style="height:60%"></div>
+              <div class="bar loss" style="height:20%"></div>
+              <div class="bar profit" style="height:90%"></div>
+              <div class="bar profit" style="height:75%"></div>
+              <div class="bar profit" style="height:65%"></div>
+              <div class="bar loss" style="height:35%"></div>
+              <div class="bar profit" style="height:80%"></div>
+              <div class="bar profit" style="height:95%"></div>
+            </div>
+          </div>
+          <div class="mock-trades">
+            <div class="mock-trades-title">Últimas operaciones</div>
+            <div class="trade-row">
+              <span class="trade-sym">EURUSD</span>
+              <span class="trade-dir buy">BUY</span>
+              <span class="trade-pnl pnl-pos">+$320</span>
+            </div>
+            <div class="trade-row">
+              <span class="trade-sym">XAUUSD</span>
+              <span class="trade-dir sell">SELL</span>
+              <span class="trade-pnl pnl-pos">+$540</span>
+            </div>
+            <div class="trade-row">
+              <span class="trade-sym">NAS100</span>
+              <span class="trade-dir buy">BUY</span>
+              <span class="trade-pnl pnl-neg">-$95</span>
+            </div>
+            <div class="trade-row">
+              <span class="trade-sym">GBPJPY</span>
+              <span class="trade-dir sell">SELL</span>
+              <span class="trade-pnl pnl-pos">+$210</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="workflow-section" id="how">
+  <div class="container">
+    <p class="section-label">Cómo funciona</p>
+    <h2 class="section-title">Empezás en minutos, mejorás de por vida</h2>
+    <p class="section-sub">Un flujo simple que convierte tus operaciones en inteligencia accionable.</p>
+
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Conectá tu cuenta</div>
+        <div class="step-desc">Vinculá tu cuenta MT4/MT5 o importá tu historial en segundos con un solo clic.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Registrá tus trades</div>
+        <div class="step-desc">Añadí contexto a cada operación: setup, emociones, condición del mercado y screenshots.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Analizá tus datos</div>
+        <div class="step-desc">El sistema identifica automáticamente tus fortalezas y las áreas a mejorar.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title">Evolucioná tu estrategia</div>
+        <div class="step-desc">Tomá decisiones basadas en evidencia concreta de tu propio historial de trading.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="metrics-section" id="metrics">
+  <div class="container">
+    <p class="section-label">Métricas avanzadas</p>
+    <h2 class="section-title">Todos los indicadores que un trader profesional necesita</h2>
+    <p class="section-sub">Más de 30 métricas calculadas automáticamente a partir de tus operaciones reales.</p>
+
+    <div class="metrics-grid">
+      <div class="metrics-list">
+        <div class="metric-item">
+          <span class="metric-name">Win Rate</span>
+          <span class="metric-badge g">Calculado auto.</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-name">Profit Factor</span>
+          <span class="metric-badge g">Calculado auto.</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-name">Expectativa matemática</span>
+          <span class="metric-badge g">Calculado auto.</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-name">Sharpe Ratio</span>
+          <span class="metric-badge b">Plan Pro</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-name">Max Drawdown</span>
+          <span class="metric-badge g">Calculado auto.</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-name">R:R promedio</span>
+          <span class="metric-badge g">Calculado auto.</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-name">Análisis por sesión</span>
+          <span class="metric-badge b">Plan Pro</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-name">Rendimiento por par</span>
+          <span class="metric-badge g">Calculado auto.</span>
+        </div>
+      </div>
+
+      <div class="metrics-visual">
+        <div class="mv-title">Curva de equity — últimos 90 días</div>
+        <svg class="equity-curve" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="eq" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#16a34a" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#16a34a" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M0,95 L30,88 L60,80 L80,85 L110,72 L140,65 L160,70 L190,55 L220,48 L250,52 L280,38 L310,30 L340,22 L370,18 L400,10" stroke="#16a34a" stroke-width="2" fill="none"/>
+          <path d="M0,95 L30,88 L60,80 L80,85 L110,72 L140,65 L160,70 L190,55 L220,48 L250,52 L280,38 L310,30 L340,22 L370,18 L400,10 L400,120 L0,120 Z" fill="url(#eq)"/>
+        </svg>
+        <div class="win-rate-display">
+          <svg class="wr-ring" viewBox="0 0 60 60">
+            <circle cx="30" cy="30" r="24" fill="none" stroke="#e5e7eb" stroke-width="4"/>
+            <circle cx="30" cy="30" r="24" fill="none" stroke="#16a34a" stroke-width="4"
+              stroke-dasharray="100.5" stroke-dashoffset="32.8"
+              stroke-linecap="round" transform="rotate(-90 30 30)"/>
+          </svg>
+          <div class="wr-info">
+            <div class="wr-value">67.3%</div>
+            <div class="wr-label">Win Rate promedio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="container">
+    <p class="section-label">Planes y precios</p>
+    <h2 class="section-title">Elegí el plan que se adapta a vos</h2>
+    <p class="section-sub">Sin contratos. Sin comisiones ocultas. Cancelá cuando quieras.</p>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">$0 <span>/ mes</span></div>
+        <div class="plan-desc">Para empezar a registrar y conocer el sistema sin compromiso.</div>
+        <ul class="plan-features">
+          <li>Hasta 50 operaciones/mes</li>
+          <li>Dashboard básico</li>
+          <li>Métricas esenciales</li>
+          <li>Exportar CSV</li>
+          <li class="off">Integración MT4/MT5</li>
+          <li class="off">Análisis avanzado</li>
+          <li class="off">Soporte prioritario</li>
+        </ul>
+        <a href="#" class="btn-plan outline">Empezar gratis</a>
+      </div>
+
+      <div class="price-card featured">
+        <div class="featured-badge">⭐ Más popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">$29 <span>/ mes</span></div>
+        <div class="plan-desc">Para traders activos que quieren llevar su análisis al siguiente nivel.</div>
+        <ul class="plan-features">
+          <li>Operaciones ilimitadas</li>
+          <li>Dashboard completo</li>
+          <li>+30 métricas avanzadas</li>
+          <li>Integración MT4/MT5</li>
+          <li>Análisis por sesión y par</li>
+          <li>Screenshots adjuntos</li>
+          <li class="off">Multi-cuenta</li>
+        </ul>
+        <a href="#" class="btn-plan primary">Comenzar 14 días gratis</a>
+      </div>
+
+      <div class="price-card">
+        <div class="plan-name">Elite</div>
+        <div class="plan-price">$59 <span>/ mes</span></div>
+        <div class="plan-desc">Para traders profesionales y gestores que manejan múltiples cuentas.</div>
+        <ul class="plan-features">
+          <li>Todo lo de Pro</li>
+          <li>Hasta 5 cuentas</li>
+          <li>Reportes automatizados PDF</li>
+          <li>API access</li>
+          <li>Gestor de cuenta dedicado</li>
+          <li>Análisis de correlación</li>
+          <li>Soporte 24/7</li>
+        </ul>
+        <a href="#" class="btn-plan outline">Contactar ventas</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="container">
+    <p class="section-label">Testimonios</p>
+    <h2 class="section-title">Traders que ya transformaron su operativa</h2>
+
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Después de 3 meses usando Trading Journal identifiqué que pierdo dinero los viernes por la tarde. Nunca lo hubiera descubierto sin los datos."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">MR</div>
+          <div>
+            <div class="testi-name">Martín R.</div>
+            <div class="testi-role">Trader Forex · 4 años</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"La integración con MT5 es perfecta. Importo todo automáticamente y en minutos tengo mi análisis semanal. Me ahorra horas de trabajo manual."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">CL</div>
+          <div>
+            <div class="testi-name">Carolina L.</div>
+            <div class="testi-role">Prop trader · Índices</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Pasé de un 52% de win rate a 68% en 6 meses. Los datos no mienten. Saber exactamente dónde fallás es la diferencia entre perder y ganar."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">AG</div>
+          <div>
+            <div class="testi-name">Alejandro G.</div>
+            <div class="testi-role">Trader · Oro y Nasdaq</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <div class="container">
+    <p class="section-label" style="color:var(--green-accent)">Comenzá hoy</p>
+    <h2 class="section-title">Tu próxima operación ganadora empieza con datos</h2>
+    <p class="section-sub">Únite a más de 2,500 traders que ya usan Trading Journal para mejorar su performance de forma consistente.</p>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+      <a href="#" class="btn-primary" style="font-size:14px; padding:14px 32px;">🚀 Empezar gratis — 14 días Pro</a>
+      <a href="#" class="btn-secondary" style="font-size:14px; padding:14px 32px;">Solicitar demo personalizada</a>
+    </div>
+    <div class="cta-guarantee">
+      🔒 Sin tarjeta de crédito · Cancelá cuando quieras · Datos seguros y privados
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <strong>Trading Journal</strong> · Powered by <strong>Abby Investment</strong><br>
+      <span style="font-size:10px;">Asset Management · Sistema de Gestión Automatizada</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#">Términos</a></li>
+      <li><a href="#">Privacidad</a></li>
+      <li><a href="#">Soporte</a></li>
+      <li><a href="#">Contacto</a></li>
+    </ul>
+    <div style="font-size:10px; color:rgba(255,255,255,0.2);">© 2025 Abby Investment. Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<script>
+// Ticker
+const assets = [
+  { sym:'EURUSD', price:'1.0842', chg:'+0.12%', up:true },
+  { sym:'XAUUSD', price:'2,318.40', chg:'+0.34%', up:true },
+  { sym:'NAS100', price:'18,420.5', chg:'-0.08%', up:false },
+  { sym:'GBPUSD', price:'1.2654', chg:'+0.21%', up:true },
+  { sym:'WTI', price:'79.45', chg:'-0.55%', up:false },
+  { sym:'USDJPY', price:'154.82', chg:'+0.18%', up:true },
+  { sym:'SP500', price:'5,204.3', chg:'+0.09%', up:true },
+  { sym:'BTCUSD', price:'62,840', chg:'-1.2%', up:false },
+];
+const t = document.getElementById('ticker');
+const items = [...assets, ...assets].map(a => `
+  <div class="ticker-item">
+    <span class="sym">${a.sym}</span>
+    <span>${a.price}</span>
+    <span class="${a.up ? 'up' : 'down'}">${a.chg}</span>
+  </div>
+`).join('');
+t.innerHTML = items;
+
+// Scroll fade in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.animation = 'fadeUp 0.6s ease forwards';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.feature-card, .step, .metric-item, .testi-card, .price-card').forEach(el => {
+  el.style.opacity = '0';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>

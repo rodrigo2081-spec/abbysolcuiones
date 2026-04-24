@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abby Trading Manager — Gestión Profesional de Cuentas MT4/MT5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --p:#1a6bb5;--dark:#0d1f3c;--bg:#ffffff;--bg2:#f8fafc;--border:#e5e7eb;
+  --text:#111827;--text2:#374151;--text3:#6b7280;--text4:#9ca3af;
+  --blue-light:#e8f2fb;--green:#16a34a;--green-bg:#f0fdf4;
+  --red:#dc2626;--red-bg:#fff5f5;--yellow:#fbbf24;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+
+/* TICKER */
+.ticker{background:#060f1e;height:34px;display:flex;align-items:center;overflow:hidden;border-bottom:0.5px solid rgba(255,255,255,0.05)}
+.ticker-track{display:flex;animation:tick 40s linear infinite;white-space:nowrap}
+.ticker-item{display:flex;align-items:center;gap:8px;padding:0 22px;border-right:0.5px solid rgba(255,255,255,0.06)}
+.ticker-sym{font-size:10.5px;font-weight:600;color:rgba(255,255,255,0.65);font-family:'JetBrains Mono',monospace;letter-spacing:.04em}
+.ticker-val{font-size:10.5px;color:rgba(255,255,255,0.4);font-family:'JetBrains Mono',monospace}
+.ticker-chg{font-size:9.5px;font-weight:600;padding:1px 5px;border-radius:3px;font-family:'JetBrains Mono',monospace}
+.up{color:#22c55e;background:rgba(34,197,94,.1)}.dn{color:#ef4444;background:rgba(239,68,68,.1)}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(13,31,60,.98);backdrop-filter:blur(16px);border-bottom:0.5px solid rgba(255,255,255,.07);padding:0 48px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-left{display:flex;align-items:center;gap:36px}
+.nav-brand{display:flex;align-items:center;gap:8px}
+.nav-logo{width:28px;height:28px;background:var(--p);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:white}
+.nav-name{font-size:13.5px;font-weight:700;color:white;letter-spacing:.01em}
+.nav-name em{color:#60a5fa;font-style:normal}
+.nav-menu{display:flex;gap:22px;list-style:none}
+.nav-menu a{color:rgba(255,255,255,.5);text-decoration:none;font-size:12px;font-weight:500;transition:color .15s}
+.nav-menu a:hover{color:white}
+.nav-right{display:flex;align-items:center;gap:8px}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.55);border:0.5px solid rgba(255,255,255,.14);border-radius:6px;padding:6px 14px;font-size:12px;font-weight:500;cursor:pointer;text-decoration:none;transition:all .15s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.35);color:white}
+.btn-cta{background:var(--p);color:white;border:none;border-radius:6px;padding:7px 16px;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;transition:background .15s}
+.btn-cta:hover{background:#1558a0}
+
+/* HERO */
+.hero{background:var(--dark);min-height:calc(100vh - 90px);display:grid;grid-template-columns:1fr 1.05fr;align-items:center;gap:48px;padding:72px 48px 56px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(26,107,181,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(26,107,181,.05) 1px,transparent 1px);background-size:48px 48px}
+.hero::after{content:'';position:absolute;width:500px;height:500px;top:-60px;right:0;background:radial-gradient(circle,rgba(26,107,181,.13) 0%,transparent 65%);pointer-events:none}
+.hero-l{position:relative;z-index:2;max-width:500px}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(26,107,181,.12);border:0.5px solid rgba(26,107,181,.35);border-radius:99px;padding:4px 12px;font-size:10px;font-weight:600;color:#93c5fd;letter-spacing:.07em;text-transform:uppercase;margin-bottom:22px;animation:fu .5s ease both}
+.livdot{width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px #22c55e;animation:bl 2s infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.25}}
+.h1{font-size:clamp(30px,4vw,52px);font-weight:800;color:white;line-height:1.08;letter-spacing:-.035em;margin-bottom:16px;animation:fu .5s .08s ease both}
+.h1 .hl{color:#60a5fa}.h1 .bl{display:block}
+.hero-p{font-size:14.5px;color:rgba(255,255,255,.48);line-height:1.75;margin-bottom:28px;animation:fu .5s .16s ease both}
+.hero-p strong{color:rgba(255,255,255,.8);font-weight:600}
+.hero-btns{display:flex;gap:9px;margin-bottom:36px;animation:fu .5s .24s ease both}
+.btn-h{padding:11px 22px;border-radius:7px;font-size:13px;font-weight:600;text-decoration:none;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px;border:none}
+.btn-hp{background:var(--p);color:white}.btn-hp:hover{background:#1558a0;transform:translateY(-1px)}
+.btn-hg{background:rgba(255,255,255,.06);color:rgba(255,255,255,.65);border:0.5px solid rgba(255,255,255,.12)!important}.btn-hg:hover{background:rgba(255,255,255,.1);color:white}
+.hero-trust{display:flex;gap:18px;animation:fu .5s .32s ease both}
+.ti{font-size:11px;color:rgba(255,255,255,.32);display:flex;align-items:center;gap:5px}
+.ti span{color:#22c55e}
+
+/* hero screen */
+.hero-r{position:relative;z-index:2;animation:fu .5s .18s ease both}
+.sw{background:#0a1628;border:0.5px solid rgba(255,255,255,.08);border-radius:11px;overflow:hidden;box-shadow:0 32px 64px rgba(0,0,0,.5)}
+.sw-top{background:#060f1e;display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-bottom:0.5px solid rgba(255,255,255,.05)}
+.sw-ttl{font-size:10px;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:.05em;text-transform:uppercase}
+.sw-live{font-size:9.5px;color:#22c55e;font-weight:600;display:flex;align-items:center;gap:4px}
+.sw-body{padding:14px;display:flex;flex-direction:column;gap:10px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.kpi{background:#111c30;border:0.5px solid rgba(255,255,255,.05);border-radius:6px;padding:9px 11px}
+.kpi-l{font-size:8.5px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.kpi-v{font-size:15px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:-.02em}
+.kv-w{color:white}.kv-g{color:#22c55e}.kv-b{color:#60a5fa}.kv-y{color:#fbbf24}
+.kpi-s{font-size:9px;font-weight:500;margin-top:2px}
+.ks-g{color:rgba(34,197,94,.55)}.ks-b{color:rgba(96,165,250,.5)}
+.stbl{background:#111c30;border:0.5px solid rgba(255,255,255,.05);border-radius:6px;overflow:hidden}
+.sth{display:grid;grid-template-columns:80px 1fr 56px 56px 66px;padding:6px 11px;background:#060f1e;gap:7px}
+.sthc{font-size:8.5px;font-weight:600;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.06em}
+.str{display:grid;grid-template-columns:80px 1fr 56px 56px 66px;padding:7px 11px;gap:7px;border-top:0.5px solid rgba(255,255,255,.04)}
+.str:nth-child(even){background:rgba(255,255,255,.015)}
+.stc{font-size:10px;color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;display:flex;align-items:center}
+.stc.nm{color:rgba(255,255,255,.8);font-weight:600;font-family:'Inter',sans-serif;font-size:9.5px}
+.tag{padding:1px 6px;border-radius:99px;font-size:8.5px;font-weight:700;font-family:'Inter',sans-serif}
+.tb{background:rgba(34,197,94,.12);color:#22c55e}
+.ts{background:rgba(239,68,68,.12);color:#ef4444}
+.tw{background:rgba(251,191,36,.12);color:#fbbf24}
+.pos{color:#22c55e;font-weight:600}.neg{color:#ef4444;font-weight:600}
+.salerts{display:flex;flex-direction:column;gap:5px}
+.sa{display:flex;align-items:center;gap:7px;background:#111c30;border:0.5px solid rgba(255,255,255,.05);border-radius:6px;padding:6px 9px}
+.sad{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.sat{font-size:9.5px;color:rgba(255,255,255,.45);flex:1}
+.sat strong{color:rgba(255,255,255,.75)}
+.satm{font-size:8.5px;color:rgba(255,255,255,.2);font-family:'JetBrains Mono',monospace}
+@keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* COMPAT BAR */
+.compat{background:var(--bg2);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);padding:14px 48px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cl{font-size:9.5px;color:var(--text4);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-right:6px;white-space:nowrap}
+.cp{display:inline-flex;align-items:center;gap:5px;background:white;border:0.5px solid var(--border);border-radius:99px;padding:4px 12px;font-size:10.5px;font-weight:600;color:var(--text2)}
+.cp .dot{width:5px;height:5px;border-radius:50%}
+.cd{flex:1}
+.cbadge{font-size:10px;color:var(--text4);display:flex;align-items:center;gap:5px}
+
+/* SECTION */
+section{padding:84px 48px}
+.inner{max-width:1120px;margin:0 auto}
+.se{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--p);margin-bottom:9px}
+.st{font-size:clamp(22px,3vw,36px);font-weight:800;color:var(--text);line-height:1.15;letter-spacing:-.025em;margin-bottom:12px}
+.ss{font-size:13.5px;color:var(--text3);line-height:1.75;max-width:480px;margin-bottom:48px}
+
+/* FOR WHOM */
+.fw-bg{background:var(--dark);padding:76px 48px}
+.fw-bg .st{color:white}.fw-bg .ss{color:rgba(255,255,255,.4)}.fw-bg .se{color:#60a5fa}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden}
+.pc2{background:#111c30;padding:28px 24px;transition:background .2s}
+.pc2:hover{background:#162035}
+.pico{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px}
+.ptag2{display:inline-block;background:rgba(26,107,181,.15);border:0.5px solid rgba(26,107,181,.3);color:#93c5fd;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;border-radius:99px;padding:2px 8px;margin-bottom:9px}
+.ptt{font-size:14px;font-weight:700;color:white;margin-bottom:7px;line-height:1.3}
+.ptd{font-size:11.5px;color:rgba(255,255,255,.38);line-height:1.7;margin-bottom:13px}
+.ptaglist{display:flex;flex-wrap:wrap;gap:4px}
+.pill{background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.07);color:rgba(255,255,255,.4);font-size:9.5px;font-weight:500;padding:2px 7px;border-radius:4px}
+
+/* FEATURES 2-col */
+.fl{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.flist{display:flex;flex-direction:column;gap:0}
+.fi{display:flex;gap:13px;padding:16px 0;border-bottom:0.5px solid var(--border);cursor:pointer;transition:all .15s}
+.fi:last-child{border-bottom:none}
+.fi.act .fic{background:var(--p);color:white}
+.fi.act .fitn{color:var(--p)}
+.fic{width:34px;height:34px;border-radius:7px;background:var(--bg2);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:all .15s}
+.fitn{font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:3px}
+.fitd{font-size:11.5px;color:var(--text3);line-height:1.6}
+.fscr{position:sticky;top:76px}
+
+/* multi-account screen */
+.ms{background:#0a1628;border:0.5px solid rgba(255,255,255,.08);border-radius:9px;overflow:hidden}
+.msb{background:#060f1e;padding:8px 13px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid rgba(255,255,255,.05)}
+.mst{font-size:9.5px;font-weight:600;color:rgba(255,255,255,.38);letter-spacing:.05em;text-transform:uppercase}
+.msi{font-size:9px;color:#22c55e;font-weight:600;display:flex;align-items:center;gap:3px}
+.msbd{padding:13px;display:flex;flex-direction:column;gap:8px}
+.ar{display:flex;align-items:center;gap:9px;background:#111c30;border:0.5px solid rgba(255,255,255,.05);border-radius:6px;padding:9px 11px}
+.an{font-size:9.5px;font-weight:700;color:rgba(255,255,255,.55);font-family:'JetBrains Mono',monospace;width:52px}
+.ab{flex:1;font-size:9.5px;color:rgba(255,255,255,.35)}
+.ae{font-size:10.5px;font-weight:700;color:white;font-family:'JetBrains Mono',monospace;width:76px;text-align:right}
+.apl{font-size:9.5px;font-weight:700;font-family:'JetBrains Mono',monospace;width:60px;text-align:right}
+.ast{width:50px;display:flex;justify-content:flex-end}
+
+/* SCREENSHOTS */
+.sshots-bg{background:var(--bg2)}
+.stabs{display:flex;gap:0;border:0.5px solid var(--border);border-radius:7px;overflow:hidden;margin-bottom:28px;width:fit-content}
+.stab{padding:8px 18px;font-size:11.5px;font-weight:500;color:var(--text3);cursor:pointer;background:white;border-right:0.5px solid var(--border);transition:all .15s}
+.stab:last-child{border-right:none}
+.stab.act{background:var(--dark);color:white;font-weight:600}
+.sdisplay{background:#0a1628;border:0.5px solid rgba(255,255,255,.07);border-radius:11px;overflow:hidden}
+.sbar{background:#060f1e;padding:9px 14px;display:flex;align-items:center;gap:6px;border-bottom:0.5px solid rgba(255,255,255,.05)}
+.surl{flex:1;text-align:center;font-size:9.5px;font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,.22)}
+.dots{display:flex;gap:4px}
+.d{width:8px;height:8px;border-radius:50%}
+.sbody{padding:14px;display:flex;flex-direction:column;gap:10px}
+.srow{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
+.sh{font-size:12.5px;font-weight:700;color:rgba(255,255,255,.8)}
+.shs{font-size:9.5px;color:rgba(255,255,255,.28)}
+
+/* portfolio kpis */
+.pkpis{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.pk{background:#111c30;border:0.5px solid rgba(255,255,255,.05);border-radius:6px;padding:9px 11px}
+.pkl{font-size:8px;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.pkv{font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:-.02em}
+.pkv.w{color:white}.pkv.g{color:#22c55e}.pkv.b{color:#60a5fa}.pkv.y{color:#fbbf24}
+.pkd{font-size:8.5px;font-weight:500;margin-top:2px}
+.pkd.g{color:rgba(34,197,94,.5)}.pkd.b{color:rgba(96,165,250,.45)}.pkd.r{color:rgba(239,68,68,.5)}
+
+/* big table */
+.bt{background:#111c30;border:0.5px solid rgba(255,255,255,.05);border-radius:6px;overflow:hidden}
+.bth{display:grid;grid-template-columns:90px 100px 1fr 85px 75px 75px 74px;padding:6px 11px;background:#060f1e;gap:7px}
+.bthc{font-size:8px;font-weight:600;color:rgba(255,255,255,.22);text-transform:uppercase;letter-spacing:.06em}
+.btr{display:grid;grid-template-columns:90px 100px 1fr 85px 75px 75px 74px;padding:7px 11px;gap:7px;border-top:0.5px solid rgba(255,255,255,.03)}
+.btr:nth-child(even){background:rgba(255,255,255,.012)}
+.btc{font-size:10px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace;display:flex;align-items:center}
+.btc.nm{color:rgba(255,255,255,.75);font-family:'Inter',sans-serif;font-weight:600;font-size:9.5px}
+.btc.g{color:#22c55e;font-weight:600}.btc.r{color:#ef4444;font-weight:600}.btc.b{color:#60a5fa}
+.ok{background:rgba(34,197,94,.1);color:#22c55e;border-radius:3px;padding:1px 5px;font-size:8px;font-weight:700}
+.warn{background:rgba(251,191,36,.1);color:#fbbf24;border-radius:3px;padding:1px 5px;font-size:8px;font-weight:700}
+
+/* FUNDED */
+.fgrid{display:grid;grid-template-columns:1fr 1.15fr;gap:48px;align-items:center}
+.cm{background:white;border:0.5px solid var(--border);border-radius:11px;overflow:hidden}
+.cmh{background:var(--dark);padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
+.cmt{font-size:11.5px;font-weight:700;color:white;letter-spacing:.01em}
+.cmb2{background:var(--p);color:white;font-size:8.5px;font-weight:700;padding:2px 8px;border-radius:99px;text-transform:uppercase;letter-spacing:.05em}
+.cmbd{padding:14px 18px;display:flex;flex-direction:column;gap:10px}
+.cmr{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--border)}
+.cmr:last-child{border-bottom:none}
+.cmrl{font-size:11px;color:var(--text3)}
+.cmrl strong{color:var(--text);font-weight:600}
+.cmrv{font-size:11.5px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.pw{margin-top:2px}
+.pl2{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-bottom:4px}
+.pb{height:4px;background:var(--bg2);border-radius:99px;overflow:hidden;border:0.5px solid var(--border)}
+.pf{height:100%;border-radius:99px}
+.fg{background:var(--green)}.fb{background:var(--p)}.fy{background:var(--yellow)}.fr{background:var(--red)}
+.cmal{margin-top:6px}
+.cmat{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:7px}
+.cma{display:flex;align-items:center;gap:7px;padding:7px 0;border-bottom:0.5px solid var(--border)}
+.cma:last-child{border-bottom:none}
+.cmad{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.cmatx{font-size:10.5px;color:var(--text2);flex:1}
+.cmamt{font-size:9.5px;color:var(--text4);font-family:'JetBrains Mono',monospace}
+.ffeats{display:flex;flex-direction:column;gap:14px}
+.ffi{display:flex;gap:11px;align-items:flex-start}
+.ffic{width:33px;height:33px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.ffit{font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:3px}
+.ffid{font-size:11.5px;color:var(--text3);line-height:1.65}
+
+/* ALERTS */
+.alrt-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:52px;align-items:center}
+.channels{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
+.ch{background:white;border:0.5px solid var(--border);border-radius:9px;padding:14px;display:flex;align-items:center;gap:11px}
+.chico{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.chn{font-size:11.5px;font-weight:600;color:var(--text)}
+.chd{font-size:10px;color:var(--text4)}
+.alrt-mock{background:#0a1628;border:0.5px solid rgba(255,255,255,.07);border-radius:11px;overflow:hidden}
+.amh{background:#060f1e;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid rgba(255,255,255,.05)}
+.amt{font-size:10px;font-weight:600;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.06em}
+.amcnt{background:rgba(239,68,68,.15);color:#ef4444;font-size:9px;font-weight:700;padding:1px 7px;border-radius:99px}
+.ambd{padding:11px;display:flex;flex-direction:column;gap:6px}
+.ama{display:flex;align-items:flex-start;gap:9px;background:#111c30;border:0.5px solid rgba(255,255,255,.05);border-radius:6px;padding:9px 11px}
+.amaico{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px}
+.amabody{flex:1}
+.amat{font-size:10px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:2px}
+.amas{font-size:9.5px;color:rgba(255,255,255,.32);line-height:1.5}
+.amam{display:flex;align-items:center;gap:5px;margin-top:4px}
+.chip{font-size:8.5px;font-weight:600;padding:1px 5px;border-radius:3px}
+.cr{background:rgba(239,68,68,.12);color:#ef4444}
+.cy{background:rgba(251,191,36,.12);color:#fbbf24}
+.cg{background:rgba(34,197,94,.12);color:#22c55e}
+.cb{background:rgba(96,165,250,.12);color:#60a5fa}
+.atm{font-size:8.5px;color:rgba(255,255,255,.18);font-family:'JetBrains Mono',monospace;margin-left:auto}
+.alrt-rows{display:flex;flex-direction:column;gap:7px;margin-top:4px}
+.ar2{display:flex;align-items:center;gap:9px;padding:10px 13px;background:white;border:0.5px solid var(--border);border-radius:7px}
+.ar2ico{font-size:14px;width:28px;text-align:center}
+.ar2t{font-size:11.5px;font-weight:600;color:var(--text)}
+.ar2d{font-size:11px;color:var(--text3)}
+
+/* PRICING */
+.prwrap{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.prc{background:white;border:0.5px solid var(--border);border-radius:11px;padding:26px 22px;position:relative}
+.prc.hot{background:var(--dark);border-color:rgba(26,107,181,.4)}
+.prhb{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--p);color:white;font-size:8.5px;font-weight:700;padding:2px 11px;border-radius:99px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.prt{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--p);margin-bottom:10px}
+.prc.hot .prt{color:#60a5fa}
+.prp{font-size:32px;font-weight:800;letter-spacing:-.03em;font-family:'JetBrains Mono',monospace;margin-bottom:4px}
+.prc.hot .prp{color:white}
+.prpe{font-size:11.5px;color:var(--text3);font-weight:400}
+.prc.hot .prpe{color:rgba(255,255,255,.32)}
+.prd{font-size:11.5px;color:var(--text3);margin:9px 0 18px;line-height:1.6}
+.prc.hot .prd{color:rgba(255,255,255,.38)}
+.prfl{list-style:none;margin-bottom:22px;border-top:0.5px solid var(--border);padding-top:14px}
+.prc.hot .prfl{border-top-color:rgba(255,255,255,.07)}
+.prf{font-size:11px;color:var(--text2);padding:6px 0;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:7px}
+.prc.hot .prf{color:rgba(255,255,255,.6);border-bottom-color:rgba(255,255,255,.06)}
+.prf::before{content:'✓';color:var(--green);font-weight:800;font-size:10px;flex-shrink:0}
+.prf:last-child{border-bottom:none}
+.prb{width:100%;padding:10px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.prbo{background:transparent;color:var(--p);border:0.5px solid var(--p)!important}.prbo:hover{background:var(--blue-light)}
+.prbs{background:var(--p);color:white}.prbs:hover{background:#1558a0}
+
+/* TESTIMONIALS */
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tc{background:white;border:0.5px solid var(--border);border-radius:9px;padding:22px}
+.tcs{color:var(--yellow);font-size:11.5px;margin-bottom:11px;letter-spacing:2px}
+.tct{font-size:12px;color:var(--text2);line-height:1.75;font-style:italic;margin-bottom:16px}
+.tca{display:flex;align-items:center;gap:9px;padding-top:13px;border-top:0.5px solid var(--border)}
+.tcav{width:28px;height:28px;border-radius:50%;background:var(--dark);color:white;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tcn{font-size:11px;font-weight:600;color:var(--text)}
+.tcr{font-size:10px;color:var(--text4)}
+
+/* CTA */
+.ctabg{background:var(--dark);padding:88px 48px;text-align:center}
+.ctat{font-size:clamp(24px,4vw,42px);font-weight:800;color:white;letter-spacing:-.03em;margin-bottom:14px;line-height:1.1}
+.ctat .hl{color:#60a5fa}
+.ctas{font-size:14px;color:rgba(255,255,255,.42);max-width:420px;margin:0 auto 32px;line-height:1.75}
+.ctabtns{display:flex;gap:9px;justify-content:center;margin-bottom:36px;flex-wrap:wrap}
+.ctags{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+.ctag{font-size:10.5px;color:rgba(255,255,255,.27);display:flex;align-items:center;gap:4px}
+.ctag span{color:#22c55e;font-size:12px}
+
+/* FOOTER */
+footer{background:#040d1a;padding:44px 48px 22px}
+.ftin{max-width:1120px;margin:0 auto}
+.ftt{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;padding-bottom:36px;border-bottom:0.5px solid rgba(255,255,255,.05);margin-bottom:22px}
+.ftbn{font-size:13.5px;font-weight:800;color:white;letter-spacing:.02em;margin-bottom:5px}
+.ftbs{font-size:11px;color:rgba(255,255,255,.28);line-height:1.8;margin-bottom:13px}
+.ftct{font-size:9px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+.ftl{list-style:none}
+.ftl li{margin-bottom:7px}
+.ftl a{color:rgba(255,255,255,.27);text-decoration:none;font-size:11.5px;transition:color .15s}
+.ftl a:hover{color:rgba(255,255,255,.65)}
+.ftbot{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:rgba(255,255,255,.18)}
+.ftdisc{font-size:9px;color:rgba(255,255,255,.13);line-height:1.6;margin-top:11px;padding-top:11px;border-top:0.5px solid rgba(255,255,255,.04)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.reveal.visible{opacity:1;transform:none}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding:52px 20px 36px;text-align:center}
+  .hero-r{display:none}
+  section,nav,.fw-bg,.ctabg,footer{padding-left:20px;padding-right:20px}
+  .compat{padding:12px 20px}
+  .pg,.fl,.fgrid,.alrt-layout,.prwrap,.tgrid{grid-template-columns:1fr}
+  .pkpis{grid-template-columns:repeat(3,1fr)}
+  .bt,.bth,.btr{display:none}
+  .ftt{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ticker-track" id="tick"></div></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <div class="nav-brand">
+      <div class="nav-logo">A</div>
+      <span class="nav-name">ABBY <em>Trading Manager</em></span>
+    </div>
+    <ul class="nav-menu">
+      <li><a href="#solutions">¿Para quién?</a></li>
+      <li><a href="#features">Funciones</a></li>
+      <li><a href="#funded">Cuentas Fondeo</a></li>
+      <li><a href="#alerts">Alertas</a></li>
+      <li><a href="#screenshots">Sistema</a></li>
+      <li><a href="#pricing">Planes</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <a href="#" class="btn-ghost">Iniciar sesión</a>
+    <a href="#contact" class="btn-cta">Solicitar demo →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-l">
+    <div class="eyebrow"><span class="livdot"></span>Sistema activo · MT4 / MT5</div>
+    <h1 class="h1">
+      Control total sobre<br>
+      <span class="hl bl">todas tus cuentas</span>
+      <span class="bl">de trading</span>
+    </h1>
+    <p class="hero-p">
+      La plataforma que usan <strong>gestores de carteras, administradores multi-trader y operadores de cuentas fondeadas</strong> para centralizar, automatizar y escalar su operación en MT4/MT5.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-h btn-hp">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
+        Demo gratuita
+      </a>
+      <a href="#screenshots" class="btn-h btn-hg">Ver el sistema</a>
+    </div>
+    <div class="hero-trust">
+      <span class="ti"><span>✓</span>Sin instalación</span>
+      <span class="ti"><span>✓</span>Soporte español</span>
+      <span class="ti"><span>✓</span>14 días gratis</span>
+    </div>
+  </div>
+  <div class="hero-r">
+    <div class="sw">
+      <div class="sw-top"><span class="sw-ttl">Portfolio Overview</span><span class="sw-live"><span class="livdot"></span>LIVE</span></div>
+      <div class="sw-body">
+        <div class="kpis">
+          <div class="kpi"><div class="kpi-l">Balance Total</div><div class="kpi-v kv-b">$248k</div><div class="kpi-s ks-b">12 cuentas</div></div>
+          <div class="kpi"><div class="kpi-l">P&L Mes</div><div class="kpi-v kv-g">+$18,340</div><div class="kpi-s ks-g">+7.4%</div></div>
+          <div class="kpi"><div class="kpi-l">Operaciones</div><div class="kpi-v kv-w">34</div><div class="kpi-s ks-b">abiertas</div></div>
+          <div class="kpi"><div class="kpi-l">Drawdown</div><div class="kpi-v kv-y">4.2%</div><div class="kpi-s ks-b">max 8%</div></div>
+        </div>
+        <div class="stbl">
+          <div class="sth"><div class="sthc">Cuenta</div><div class="sthc">Instrumento</div><div class="sthc">Tipo</div><div class="sthc">Lotes</div><div class="sthc">P&L</div></div>
+          <div class="str"><div class="stc nm">#MT-1042</div><div class="stc">EURUSD</div><div class="stc"><span class="tag tb">BUY</span></div><div class="stc">0.50</div><div class="stc pos">+$340</div></div>
+          <div class="str"><div class="stc nm">#MT-1043</div><div class="stc">XAUUSD</div><div class="stc"><span class="tag ts">SELL</span></div><div class="stc">0.10</div><div class="stc neg">-$82</div></div>
+          <div class="str"><div class="stc nm">#FT-8821</div><div class="stc">GBPUSD</div><div class="stc"><span class="tag tb">BUY</span></div><div class="stc">1.00</div><div class="stc pos">+$215</div></div>
+          <div class="str"><div class="stc nm">#FT-9144</div><div class="stc">NAS100</div><div class="stc"><span class="tag tw">HOLD</span></div><div class="stc">0.25</div><div class="stc pos">+$94</div></div>
+        </div>
+        <div class="salerts">
+          <div class="sa"><span class="sad" style="background:#22c55e;box-shadow:0 0 5px #22c55e"></span><span class="sat"><strong>Copy activo</strong> — 8 sub-cuentas sincronizadas con master</span><span class="satm">14:32</span></div>
+          <div class="sa"><span class="sad" style="background:#fbbf24;box-shadow:0 0 5px #fbbf24"></span><span class="sat"><strong>Alerta DD</strong> — Cuenta #1043 al 6% de drawdown diario</span><span class="satm">14:28</span></div>
+          <div class="sa"><span class="sad" style="background:#22c55e;box-shadow:0 0 5px #22c55e"></span><span class="sat"><strong>FTMO</strong> — Challenge #8821 superó objetivo diario (+1.2%)</span><span class="satm">14:15</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPAT BAR -->
+<div class="compat">
+  <span class="cl">Compatible con</span>
+  <span class="cp"><span class="dot" style="background:#1a6bb5"></span>MetaTrader 4</span>
+  <span class="cp"><span class="dot" style="background:#16a34a"></span>MetaTrader 5</span>
+  <span class="cp"><span class="dot" style="background:#7c3aed"></span>cTrader</span>
+  <span class="cp"><span class="dot" style="background:#dc2626"></span>FIX API</span>
+  <span class="cp"><span class="dot" style="background:#ea580c"></span>REST API</span>
+  <span class="cd"></span>
+  <span class="cbadge">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Encriptación end-to-end · SLA 99.9%
+  </span>
+</div>
+
+<!-- FOR WHOM -->
+<section class="fw-bg" id="solutions">
+  <div class="inner">
+    <div class="se">¿Para quién es?</div>
+    <h2 class="st">Construido para operadores<br>que gestionan en escala</h2>
+    <p class="ss">No importa si administrás 5 o 500 cuentas. Abby Trading Manager se adapta a cada modelo de negocio.</p>
+    <div class="pg reveal">
+      <div class="pc2">
+        <div class="pico" style="background:rgba(26,107,181,.15)">📊</div>
+        <div class="ptag2">Multi-trader</div>
+        <div class="ptt">Administrador de carteras con múltiples traders a cargo</div>
+        <div class="ptd">Supervisás un equipo de traders, cada uno con sus estrategias y cuentas. Necesitás control centralizado, límites de riesgo individuales y reportes consolidados para tus inversores.</div>
+        <div class="ptaglist">
+          <span class="pill">Control por trader</span><span class="pill">Límites de riesgo</span><span class="pill">Reportes inversores</span><span class="pill">Permisos granulares</span>
+        </div>
+      </div>
+      <div class="pc2">
+        <div class="pico" style="background:rgba(22,163,74,.12)">💼</div>
+        <div class="ptag2">Gestor de fondos</div>
+        <div class="ptt">Gestión PAMM/MAM de múltiples cuentas cliente</div>
+        <div class="ptd">Manejás dinero de clientes bajo un modelo PAMM o MAM. Necesitás distribución proporcional de ganancias, reportes individuales y visibilidad total sobre cada sub-cuenta.</div>
+        <div class="ptaglist">
+          <span class="pill">PAMM / MAM nativo</span><span class="pill">Copy trading</span><span class="pill">P&L por cliente</span><span class="pill">Extractos PDF</span>
+        </div>
+      </div>
+      <div class="pc2">
+        <div class="pico" style="background:rgba(251,191,36,.12)">🏆</div>
+        <div class="ptag2">Prop Trader</div>
+        <div class="ptt">Trader fondeado con cuentas en múltiples prop firms</div>
+        <div class="ptd">Operás cuentas en FTMO, The5%ers, E8, Funded Next y otras firmas. Necesitás cumplir reglas de drawdown, trackear objetivos y recibir alertas antes de violar condiciones.</div>
+        <div class="ptaglist">
+          <span class="pill">Control de drawdown</span><span class="pill">Alertas de reglas</span><span class="pill">Múltiples firmas</span><span class="pill">Challenge tracking</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="inner">
+    <div class="se">Funcionalidades</div>
+    <h2 class="st">Todo en un solo panel de control</h2>
+    <p class="ss">Gestioná múltiples cuentas, copiá operaciones, controlá riesgo y reportá resultados desde una sola interfaz.</p>
+    <div class="fl reveal">
+      <div class="flist">
+        <div class="fi act">
+          <div class="fic">📋</div>
+          <div><div class="fitn">Dashboard multi-cuenta en tiempo real</div><div class="fitd">Balance, equity, P&L y posiciones abiertas de todas tus cuentas actualizadas al segundo.</div></div>
+        </div>
+        <div class="fi">
+          <div class="fic">🔁</div>
+          <div><div class="fitn">Copy trading avanzado con lotaje variable</div><div class="fitd">Replicá operaciones de master a N sub-cuentas con ratio independiente, filtros por instrumento y latencia sub-100ms.</div></div>
+        </div>
+        <div class="fi">
+          <div class="fic">🛡️</div>
+          <div><div class="fitn">Gestión de riesgo con reglas automáticas</div><div class="fitd">Stop-loss global, drawdown diario/mensual configurable, cierre automático y bloqueo de nuevas órdenes.</div></div>
+        </div>
+        <div class="fi">
+          <div class="fic">👥</div>
+          <div><div class="fitn">Control por trader con permisos granulares</div><div class="fitd">Límites de riesgo, instrumentos habilitados y niveles de acceso distintos para cada operador.</div></div>
+        </div>
+        <div class="fi">
+          <div class="fic">📈</div>
+          <div><div class="fitn">Reportes y analytics para inversores</div><div class="fitd">Extractos PDF con Sharpe ratio, curva de equity, win-rate y drawdown. Generación automática mensual.</div></div>
+        </div>
+        <div class="fi">
+          <div class="fic">⚡</div>
+          <div><div class="fitn">API REST + Webhooks + EAs</div><div class="fitd">Integrá Expert Advisors, bots Python, señales de TradingView y sistemas externos con API documentada.</div></div>
+        </div>
+      </div>
+      <div class="fscr">
+        <div class="ms">
+          <div class="msb"><span class="mst">Cuentas activas — Vista general</span><span class="msi"><span class="livdot" style="width:5px;height:5px"></span>LIVE</span></div>
+          <div class="msbd">
+            <div class="ar"><div class="an">#MT-1042</div><div class="ab">ICMarkets · MT5</div><div class="ae">$42,180</div><div class="apl" style="color:#22c55e">+$3,240</div><div class="ast"><span class="tag tb" style="font-size:8px">MASTER</span></div></div>
+            <div class="ar"><div class="an">#MT-1050</div><div class="ab">Pepperstone · MT4</div><div class="ae">$18,400</div><div class="apl" style="color:#22c55e">+$1,100</div><div class="ast"><span class="tag" style="font-size:8px;background:rgba(96,165,250,.12);color:#60a5fa">COPY</span></div></div>
+            <div class="ar"><div class="an">#MT-1051</div><div class="ab">Pepperstone · MT4</div><div class="ae">$22,050</div><div class="apl" style="color:#ef4444">-$280</div><div class="ast"><span class="tag" style="font-size:8px;background:rgba(96,165,250,.12);color:#60a5fa">COPY</span></div></div>
+            <div class="ar"><div class="an">#FT-8821</div><div class="ab">FTMO Challenge</div><div class="ae">$102,400</div><div class="apl" style="color:#22c55e">+$2,400</div><div class="ast"><span class="tag" style="font-size:8px;background:rgba(251,191,36,.12);color:#fbbf24">PROP</span></div></div>
+            <div class="ar"><div class="an">#FT-9144</div><div class="ab">The5%ers · Ph.1</div><div class="ae">$50,000</div><div class="apl" style="color:#22c55e">+$830</div><div class="ast"><span class="tag" style="font-size:8px;background:rgba(251,191,36,.12);color:#fbbf24">PROP</span></div></div>
+            <div class="ar"><div class="an">#MT-2201</div><div class="ab">XM · Cliente A</div><div class="ae">$9,200</div><div class="apl" style="color:#22c55e">+$420</div><div class="ast"><span class="tag" style="font-size:8px;background:rgba(22,163,74,.1);color:#22c55e">PAMM</span></div></div>
+            <div class="ar"><div class="an">#MT-2202</div><div class="ab">XM · Cliente B</div><div class="ae">$14,720</div><div class="apl" style="color:#22c55e">+$680</div><div class="ast"><span class="tag" style="font-size:8px;background:rgba(22,163,74,.1);color:#22c55e">PAMM</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENSHOTS -->
+<section class="sshots-bg" id="screenshots">
+  <div class="inner">
+    <div class="se">Capturas del sistema</div>
+    <h2 class="st">Así se ve Abby Trading Manager</h2>
+    <p class="ss">Interfaz institucional diseñada para tomar decisiones rápidas con datos en tiempo real.</p>
+    <div class="stabs">
+      <div class="stab act" onclick="swTab(this,0)">Portfolio Overview</div>
+      <div class="stab" onclick="swTab(this,1)">Alertas & Riesgo</div>
+      <div class="stab" onclick="swTab(this,2)">Copy Trading</div>
+    </div>
+
+    <!-- TAB 0 -->
+    <div class="sdisplay reveal" id="s0">
+      <div class="sbar"><div class="dots"><div class="d" style="background:#ef4444"></div><div class="d" style="background:#fbbf24"></div><div class="d" style="background:#22c55e"></div></div><span class="surl">app.abbyinvestment.com/portfolio</span></div>
+      <div class="sbody">
+        <div class="srow"><div><div class="sh">Portfolio Overview</div><div class="shs">Actualizado hace 2s · 12 cuentas activas</div></div><div style="display:flex;gap:7px"><span style="background:#111c30;border:0.5px solid rgba(255,255,255,.06);color:rgba(255,255,255,.35);padding:4px 11px;border-radius:4px;font-size:9.5px;font-weight:500">MTD</span><span style="background:rgba(26,107,181,.2);border:0.5px solid rgba(26,107,181,.3);color:#60a5fa;padding:4px 11px;border-radius:4px;font-size:9.5px;font-weight:600">YTD</span></div></div>
+        <div class="pkpis">
+          <div class="pk"><div class="pkl">Balance Total</div><div class="pkv b">$248,750</div><div class="pkd b">↑ +$4,320 hoy</div></div>
+          <div class="pk"><div class="pkl">P&L del mes</div><div class="pkv g">+$18,340</div><div class="pkd g">+7.4% mensual</div></div>
+          <div class="pk"><div class="pkl">Drawdown Max</div><div class="pkv y">4.2%</div><div class="pkd b">Límite 8%</div></div>
+          <div class="pk"><div class="pkl">Operaciones</div><div class="pkv w">34</div><div class="pkd b">abiertas</div></div>
+          <div class="pk"><div class="pkl">Win Rate</div><div class="pkv g">68.4%</div><div class="pkd g">↑ mes anterior</div></div>
+        </div>
+        <div class="bt">
+          <div class="bth"><div class="bthc">Cuenta</div><div class="bthc">Broker</div><div class="bthc">Tipo</div><div class="bthc">Equity</div><div class="bthc">P&L hoy</div><div class="bthc">DD actual</div><div class="bthc">Estado</div></div>
+          <div class="btr"><div class="btc nm">#MT-1042</div><div class="btc">ICMarkets MT5</div><div class="btc"><span class="tag tb" style="font-size:8px">MASTER</span></div><div class="btc">$42,180</div><div class="btc g">+$820</div><div class="btc b">2.1%</div><div class="btc"><span class="ok">ACTIVA</span></div></div>
+          <div class="btr"><div class="btc nm">#FT-8821</div><div class="btc">FTMO Challenge</div><div class="btc"><span class="tag" style="font-size:8px;background:rgba(251,191,36,.1);color:#fbbf24">PROP</span></div><div class="btc">$102,400</div><div class="btc g">+$1,200</div><div class="btc b">1.4%</div><div class="btc"><span class="ok">ACTIVA</span></div></div>
+          <div class="btr"><div class="btc nm">#MT-1043</div><div class="btc">Pepperstone MT4</div><div class="btc"><span class="tag" style="font-size:8px;background:rgba(96,165,250,.1);color:#60a5fa">COPY</span></div><div class="btc">$18,400</div><div class="btc r">-$280</div><div class="btc" style="color:#fbbf24;font-weight:600">6.0%</div><div class="btc"><span class="warn">ALERTA</span></div></div>
+          <div class="btr"><div class="btc nm">#MT-2201</div><div class="btc">XM · Cliente A</div><div class="btc"><span class="tag" style="font-size:8px;background:rgba(22,163,74,.1);color:#22c55e">PAMM</span></div><div class="btc">$9,200</div><div class="btc g">+$140</div><div class="btc b">0.8%</div><div class="btc"><span class="ok">ACTIVA</span></div></div>
+          <div class="btr"><div class="btc nm">#FT-9144</div><div class="btc">The5%ers Ph.1</div><div class="btc"><span class="tag" style="font-size:8px;background:rgba(251,191,36,.1);color:#fbbf24">PROP</span></div><div class="btc">$50,000</div><div class="btc g">+$830</div><div class="btc b">0.3%</div><div class="btc"><span class="ok">ACTIVA</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 1 -->
+    <div class="sdisplay reveal" id="s1" style="display:none">
+      <div class="sbar"><div class="dots"><div class="d" style="background:#ef4444"></div><div class="d" style="background:#fbbf24"></div><div class="d" style="background:#22c55e"></div></div><span class="surl">app.abbyinvestment.com/alertas</span></div>
+      <div class="sbody">
+        <div class="srow" style="margin-bottom:8px"><div><div class="sh">Centro de Alertas</div><div class="shs">4 alertas activas · Actualizado hace 8s</div></div><div style="display:flex;gap:6px"><span style="background:rgba(239,68,68,.12);color:#ef4444;border:0.5px solid rgba(239,68,68,.25);padding:3px 9px;border-radius:4px;font-size:9px;font-weight:700">2 CRÍTICAS</span><span style="background:rgba(251,191,36,.1);color:#fbbf24;border:0.5px solid rgba(251,191,36,.2);padding:3px 9px;border-radius:4px;font-size:9px;font-weight:700">2 ALERTAS</span></div></div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <div class="ama" style="background:#1a0f0f;border-color:rgba(239,68,68,.2)"><div class="amaico" style="background:rgba(239,68,68,.12)">🚨</div><div class="amabody"><div class="amat">Límite de drawdown diario — #MT-1043</div><div class="amas">Cuenta Pepperstone llegó al 6%. Límite: 6%. Nuevas órdenes bloqueadas automáticamente.</div><div class="amam"><span class="chip cr">CRÍTICA</span><span class="chip cb">AUTO-EJECUTADA</span><span class="atm">14:28</span></div></div></div>
+          <div class="ama" style="background:#1a0f0f;border-color:rgba(239,68,68,.15)"><div class="amaico" style="background:rgba(239,68,68,.12)">⛔</div><div class="amabody"><div class="amat">Margin level bajo — #MT-1051 en 145%</div><div class="amas">Umbral de 150% superado. Telegram y Email enviados. Acción recomendada: cerrar posiciones.</div><div class="amam"><span class="chip cr">CRÍTICA</span><span class="chip cy">PENDIENTE</span><span class="atm">14:19</span></div></div></div>
+          <div class="ama"><div class="amaico" style="background:rgba(251,191,36,.1)">⚠️</div><div class="amabody"><div class="amat">Objetivo profit 8.4% — FTMO #FT-8821</div><div class="amas">Superaste el umbral de aviso. Objetivo del challenge: 10%. Seguís en camino hacia la fase 2.</div><div class="amam"><span class="chip cy">CHALLENGE</span><span class="chip cg">EN CURSO</span><span class="atm">14:08</span></div></div></div>
+          <div class="ama"><div class="amaico" style="background:rgba(34,197,94,.08)">✅</div><div class="amabody"><div class="amat">Copy trading sincronizado — BUY EURUSD ×8 cuentas</div><div class="amas">8 sub-cuentas replicaron la operación del master. Latencia promedio: 38ms.</div><div class="amam"><span class="chip cg">ÉXITO</span><span class="atm">14:32</span></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2 -->
+    <div class="sdisplay reveal" id="s2" style="display:none">
+      <div class="sbar"><div class="dots"><div class="d" style="background:#ef4444"></div><div class="d" style="background:#fbbf24"></div><div class="d" style="background:#22c55e"></div></div><span class="surl">app.abbyinvestment.com/copy-trading</span></div>
+      <div class="sbody">
+        <div class="srow" style="margin-bottom:8px"><div><div class="sh">Copy Trading — Master #MT-1042</div><div class="shs">8 sub-cuentas activas · Latencia promedio: 38ms</div></div><span style="background:rgba(34,197,94,.1);color:#22c55e;border:0.5px solid rgba(34,197,94,.25);padding:4px 11px;border-radius:4px;font-size:9.5px;font-weight:700">● ACTIVO</span></div>
+        <div class="bt">
+          <div class="bth" style="grid-template-columns:80px 100px 1fr 65px 70px 75px 72px"><div class="bthc">Sub-cuenta</div><div class="bthc">Broker</div><div class="bthc">Cliente</div><div class="bthc">Ratio</div><div class="bthc">P&L copia</div><div class="bthc">Latencia</div><div class="bthc">Estado</div></div>
+          <div class="btr" style="grid-template-columns:80px 100px 1fr 65px 70px 75px 72px"><div class="btc nm">#MT-1050</div><div class="btc">Pepperstone</div><div class="btc" style="color:rgba(255,255,255,.65);font-weight:500;font-family:'Inter',sans-serif">Cliente Álvarez</div><div class="btc b" style="font-weight:600">×0.5</div><div class="btc g">+$1,100</div><div class="btc">32ms</div><div class="btc"><span class="ok">SYNC</span></div></div>
+          <div class="btr" style="grid-template-columns:80px 100px 1fr 65px 70px 75px 72px"><div class="btc nm">#MT-1051</div><div class="btc">Pepperstone</div><div class="btc" style="color:rgba(255,255,255,.65);font-weight:500;font-family:'Inter',sans-serif">Cliente Romero</div><div class="btc b" style="font-weight:600">×1.0</div><div class="btc r">-$280</div><div class="btc">41ms</div><div class="btc"><span class="warn">ALERTA</span></div></div>
+          <div class="btr" style="grid-template-columns:80px 100px 1fr 65px 70px 75px 72px"><div class="btc nm">#MT-2201</div><div class="btc">XM Global</div><div class="btc" style="color:rgba(255,255,255,.65);font-weight:500;font-family:'Inter',sans-serif">Inv. García</div><div class="btc b" style="font-weight:600">×0.25</div><div class="btc g">+$420</div><div class="btc">29ms</div><div class="btc"><span class="ok">SYNC</span></div></div>
+          <div class="btr" style="grid-template-columns:80px 100px 1fr 65px 70px 75px 72px"><div class="btc nm">#MT-2202</div><div class="btc">XM Global</div><div class="btc" style="color:rgba(255,255,255,.65);font-weight:500;font-family:'Inter',sans-serif">Inv. Peralta</div><div class="btc b" style="font-weight:600">×0.75</div><div class="btc g">+$680</div><div class="btc">35ms</div><div class="btc"><span class="ok">SYNC</span></div></div>
+          <div class="btr" style="grid-template-columns:80px 100px 1fr 65px 70px 75px 72px"><div class="btc nm">#MT-2203</div><div class="btc">IC Markets</div><div class="btc" style="color:rgba(255,255,255,.65);font-weight:500;font-family:'Inter',sans-serif">Inv. Torres</div><div class="btc b" style="font-weight:600">×0.5</div><div class="btc g">+$510</div><div class="btc">27ms</div><div class="btc"><span class="ok">SYNC</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNDED -->
+<section id="funded">
+  <div class="inner">
+    <div class="fgrid reveal">
+      <div>
+        <div class="se">Cuentas Fondeadas</div>
+        <h2 class="st">Gestioná tus prop firms sin violar ninguna regla</h2>
+        <p class="ss">Monitoreá el cumplimiento de las reglas de FTMO, The5%ers, E8, Funded Next y cualquier otra firma. El sistema te alerta antes de romper las condiciones.</p>
+        <div class="ffeats">
+          <div class="ffi"><div class="ffic" style="background:rgba(251,191,36,.1)">🎯</div><div><div class="ffit">Tracking de objetivos en tiempo real</div><div class="ffid">Barra de progreso del profit goal, días operados y métricas del challenge actualizadas al segundo.</div></div></div>
+          <div class="ffi"><div class="ffic" style="background:rgba(239,68,68,.1)">🚫</div><div><div class="ffit">Bloqueo automático ante límites de drawdown</div><div class="ffid">Configurás los límites de tu firma y el sistema cierra posiciones y bloquea órdenes antes de violar reglas.</div></div></div>
+          <div class="ffi"><div class="ffic" style="background:rgba(26,107,181,.1)">📊</div><div><div class="ffit">Múltiples challenges en simultáneo</div><div class="ffid">Manejá fases y cuentas financiadas de distintas firmas en un solo panel. FTMO, E8, True Forex Funds y más.</div></div></div>
+          <div class="ffi"><div class="ffic" style="background:rgba(22,163,74,.08)">📅</div><div><div class="ffit">Control de días mínimos de operación</div><div class="ffid">Seguimiento automático para cumplir el requisito mínimo de días operados que exigen muchas prop firms.</div></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="cm">
+          <div class="cmh"><span class="cmt">FTMO Challenge — #FT-8821</span><span class="cmb2">FASE 1 ACTIVA</span></div>
+          <div class="cmbd">
+            <div class="cmr"><span class="cmrl"><strong>Capital</strong> del challenge</span><span class="cmrv" style="color:var(--text)">$100,000</span></div>
+            <div class="pw"><div class="pl2"><span>Objetivo de profit: 10% ($10,000)</span><span style="color:var(--green);font-weight:700">$8,420 / $10,000</span></div><div class="pb"><div class="pf fg" style="width:84.2%"></div></div></div>
+            <div class="pw"><div class="pl2"><span>Max Drawdown: 10% ($10,000)</span><span style="color:#1a6bb5;font-weight:700">$1,380 usado</span></div><div class="pb"><div class="pf fb" style="width:13.8%"></div></div></div>
+            <div class="pw"><div class="pl2"><span>Daily Loss Limit: 5% ($5,000)</span><span style="color:var(--green);font-weight:700">$820 hoy</span></div><div class="pb"><div class="pf fg" style="width:16.4%"></div></div></div>
+            <div class="pw"><div class="pl2"><span>Días mínimos: 4</span><span style="color:var(--green);font-weight:700">8 días ✓</span></div><div class="pb"><div class="pf fg" style="width:100%"></div></div></div>
+            <div class="cmr"><span class="cmrl"><strong>Vence</strong> el challenge</span><span class="cmrv" style="color:var(--yellow)">18 días</span></div>
+            <div class="cmal">
+              <div class="cmat">Alertas configuradas</div>
+              <div class="cma"><div class="cmad" style="background:var(--yellow)"></div><div class="cmatx">Notificar cuando profit supere 8% — <strong>Telegram + Email</strong></div><div class="cmamt">activa</div></div>
+              <div class="cma"><div class="cmad" style="background:var(--red)"></div><div class="cmatx">Bloquear órdenes si daily loss llega a 4% — <strong>Auto</strong></div><div class="cmamt">activa</div></div>
+              <div class="cma"><div class="cmad" style="background:var(--green)"></div><div class="cmatx">Notificar al completar días mínimos — <strong>WhatsApp</strong></div><div class="cmamt">✓</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALERTS -->
+<section id="alerts" style="background:var(--bg2)">
+  <div class="inner">
+    <div class="alrt-layout reveal">
+      <div>
+        <div class="se">Sistema de alertas</div>
+        <h2 class="st">Siempre informado,<br>nunca sorprendido</h2>
+        <p class="ss">Alertas inteligentes por múltiples canales con acciones automáticas configurables para cada cuenta y cada regla.</p>
+        <div class="channels">
+          <div class="ch"><div class="chico" style="background:#e8f5e9">💬</div><div><div class="chn">Telegram</div><div class="chd">Bot dedicado · Tiempo real</div></div></div>
+          <div class="ch"><div class="chico" style="background:#e8f2fb">📧</div><div><div class="chn">Email</div><div class="chd">Resúmenes y alertas</div></div></div>
+          <div class="ch"><div class="chico" style="background:#f0fdf4">📱</div><div><div class="chn">WhatsApp</div><div class="chd">Alertas críticas</div></div></div>
+          <div class="ch"><div class="chico" style="background:#fef9c3">🔔</div><div><div class="chn">Push / Web</div><div class="chd">En la plataforma</div></div></div>
+        </div>
+        <div class="alrt-rows">
+          <div class="ar2"><div class="ar2ico">🔴</div><div><div class="ar2t">Drawdown crítico alcanzado</div><div class="ar2d">Bloqueo automático de órdenes antes de violar reglas</div></div></div>
+          <div class="ar2"><div class="ar2ico">📈</div><div><div class="ar2t">Objetivo de profit alcanzado</div><div class="ar2d">Para challenges de prop firms y metas propias</div></div></div>
+          <div class="ar2"><div class="ar2ico">⚡</div><div><div class="ar2t">Operación ejecutada o copiada</div><div class="ar2d">Confirmación instantánea por cada trade del sistema</div></div></div>
+          <div class="ar2"><div class="ar2ico">⚠️</div><div><div class="ar2t">Margin call / Nivel de margen bajo</div><div class="ar2d">Alerta anticipada antes de llegar al nivel crítico</div></div></div>
+        </div>
+      </div>
+      <div class="alrt-mock">
+        <div class="amh"><span class="amt">Alertas recientes</span><span class="amcnt">4 nuevas</span></div>
+        <div class="ambd">
+          <div class="ama" style="background:#1a0f0f;border-color:rgba(239,68,68,.2)"><div class="amaico" style="background:rgba(239,68,68,.12)">🚨</div><div class="amabody"><div class="amat">Drawdown diario 6% — #MT-1043</div><div class="amas">Límite alcanzado. Nuevas órdenes bloqueadas. Notificado por Telegram y Email.</div><div class="amam"><span class="chip cr">CRÍTICA</span><span class="chip cb">BLOQUEADO</span><span class="atm">14:28</span></div></div></div>
+          <div class="ama"><div class="amaico" style="background:rgba(251,191,36,.1)">🏆</div><div class="amabody"><div class="amat">FTMO — Profit 8.4% acumulado</div><div class="amas">Superaste el umbral de aviso. Objetivo: 10%. Seguís en camino.</div><div class="amam"><span class="chip cy">CHALLENGE</span><span class="chip cg">EN CURSO</span><span class="atm">14:08</span></div></div></div>
+          <div class="ama"><div class="amaico" style="background:rgba(34,197,94,.08)">🔁</div><div class="amabody"><div class="amat">Copy ejecutado — BUY EURUSD ×8 cuentas</div><div class="amas">Operación replicada. Latencia máxima: 44ms.</div><div class="amam"><span class="chip cg">COPIA OK</span><span class="atm">14:32</span></div></div></div>
+          <div class="ama"><div class="amaico" style="background:rgba(96,165,250,.1)">📊</div><div class="amabody"><div class="amat">Reporte mensual generado — 12 cuentas</div><div class="amas">PDF enviado a 5 inversores. Rendimiento promedio: +7.4%.</div><div class="amam"><span class="chip cb">REPORTE</span><span class="atm">09:00</span></div></div></div>
+          <div class="ama"><div class="amaico" style="background:rgba(239,68,68,.1)">📉</div><div class="amabody"><div class="amat">Margin level bajo — #MT-1051 en 145%</div><div class="amas">Por debajo del umbral 150%. Acción: cerrar posiciones o agregar margen.</div><div class="amam"><span class="chip cr">RIESGO</span><span class="chip cy">PENDIENTE</span><span class="atm">14:19</span></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="inner">
+    <div class="se" style="text-align:center">Planes</div>
+    <h2 class="st" style="text-align:center;margin:0 auto 11px">Precios claros para cada nivel</h2>
+    <p class="ss" style="text-align:center;margin:0 auto 48px">14 días de prueba gratuita. Sin tarjeta de crédito.</p>
+    <div class="prwrap reveal">
+      <div class="prc">
+        <div class="prt">Starter</div>
+        <div class="prp">$79 <span class="prpe">/ mes</span></div>
+        <div class="prd">Para traders prop y operadores individuales con pocas cuentas fondeadas.</div>
+        <ul class="prfl">
+          <li class="prf">Hasta 5 cuentas MT4/MT5</li>
+          <li class="prf">Dashboard en tiempo real</li>
+          <li class="prf">Gestión de cuentas fondeadas</li>
+          <li class="prf">Alertas Email y Telegram</li>
+          <li class="prf">Reglas de drawdown automáticas</li>
+          <li class="prf">Reportes mensuales PDF</li>
+        </ul>
+        <button class="prb prbo">Empezar gratis</button>
+      </div>
+      <div class="prc hot">
+        <div class="prhb">Más popular</div>
+        <div class="prt">Professional</div>
+        <div class="prp">$199 <span class="prpe">/ mes</span></div>
+        <div class="prd">Para gestores con múltiples clientes, traders y cuentas fondeadas.</div>
+        <ul class="prfl">
+          <li class="prf">Hasta 30 cuentas MT4/MT5</li>
+          <li class="prf">Copy trading avanzado + MAM/PAMM</li>
+          <li class="prf">Control por trader individual</li>
+          <li class="prf">Multi prop firm tracking</li>
+          <li class="prf">Alertas WhatsApp + Telegram + Email</li>
+          <li class="prf">Reportes profesionales inversores</li>
+          <li class="prf">API REST incluida</li>
+          <li class="prf">Soporte prioritario español</li>
+        </ul>
+        <button class="prb prbs">Empezar gratis</button>
+      </div>
+      <div class="prc">
+        <div class="prt">Enterprise</div>
+        <div class="prp">Custom</div>
+        <div class="prd">Para fondos de inversión y gestoras institucionales.</div>
+        <ul class="prfl">
+          <li class="prf">Cuentas ilimitadas</li>
+          <li class="prf">Infraestructura VPS dedicada</li>
+          <li class="prf">White label disponible</li>
+          <li class="prf">SLA 99.9% garantizado</li>
+          <li class="prf">Integración FIX API</li>
+          <li class="prf">Account manager dedicado</li>
+        </ul>
+        <button class="prb prbo">Hablar con ventas</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="background:var(--bg2)">
+  <div class="inner">
+    <div class="se">Testimonios</div>
+    <h2 class="st">Lo que dicen los que ya lo usan</h2>
+    <p class="ss">Gestores y traders de Latinoamérica y Europa confían en Abby Trading Manager.</p>
+    <div class="tgrid reveal">
+      <div class="tc"><div class="tcs">★★★★★</div><div class="tct">"Manejo 6 traders en mi equipo y antes era un caos. Ahora veo en tiempo real quién opera, cuánto drawdown tiene cada uno y recibo alertas automáticas. Se pagó solo en el primer mes."</div><div class="tca"><div class="tcav">MR</div><div><div class="tcn">Martín Rodríguez</div><div class="tcr">Gestor de cartera · Buenos Aires</div></div></div></div>
+      <div class="tc"><div class="tcs">★★★★★</div><div class="tct">"Tengo 4 challenges activos al mismo tiempo en distintas firmas. Con Abby los veo todos juntos, me avisa cuando estoy cerca del daily loss y nunca más quemé una cuenta por descuido."</div><div class="tca"><div class="tcav">CV</div><div><div class="tcn">Carlos Vega</div><div class="tcr">Prop Trader · FTMO / E8 · Madrid</div></div></div></div>
+      <div class="tc"><div class="tcs">★★★★★</div><div class="tct">"Gestiono las cuentas de 18 inversores. Los reportes PDF que genera el sistema son impecables y mis clientes me los piden cada mes. Me ahorra 15 horas de trabajo manual."</div><div class="tca"><div class="tcav">LP</div><div><div class="tcn">Laura Pérez</div><div class="tcr">Administradora de carteras · Montevideo</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctabg" id="contact">
+  <div style="max-width:600px;margin:0 auto">
+    <div class="se" style="text-align:center;color:#60a5fa">Empezá hoy</div>
+    <h2 class="ctat">Tu operación en el<br>siguiente <span class="hl">nivel</span></h2>
+    <p class="ctas">Sin instalaciones. Sin código. Conectás tus cuentas MT4/MT5 y en minutos tenés control total sobre toda tu operación.</p>
+    <div class="ctabtns">
+      <a href="#" class="btn-h btn-hp" style="font-size:13.5px;padding:12px 26px">Solicitar demo gratuita →</a>
+      <a href="#" class="btn-h btn-hg" style="font-size:13.5px;padding:12px 26px">Ver documentación</a>
+    </div>
+    <div class="ctags">
+      <span class="ctag"><span>✓</span>14 días gratis</span>
+      <span class="ctag"><span>✓</span>Sin tarjeta</span>
+      <span class="ctag"><span>✓</span>Soporte español</span>
+      <span class="ctag"><span>✓</span>Cancelá cuando quieras</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ftin">
+    <div class="ftt">
+      <div>
+        <div class="ftbn">ABBY INVESTMENT</div>
+        <div class="ftbs">Asset Management · Sistema de Gestión Automatizada MT4/MT5<br>Tecnología institucional para gestores profesionales.</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span style="background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.07);color:rgba(255,255,255,.28);padding:2px 9px;border-radius:4px;font-size:9.5px">MT4 Compatible</span>
+          <span style="background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.07);color:rgba(255,255,255,.28);padding:2px 9px;border-radius:4px;font-size:9.5px">MT5 Compatible</span>
+          <span style="background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.07);color:rgba(255,255,255,.28);padding:2px 9px;border-radius:4px;font-size:9.5px">SSL Encriptado</span>
+        </div>
+      </div>
+      <div>
+        <div class="ftct">Producto</div>
+        <ul class="ftl"><li><a href="#">Funcionalidades</a></li><li><a href="#">Cuentas fondeadas</a></li><li><a href="#">Copy Trading</a></li><li><a href="#">API Docs</a></li><li><a href="#">Changelog</a></li></ul>
+      </div>
+      <div>
+        <div class="ftct">Empresa</div>
+        <ul class="ftl"><li><a href="#">Sobre nosotros</a></li><li><a href="#">Blog</a></li><li><a href="#">Partners</a></li><li><a href="#">Contacto</a></li></ul>
+      </div>
+      <div>
+        <div class="ftct">Legal</div>
+        <ul class="ftl"><li><a href="#">Términos de uso</a></li><li><a href="#">Privacidad</a></li><li><a href="#">Aviso de riesgo</a></li></ul>
+      </div>
+    </div>
+    <div class="ftbot"><span>© 2025 Abby Investment. Todos los derechos reservados.</span><span>Sistema de Gestión MT4/MT5</span></div>
+    <div class="ftdisc">El trading de divisas y derivados conlleva un alto nivel de riesgo. El rendimiento pasado no garantiza resultados futuros. Abby Investment no ofrece asesoramiento financiero ni de inversiones.</div>
+  </div>
+</footer>
+
+<script>
+// Ticker
+const pairs=[['EURUSD','1.0842','+0.12%','up'],['XAUUSD','2,318.40','+0.34%','up'],['GBPUSD','1.2701','-0.08%','dn'],['USDJPY','154.82','+0.21%','up'],['NAS100','18,240','+0.55%','up'],['US30','38,420','-0.18%','dn'],['BTCUSD','67,840','+1.2%','up'],['USDCHF','0.9012','-0.05%','dn'],['AUDUSD','0.6542','+0.09%','up'],['WTI','83.40','+0.44%','up'],['EURUSD','1.0842','+0.12%','up'],['XAUUSD','2,318.40','+0.34%','up'],['GBPUSD','1.2701','-0.08%','dn'],['USDJPY','154.82','+0.21%','up'],['NAS100','18,240','+0.55%','up'],['US30','38,420','-0.18%','dn'],['BTCUSD','67,840','+1.2%','up'],['USDCHF','0.9012','-0.05%','dn'],['AUDUSD','0.6542','+0.09%','up'],['WTI','83.40','+0.44%','up']];
+const t=document.getElementById('tick');
+pairs.forEach(([s,v,c,d])=>{const el=document.createElement('div');el.className='ticker-item';el.innerHTML=`<span class="ticker-sym">${s}</span><span class="ticker-val">${v}</span><span class="ticker-chg ${d}">${d==='up'?'▲':'▼'} ${c}</span>`;t.appendChild(el)});
+
+// Tabs
+function swTab(el,idx){document.querySelectorAll('.stab').forEach(t=>t.classList.remove('act'));el.classList.add('act');['s0','s1','s2'].forEach((id,i)=>{document.getElementById(id).style.display=i===idx?'block':'none'})}
+
+// Reveal
+const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*70)})},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}})});
+</script>
+</body>
+</html>

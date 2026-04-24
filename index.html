@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abby Soluciones | Software Factory · Argentina</title>
+<meta name="description" content="Abby Soluciones: desarrollo de software a medida, sistemas empresariales con IA integrada y programadores expertos. Villa María, Córdoba, Argentina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060d1f;
+  --bg2: #0a1228;
+  --bg3: #0f1830;
+  --surface: rgba(255,255,255,0.032);
+  --surface2: rgba(255,255,255,0.055);
+  --accent: #5a7fff;
+  --accent-dim: rgba(90,127,255,0.14);
+  --accent2: #a855f7;
+  --teal: #c084fc;
+  --teal-dim: rgba(192,132,252,0.1);
+  --amber: #f5a623;
+  --rose: #ff4f7b;
+  --text: #e6ecf8;
+  --text2: #7888b0;
+  --text3: #404d70;
+  --border: rgba(160,180,255,0.09);
+  --border2: rgba(90,127,255,0.3);
+  --r: 14px;
+  --r2: 20px;
+  --font-head: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --shadow: 0 24px 60px rgba(0,0,0,0.55);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+h1,h2,h3,h4,h5 { font-family: var(--font-head); }
+
+/* ===== NAV ===== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 68px; padding: 0 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(6,13,31,0.85); backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid var(--border);
+  transition: background .3s;
+}
+.logo {
+  font-family: var(--font-head); font-weight: 800; font-size: 1.15rem;
+  color: var(--text); text-decoration: none;
+  display: flex; align-items: center; gap: 10px; letter-spacing: -0.02em;
+}
+.logo-mark {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: linear-gradient(135deg, #5a7fff, #a855f7);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.05rem; font-weight: 800; color: #fff; flex-shrink: 0;
+  box-shadow: 0 0 24px rgba(168,85,247,0.5);
+}
+.logo em { color: var(--accent); font-style: normal; }
+.nav-links { display: flex; align-items: center; gap: 2rem; }
+.nav-links a { color: var(--text2); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-right { display: flex; align-items: center; gap: .75rem; }
+.btn-nav { background: var(--accent); color: #fff; padding: 9px 22px; border-radius: 9px; text-decoration: none; font-size: 0.875rem; font-weight: 600; font-family: var(--font-body); transition: all .22s; border: none; cursor: pointer; }
+.btn-nav:hover { background: #3a68f0; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(79,124,255,.35); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 5px; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all .3s; }
+.mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(6,9,18,0.98); backdrop-filter: blur(20px); padding: 2rem 2.5rem; flex-direction: column; gap: 1.5rem; z-index: 199; border-bottom: 1px solid var(--border); }
+.mobile-menu a { color: var(--text); text-decoration: none; font-size: 1.1rem; font-weight: 500; font-family: var(--font-head); }
+.mobile-menu.open { display: flex; }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; padding: 8rem 2rem 5rem; position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(90,127,255,0.2) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 60%, rgba(168,85,247,0.16) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 35% at 12% 70%, rgba(192,132,252,0.07) 0%, transparent 55%);
+}
+.hero-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 45%, black 10%, transparent 100%);
+}
+.hero-particles {
+  position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+}
+.hero-particles span {
+  position: absolute; border-radius: 50%;
+  animation: float-particle linear infinite;
+  opacity: 0.4;
+}
+@keyframes float-particle {
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.2; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(90,127,255,0.1); border: 1px solid rgba(160,180,255,0.25);
+  color: #a0b4ff; padding: 6px 18px; border-radius: 100px;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 2rem; font-family: var(--font-body);
+}
+.hero-eyebrow::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: blink 2.2s ease-in-out infinite; }
+@keyframes blink { 0%,100% { opacity: 1; box-shadow: 0 0 6px var(--accent); } 50% { opacity: .3; box-shadow: none; } }
+.hero h1 {
+  font-size: clamp(2.1rem, 5.5vw, 4.6rem); font-weight: 700;
+  line-height: 1.08; letter-spacing: -0.01em; margin-bottom: 1.5rem;
+  max-width: 900px;
+}
+.hero h1 .grad {
+  background: linear-gradient(120deg, #5a7fff 0%, #a855f7 60%, #c084fc 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-sub { font-size: 1.08rem; color: var(--text2); max-width: 560px; margin: 0 auto 2.75rem; font-weight: 300; line-height: 1.9; }
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.btn-primary {
+  background: var(--accent); color: #fff; padding: 14px 32px; border-radius: 10px;
+  text-decoration: none; font-weight: 600; font-size: 0.97rem;
+  display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-body);
+  border: none; cursor: pointer; transition: all .25s;
+}
+.btn-primary:hover { background: #3a68f0; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(79,124,255,.38); }
+.btn-outline {
+  background: transparent; color: var(--text); padding: 14px 32px; border-radius: 10px;
+  text-decoration: none; font-weight: 500; font-size: 0.97rem;
+  display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-body);
+  border: 1px solid var(--border); transition: all .25s;
+}
+.btn-outline:hover { border-color: rgba(255,255,255,.22); background: var(--surface); }
+.hero-stats {
+  display: flex; gap: 4rem; margin-top: 5.5rem; flex-wrap: wrap; justify-content: center;
+  padding-top: 3.5rem; border-top: 1px solid var(--border); width: 100%; max-width: 800px;
+}
+.stat-num { font-family: var(--font-head); font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; color: var(--text); }
+.stat-num em { color: var(--accent); font-style: normal; }
+.stat-label { font-size: 0.72rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; font-weight: 500; }
+
+/* ===== SECTIONS BASE ===== */
+section { padding: 6.5rem 2rem; }
+.container { max-width: 1160px; margin: 0 auto; }
+.section-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1rem; font-family: var(--font-body);
+}
+.section-tag::before { content: ''; width: 22px; height: 1px; background: var(--accent); }
+.section-title { font-size: clamp(1.7rem, 3.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.01em; line-height: 1.18; margin-bottom: 1rem; }
+.section-sub { color: var(--text2); font-size: 1rem; max-width: 520px; line-height: 1.85; font-weight: 300; }
+.fade-up { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+.fade-up.visible { opacity: 1; transform: none; }
+
+/* ===== SERVICES ===== */
+.services-bg { background: var(--bg2); }
+.services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border-radius: var(--r2); overflow: hidden; margin-top: 4rem; }
+.svc-card { background: var(--bg2); padding: 2.75rem; position: relative; overflow: hidden; transition: background .25s; }
+.svc-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; opacity: 0; transition: opacity .3s; }
+.svc-card:hover { background: var(--bg3); }
+.svc-card:hover::after { opacity: 1; }
+.svc-card.c1::after { background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+.svc-card.c2::after { background: linear-gradient(90deg, transparent, var(--accent2), transparent); }
+.svc-card.c3::after { background: linear-gradient(90deg, transparent, var(--teal), transparent); }
+.svc-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.75rem; font-size: 1.5rem; }
+.icon-blue { background: rgba(79,124,255,.13); }
+.icon-purple { background: rgba(124,58,237,.13); }
+.icon-teal { background: rgba(0,212,184,.13); }
+.svc-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .75rem; letter-spacing: -0.02em; }
+.svc-card p { color: var(--text2); font-size: 0.9rem; line-height: 1.8; font-weight: 300; }
+.svc-pill { display: inline-block; margin-top: 1.5rem; background: rgba(79,124,255,.09); color: #7fa3ff; border: 1px solid rgba(79,124,255,.22); font-size: 0.7rem; padding: 4px 12px; border-radius: 100px; font-weight: 500; }
+
+/* ===== AI SECTION ===== */
+.ai-strip {
+  background: linear-gradient(135deg, rgba(90,127,255,.08), rgba(168,85,247,.07), rgba(192,132,252,.06));
+  border-top: 1px solid rgba(90,127,255,.12); border-bottom: 1px solid rgba(168,85,247,.1);
+  padding: 6rem 2rem;
+}
+.ai-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; max-width: 1160px; margin: 0 auto; }
+.ai-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(168,85,247,.1); border: 1px solid rgba(168,85,247,.28);
+  color: #c084fc; padding: 6px 15px; border-radius: 100px;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  margin-bottom: 1.5rem; font-family: var(--font-body);
+}
+.ai-badge::before { content: '✦'; font-size: .7rem; }
+.ai-feats { display: flex; flex-direction: column; gap: 1.1rem; margin-top: 2rem; }
+.ai-feat { display: flex; align-items: flex-start; gap: 13px; }
+.ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); flex-shrink: 0; margin-top: 10px; box-shadow: 0 0 8px rgba(0,212,184,.5); }
+.ai-feat p { color: var(--text2); font-size: 0.9rem; font-weight: 300; line-height: 1.75; }
+.ai-feat p strong { color: var(--text); font-weight: 500; }
+.ai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.ai-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 1.5rem; text-align: center; transition: border-color .25s;
+}
+.ai-card:hover { border-color: rgba(0,212,184,.3); }
+.ai-card-ico { font-size: 1.9rem; margin-bottom: .7rem; }
+.ai-card h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: .35rem; }
+.ai-card p { font-size: 0.77rem; color: var(--text2); font-weight: 300; line-height: 1.6; }
+.ai-card-wide { grid-column: span 2; display: flex; align-items: center; gap: 1.25rem; text-align: left; }
+.ai-card-wide h4 { font-size: .88rem; font-weight: 700; margin-bottom: 3px; }
+
+/* ===== PRODUCTS ===== */
+.products-section { background: var(--bg); }
+.products-header { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 2rem; margin-bottom: 4rem; }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 1.5rem; }
+.product-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r2); overflow: hidden; transition: all .3s;
+  position: relative; display: flex; flex-direction: column;
+}
+.product-card:hover { border-color: var(--border2); transform: translateY(-6px); box-shadow: 0 24px 50px rgba(0,0,0,.5); }
+.product-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(79,124,255,.7), transparent);
+  opacity: 0; transition: opacity .35s;
+}
+.product-card:hover::before { opacity: 1; }
+
+/* Product screenshot mockup */
+.product-screen {
+  width: 100%; height: 160px; overflow: hidden; position: relative;
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.product-screen svg { width: 100%; height: 100%; }
+.product-body { padding: 1.75rem; flex: 1; display: flex; flex-direction: column; }
+.product-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; }
+.product-ico { font-size: 1.6rem; flex-shrink: 0; }
+.product-name { font-family: var(--font-head); font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; }
+.product-cat {
+  display: inline-block; background: rgba(79,124,255,.09); color: #7fa3ff;
+  border: 1px solid rgba(79,124,255,.2); font-size: 0.67rem; padding: 3px 10px;
+  border-radius: 100px; margin-bottom: .9rem; font-weight: 500;
+}
+.product-desc { color: var(--text2); font-size: 0.875rem; line-height: 1.8; font-weight: 300; flex: 1; }
+.product-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 1.25rem; }
+.pill { background: rgba(255,255,255,.04); color: var(--text3); font-size: 0.68rem; padding: 3px 10px; border-radius: 100px; border: 1px solid var(--border); }
+.pill-ai { background: rgba(168,85,247,.1); color: #c084fc; border-color: rgba(168,85,247,.25); }
+
+/* Product card custom */
+.product-cta-card {
+  background: linear-gradient(135deg, rgba(79,124,255,.1), rgba(124,58,237,.1));
+  border-color: rgba(79,124,255,.25);
+  justify-content: center; align-items: flex-start; padding: 2.5rem;
+}
+
+/* ===== DEV SECTION ===== */
+.dev-bg { background: var(--bg2); }
+.dev-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.dev-feats { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2.5rem; }
+.dev-feat { display: flex; gap: 1rem; align-items: flex-start; }
+.dev-feat-ico {
+  width: 42px; height: 42px; border-radius: 11px;
+  background: rgba(79,124,255,.1); border: 1px solid rgba(79,124,255,.22);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.1rem;
+}
+.dev-feat h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 3px; }
+.dev-feat p { color: var(--text2); font-size: 0.87rem; font-weight: 300; line-height: 1.65; }
+.code-block {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 1.5rem; font-family: 'Courier New', monospace;
+  font-size: 0.82rem; line-height: 1.9; margin-bottom: 1rem;
+}
+.code-dots { display: flex; gap: 6px; margin-bottom: 1.25rem; }
+.cd { width: 11px; height: 11px; border-radius: 50%; }
+.cg { color: #4ade80; } .cb { color: #60a5fa; } .co { color: #fb923c; } .cm { color: #444; } .cp { color: #a78bfa; } .cc { color: #5eead4; }
+.profile-stack { display: flex; flex-direction: column; gap: .9rem; }
+.profile-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: .9rem 1.1rem;
+  display: flex; align-items: center; gap: 1rem; transition: border-color .22s;
+}
+.profile-card:hover { border-color: rgba(79,124,255,.3); }
+.avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #5a7fff, #a855f7); display: flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 700; font-size: 0.8rem; flex-shrink: 0; color: #fff; }
+.profile-info h4 { font-size: 0.88rem; font-weight: 600; margin-bottom: 2px; }
+.profile-info p { font-size: 0.77rem; color: var(--text2); font-weight: 300; }
+.profile-badge { margin-left: auto; background: rgba(90,127,255,.12); color: #a0b4ff; border: 1px solid rgba(90,127,255,.25); font-size: 0.67rem; padding: 3px 11px; border-radius: 100px; font-weight: 600; white-space: nowrap; }
+
+/* ===== PROCESS ===== */
+.process-bg { background: var(--bg); }
+.process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; margin-top: 4.5rem; position: relative; }
+.process-grid::before { content: ''; position: absolute; top: 26px; left: 14%; right: 14%; height: 1px; background: linear-gradient(90deg, transparent, var(--border), rgba(79,124,255,.4), var(--border), transparent); }
+.process-step { text-align: center; padding: 0 1.5rem; position: relative; }
+.step-circle { width: 52px; height: 52px; border-radius: 50%; background: var(--bg3); border: 1px solid rgba(160,180,255,.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-family: var(--font-head); font-weight: 800; font-size: 0.9rem; color: var(--accent); position: relative; z-index: 1; }
+.process-step h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: .5rem; }
+.process-step p { color: var(--text2); font-size: 0.84rem; font-weight: 300; line-height: 1.7; }
+
+/* ===== TECH ===== */
+.tech-bg { background: var(--bg2); }
+.tech-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 3rem; }
+.tech-chip {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 7px 16px; border-radius: 8px; font-size: 0.83rem; color: var(--text2);
+  transition: all .22s; cursor: default;
+}
+.tech-chip:hover { border-color: rgba(79,124,255,.4); color: var(--accent); background: rgba(79,124,255,.07); }
+
+/* ===== TESTIMONIALS ===== */
+.test-bg { background: var(--bg); }
+.test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px,1fr)); gap: 1.25rem; margin-top: 4rem; }
+.test-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r2); padding: 2rem; transition: border-color .25s; }
+.test-card:hover { border-color: rgba(79,124,255,.25); }
+.stars { color: var(--amber); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 1rem; }
+.test-card p { color: var(--text2); font-size: 0.91rem; line-height: 1.85; font-weight: 300; font-style: italic; }
+.test-author { display: flex; align-items: center; gap: 12px; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+.test-ava { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--accent2), var(--accent)); display: flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 700; font-size: 0.78rem; color: #fff; }
+.test-name { font-size: 0.87rem; font-weight: 600; }
+.test-role { font-size: 0.77rem; color: var(--text3); font-weight: 300; }
+
+/* ===== CTA ===== */
+.cta-section {
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(90,127,255,.14), transparent 70%), radial-gradient(ellipse 40% 30% at 80% 50%, rgba(168,85,247,.1), transparent 60%), var(--bg2);
+  border-top: 1px solid rgba(79,124,255,.1); padding: 7rem 2rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
+  background-size: 55px 55px;
+}
+.cta-section h2 { font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem; max-width: 680px; margin-left: auto; margin-right: auto; }
+.cta-section p { color: var(--text2); font-size: 1.05rem; margin-bottom: 2.5rem; font-weight: 300; }
+.contact-cards { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 3.5rem; }
+.contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem 2rem; text-align: center; min-width: 170px; }
+.cc-ico { font-size: 1.5rem; margin-bottom: .75rem; }
+.contact-card h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: .4rem; }
+.contact-card p { font-size: 0.82rem; color: var(--text2); font-weight: 300; }
+
+/* ===== FOOTER ===== */
+footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4rem 2rem 2rem; }
+.footer-inner { max-width: 1160px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+.footer-brand p { color: var(--text2); font-size: 0.88rem; line-height: 1.75; font-weight: 300; margin-top: .75rem; max-width: 260px; }
+.footer-col h4 { font-family: var(--font-head); font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; color: var(--text); }
+.footer-col a { display: block; color: var(--text3); text-decoration: none; font-size: 0.84rem; margin-bottom: .6rem; transition: color .2s; font-weight: 300; }
+.footer-col a:hover { color: var(--text); }
+.footer-bottom { border-top: 1px solid var(--border); padding-top: 1.75rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-bottom p { color: var(--text3); font-size: 0.8rem; }
+.social-links { display: flex; gap: 1.25rem; }
+.social-links a { color: var(--text3); text-decoration: none; font-size: 0.82rem; transition: color .2s; }
+.social-links a:hover { color: var(--accent); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .ai-inner, .dev-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .services-grid { grid-template-columns: 1fr; }
+  .process-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .process-grid::before { display: none; }
+  .hero-stats { gap: 2rem; }
+  .footer-top { grid-template-columns: 1fr; }
+  .products-header { flex-direction: column; align-items: flex-start; }
+  .btn-nav { display: none; }
+}
+@media (max-width: 480px) {
+  .process-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2.1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#inicio" class="logo"><div class="logo-mark">A</div>Abby <em>Soluciones</em></a>
+  <div class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#productos">Productos</a>
+    <a href="#ia">IA</a>
+    <a href="#programadores">Programadores</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <div class="nav-right">
+    <a href="#contacto" class="btn-nav">Hablemos →</a>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#servicios" onclick="toggleMenu()">Servicios</a>
+  <a href="#productos" onclick="toggleMenu()">Productos</a>
+  <a href="#ia" onclick="toggleMenu()">IA & Tendencias</a>
+  <a href="#programadores" onclick="toggleMenu()">Programadores</a>
+  <a href="#contacto" onclick="toggleMenu()">Contacto</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-particles" id="heroParticles"></div>
+  <div class="hero-eyebrow">Software que impulsa negocios reales</div>
+  <h1>
+    Soluciones digitales que<br>
+    <span class="grad">transforman tu empresa</span>
+  </h1>
+  <p class="hero-sub">Desarrollamos software a medida, ofrecemos sistemas empresariales con IA integrada y ponemos programadores expertos a disposición cuando los necesitás.</p>
+  <div class="hero-ctas">
+    <a href="#productos" class="btn-primary">Ver nuestros productos</a>
+    <a href="#contacto" class="btn-outline">Hablar con nosotros →</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">7<em>+</em></div><div class="stat-label">Productos propios</div></div>
+    <div class="stat"><div class="stat-num">50<em>+</em></div><div class="stat-label">Proyectos entregados</div></div>
+    <div class="stat"><div class="stat-num">5<em>+</em></div><div class="stat-label">Años en el mercado</div></div>
+    <div class="stat"><div class="stat-num">100<em>%</em></div><div class="stat-label">Remoto & presencial</div></div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="services-bg" id="servicios">
+  <div class="container">
+    <div class="fade-up">
+      <span class="section-tag">Lo que hacemos</span>
+      <h2 class="section-title">Tres formas de ayudarte a crecer</h2>
+      <p class="section-sub">Desde desarrollo 100% a medida hasta sistemas listos para usar — siempre con IA integrada.</p>
+    </div>
+    <div class="services-grid fade-up">
+      <div class="svc-card c1">
+        <div class="svc-icon icon-blue">⚙️</div>
+        <h3>Software Factory</h3>
+        <p>Construimos el sistema que tu empresa necesita, desde cero. Relevamiento detallado, arquitectura sólida, desarrollo ágil y entrega con soporte. Proyectos web, mobile y de escritorio — del tamaño que sea.</p>
+        <span class="svc-pill">100% a medida</span>
+      </div>
+      <div class="svc-card c2">
+        <div class="svc-icon icon-purple">📦</div>
+        <h3>Sistemas Listos con IA</h3>
+        <p>7 plataformas empresariales desarrolladas internamente, probadas en el mercado y listas para implementar. Personalizables bajo tu marca con configuración en días, no meses.</p>
+        <span class="svc-pill">Deploy rápido</span>
+      </div>
+      <div class="svc-card c3">
+        <div class="svc-icon icon-teal">👨‍💻</div>
+        <h3>Programadores On-Demand</h3>
+        <p>¿Necesitás reforzar tu equipo? Ponemos desarrolladores experimentados a disposición de tu empresa. Se integran a tus procesos, tu stack y tu cultura. Flexibles y rápidos.</p>
+        <span class="svc-pill">Integración inmediata</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IA -->
+<section class="ai-strip" id="ia">
+  <div class="ai-inner">
+    <div class="fade-up">
+      <div class="ai-badge">Inteligencia Artificial & Tendencias</div>
+      <h2 class="section-title">Construimos con las herramientas del futuro — hoy</h2>
+      <p class="section-sub">Integrar IA ya no es una opción: es la diferencia entre crecer y quedarse atrás. En Abby incorporamos inteligencia artificial en cada solución que entregamos.</p>
+      <div class="ai-feats">
+        <div class="ai-feat"><div class="ai-dot"></div><p><strong>Automatización inteligente:</strong> flujos de trabajo que se adaptan solos, eliminando tareas repetitivas y errores humanos.</p></div>
+        <div class="ai-feat"><div class="ai-dot"></div><p><strong>Asistentes y agentes IA:</strong> chatbots y agentes autónomos integrados a tus sistemas para atención y operación 24/7.</p></div>
+        <div class="ai-feat"><div class="ai-dot"></div><p><strong>Análisis predictivo:</strong> dashboards inteligentes que anticipan tendencias y mejoran la toma de decisiones.</p></div>
+        <div class="ai-feat"><div class="ai-dot"></div><p><strong>Procesamiento de documentos:</strong> OCR con IA, lectura automática de facturas, contratos y formularios.</p></div>
+        <div class="ai-feat"><div class="ai-dot"></div><p><strong>Integración de LLMs:</strong> OpenAI, Claude, Gemini, Llama — el modelo que mejor se adapte a tu caso y presupuesto.</p></div>
+      </div>
+    </div>
+    <div class="ai-grid fade-up">
+      <div class="ai-card"><div class="ai-card-ico">🤖</div><h4>Agentes de IA</h4><p>Tareas autónomas integradas a tu flujo de trabajo</p></div>
+      <div class="ai-card"><div class="ai-card-ico">📊</div><h4>Business Intelligence</h4><p>Insights en tiempo real sobre tu negocio</p></div>
+      <div class="ai-card"><div class="ai-card-ico">🔐</div><h4>IA Segura & Privada</h4><p>Modelos locales para datos sensibles</p></div>
+      <div class="ai-card"><div class="ai-card-ico">⚙️</div><h4>Automatización RPA</h4><p>Eliminamos procesos repetitivos con bots inteligentes</p></div>
+      <div class="ai-card ai-card-wide"><div style="font-size:1.8rem;flex-shrink:0">✦</div><div><h4>Cualquier modelo de lenguaje, a tu medida</h4><p style="color:var(--text2);font-size:.8rem;font-weight:300;margin-top:3px">GPT-4o · Claude · Gemini · Llama · Mistral</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTOS -->
+<section class="products-section" id="productos">
+  <div class="container">
+    <div class="fade-up products-header">
+      <div>
+        <span class="section-tag">Nuestros sistemas</span>
+        <h2 class="section-title">7 plataformas propias, listas para tu empresa</h2>
+        <p class="section-sub">Desarrollados internamente, probados en el mercado y mejorados continuamente con feedback real de usuarios.</p>
+      </div>
+    </div>
+    <div class="products-grid fade-up">
+
+      <!-- AbbyPamm -->
+      <div class="product-card">
+        <div class="product-screen">
+          <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="160" fill="#090d1a"/>
+            <!-- Top bar -->
+            <rect x="0" y="0" width="400" height="28" fill="#0a1228"/>
+            <rect x="10" y="8" width="60" height="12" rx="3" fill="#1a2848"/>
+            <rect x="78" y="8" width="50" height="12" rx="3" fill="#1a2848"/>
+            <rect x="136" y="8" width="50" height="12" rx="3" fill="#1a2848"/>
+            <circle cx="376" cy="14" r="8" fill="#4f7cff" opacity=".5"/>
+            <!-- Chart area -->
+            <polyline points="20,110 60,85 100,95 140,60 180,75 220,45 260,55 300,30 340,40 380,25" fill="none" stroke="#4f7cff" stroke-width="2" opacity=".8"/>
+            <polyline points="20,110 60,85 100,95 140,60 180,75 220,45 260,55 300,30 340,40 380,25 380,160 20,160" fill="url(#g1)" opacity=".2"/>
+            <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4f7cff"/><stop offset="100%" stop-color="transparent"/></linearGradient></defs>
+            <!-- Stats row -->
+            <rect x="10" y="128" width="80" height="22" rx="5" fill="#0d1632"/>
+            <rect x="100" y="128" width="80" height="22" rx="5" fill="#0d1632"/>
+            <rect x="190" y="128" width="80" height="22" rx="5" fill="#0d1632"/>
+            <rect x="280" y="128" width="80" height="22" rx="5" fill="#0d1632"/>
+            <text x="18" y="143" fill="#4f7cff" font-size="8" font-family="monospace">+18.4%</text>
+            <text x="108" y="143" fill="#00d4b8" font-size="8" font-family="monospace">$2.4M ARS</text>
+            <text x="198" y="143" fill="#9ba3c0" font-size="8" font-family="monospace">12 Carteras</text>
+            <text x="288" y="143" fill="#f5a623" font-size="8" font-family="monospace">Rend. anual</text>
+            <!-- Dots on line -->
+            <circle cx="220" cy="45" r="4" fill="#4f7cff"/>
+            <circle cx="300" cy="30" r="4" fill="#4f7cff"/>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-header">
+            <div class="product-ico">📈</div>
+            <div class="product-name">AbbyPamm</div>
+          </div>
+          <div class="product-cat">Gestión de Inversiones</div>
+          <div class="product-desc">Plataforma completa para administrar carteras de inversión de manera profesional. Seguí múltiples activos financieros, gestioná portfolios de varios clientes, analizá rendimientos históricos y generá reportes en tiempo real. Ideal para asesores financieros, fondos y family offices.</div>
+          <div class="product-pills"><span class="pill">Multi-cartera</span><span class="pill">Reportes PDF</span><span class="pill pill-ai">IA Predictiva</span><span class="pill">API Financiera</span></div>
+        </div>
+      </div>
+
+      <!-- SmartComerce -->
+      <div class="product-card">
+        <div class="product-screen">
+          <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="160" fill="#060d1f"/>
+            <rect x="0" y="0" width="400" height="28" fill="#0a1228"/>
+            <text x="14" y="18" fill="#9ba3c0" font-size="9" font-family="sans-serif">SmartComerce · Panel de Ventas</text>
+            <rect x="330" y="6" width="60" height="16" rx="4" fill="#4f7cff" opacity=".8"/>
+            <text x="340" y="18" fill="#fff" font-size="8" font-family="sans-serif">+ Nuevo</text>
+            <!-- Bars chart -->
+            <rect x="20" y="95" width="22" height="35" rx="3" fill="#4f7cff" opacity=".5"/>
+            <rect x="50" y="80" width="22" height="50" rx="3" fill="#4f7cff" opacity=".6"/>
+            <rect x="80" y="65" width="22" height="65" rx="3" fill="#4f7cff" opacity=".7"/>
+            <rect x="110" y="75" width="22" height="55" rx="3" fill="#4f7cff" opacity=".6"/>
+            <rect x="140" y="55" width="22" height="75" rx="3" fill="#4f7cff" opacity=".9"/>
+            <rect x="170" y="70" width="22" height="60" rx="3" fill="#4f7cff" opacity=".7"/>
+            <rect x="200" y="45" width="22" height="85" rx="3" fill="#4f7cff"/>
+            <!-- Side stats -->
+            <rect x="260" y="35" width="120" height="110" rx="8" fill="#0a1228"/>
+            <text x="272" y="55" fill="#9ba3c0" font-size="8" font-family="sans-serif">Ventas del mes</text>
+            <text x="272" y="72" fill="#eef0f8" font-size="14" font-weight="bold" font-family="monospace">$482.500</text>
+            <rect x="272" y="78" width="90" height="1" fill="#1a2848"/>
+            <text x="272" y="95" fill="#9ba3c0" font-size="8" font-family="sans-serif">Stock crítico</text>
+            <text x="272" y="110" fill="#ff4f7b" font-size="11" font-family="monospace">4 artículos</text>
+            <rect x="272" y="116" width="90" height="1" fill="#1a2848"/>
+            <text x="272" y="132" fill="#9ba3c0" font-size="8" font-family="sans-serif">Online / Físico</text>
+            <text x="272" y="144" fill="#00d4b8" font-size="10" font-family="monospace">68% / 32%</text>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-header">
+            <div class="product-ico">🛒</div>
+            <div class="product-name">SmartComerce</div>
+          </div>
+          <div class="product-cat">Gestión + eCommerce</div>
+          <div class="product-desc">El todo-en-uno para negocios con presencia digital. Administrá empresa, stock y ventas desde un único lugar con tienda online integrada. Sincronización automática entre punto de venta físico y canal digital — sin doble carga.</div>
+          <div class="product-pills"><span class="pill">eCommerce</span><span class="pill">POS</span><span class="pill">Stock</span><span class="pill pill-ai">Recomendaciones IA</span></div>
+        </div>
+      </div>
+
+      <!-- Journal Trading -->
+      <div class="product-card">
+        <div class="product-screen">
+          <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="160" fill="#060d1f"/>
+            <rect x="0" y="0" width="400" height="28" fill="#0a1228"/>
+            <text x="14" y="18" fill="#9ba3c0" font-size="9" font-family="sans-serif">Trading Journal · Mis Operaciones</text>
+            <!-- Table header -->
+            <rect x="10" y="32" width="380" height="18" rx="3" fill="#0a1228"/>
+            <text x="16" y="44" fill="#5c6480" font-size="7.5" font-family="sans-serif">Par</text>
+            <text x="80" y="44" fill="#5c6480" font-size="7.5" font-family="sans-serif">Tipo</text>
+            <text x="130" y="44" fill="#5c6480" font-size="7.5" font-family="sans-serif">Entrada</text>
+            <text x="195" y="44" fill="#5c6480" font-size="7.5" font-family="sans-serif">Salida</text>
+            <text x="260" y="44" fill="#5c6480" font-size="7.5" font-family="sans-serif">P&L</text>
+            <text x="320" y="44" fill="#5c6480" font-size="7.5" font-family="sans-serif">Estado</text>
+            <!-- Rows -->
+            <rect x="10" y="52" width="380" height="17" rx="2" fill="#08112a"/>
+            <text x="16" y="64" fill="#eef0f8" font-size="8" font-family="monospace">EUR/USD</text>
+            <rect x="78" y="54" width="30" height="12" rx="3" fill="rgba(79,124,255,0.2)"/>
+            <text x="82" y="64" fill="#7fa3ff" font-size="7.5" font-family="sans-serif">LONG</text>
+            <text x="130" y="64" fill="#9ba3c0" font-size="7.5" font-family="monospace">1.0842</text>
+            <text x="195" y="64" fill="#9ba3c0" font-size="7.5" font-family="monospace">1.0891</text>
+            <text x="260" y="64" fill="#4ade80" font-size="8" font-family="monospace">+$248</text>
+            <rect x="318" y="54" width="40" height="12" rx="3" fill="rgba(0,212,184,0.15)"/>
+            <text x="324" y="64" fill="#00d4b8" font-size="7" font-family="sans-serif">WIN ✓</text>
+
+            <rect x="10" y="71" width="380" height="17" rx="2" fill="transparent"/>
+            <text x="16" y="83" fill="#eef0f8" font-size="8" font-family="monospace">GBP/USD</text>
+            <rect x="78" y="73" width="32" height="12" rx="3" fill="rgba(255,79,123,0.18)"/>
+            <text x="81" y="83" fill="#ff4f7b" font-size="7.5" font-family="sans-serif">SHORT</text>
+            <text x="130" y="83" fill="#9ba3c0" font-size="7.5" font-family="monospace">1.2654</text>
+            <text x="195" y="83" fill="#9ba3c0" font-size="7.5" font-family="monospace">1.2698</text>
+            <text x="260" y="83" fill="#ff4f7b" font-size="8" font-family="monospace">-$112</text>
+            <rect x="318" y="73" width="40" height="12" rx="3" fill="rgba(255,79,123,0.15)"/>
+            <text x="323" y="83" fill="#ff4f7b" font-size="7" font-family="sans-serif">LOSS ✗</text>
+
+            <rect x="10" y="90" width="380" height="17" rx="2" fill="#08112a"/>
+            <text x="16" y="102" fill="#eef0f8" font-size="8" font-family="monospace">XAU/USD</text>
+            <rect x="78" y="92" width="30" height="12" rx="3" fill="rgba(79,124,255,0.2)"/>
+            <text x="82" y="102" fill="#7fa3ff" font-size="7.5" font-family="sans-serif">LONG</text>
+            <text x="130" y="102" fill="#9ba3c0" font-size="7.5" font-family="monospace">2312.4</text>
+            <text x="195" y="102" fill="#9ba3c0" font-size="7.5" font-family="monospace">2341.0</text>
+            <text x="260" y="102" fill="#4ade80" font-size="8" font-family="monospace">+$580</text>
+            <rect x="318" y="92" width="40" height="12" rx="3" fill="rgba(0,212,184,0.15)"/>
+            <text x="324" y="102" fill="#00d4b8" font-size="7" font-family="sans-serif">WIN ✓</text>
+            <!-- Stats -->
+            <rect x="10" y="115" width="115" height="35" rx="6" fill="#0a1228"/>
+            <text x="20" y="128" fill="#5c6480" font-size="7.5" font-family="sans-serif">Win Rate</text>
+            <text x="20" y="144" fill="#4ade80" font-size="13" font-weight="bold" font-family="monospace">68.4%</text>
+            <rect x="135" y="115" width="115" height="35" rx="6" fill="#0a1228"/>
+            <text x="145" y="128" fill="#5c6480" font-size="7.5" font-family="sans-serif">Profit Factor</text>
+            <text x="145" y="144" fill="#eef0f8" font-size="13" font-weight="bold" font-family="monospace">2.31</text>
+            <rect x="260" y="115" width="130" height="35" rx="6" fill="#0a1228"/>
+            <text x="270" y="128" fill="#5c6480" font-size="7.5" font-family="sans-serif">P&L Neto</text>
+            <text x="270" y="144" fill="#4ade80" font-size="13" font-weight="bold" font-family="monospace">+$2,840</text>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-header">
+            <div class="product-ico">📒</div>
+            <div class="product-name">Journal Trading</div>
+          </div>
+          <div class="product-cat">Bitácora de Operaciones</div>
+          <div class="product-desc">Bitácora profesional para traders. Registrá cada trade con contexto, tags y notas. Analizá tus patrones de comportamiento, identificá errores recurrentes y medí el rendimiento individual y grupal de tu equipo con estadísticas accionables.</div>
+          <div class="product-pills"><span class="pill">Multi-operador</span><span class="pill">Estadísticas</span><span class="pill pill-ai">Análisis IA</span><span class="pill">Exportación</span></div>
+        </div>
+      </div>
+
+      <!-- TechLogic -->
+      <div class="product-card">
+        <div class="product-screen">
+          <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="160" fill="#060d1f"/>
+            <rect x="0" y="0" width="400" height="28" fill="#0a1228"/>
+            <text x="14" y="18" fill="#9ba3c0" font-size="9" font-family="sans-serif">TechLogic · Mapa de Flotas en Vivo</text>
+            <!-- Map background -->
+            <rect x="10" y="32" width="240" height="118" rx="6" fill="#080e22"/>
+            <!-- Grid lines (map) -->
+            <line x1="10" y1="60" x2="250" y2="60" stroke="#1a2440" stroke-width="1"/>
+            <line x1="10" y1="90" x2="250" y2="90" stroke="#1a2440" stroke-width="1"/>
+            <line x1="10" y1="120" x2="250" y2="120" stroke="#1a2440" stroke-width="1"/>
+            <line x1="70" y1="32" x2="70" y2="150" stroke="#1a2440" stroke-width="1"/>
+            <line x1="130" y1="32" x2="130" y2="150" stroke="#1a2440" stroke-width="1"/>
+            <line x1="190" y1="32" x2="190" y2="150" stroke="#1a2440" stroke-width="1"/>
+            <!-- Route line -->
+            <polyline points="30,120 70,105 110,90 150,70 190,58 230,48" fill="none" stroke="#4f7cff" stroke-width="1.5" stroke-dasharray="4,3" opacity=".7"/>
+            <!-- Trucks -->
+            <circle cx="110" cy="90" r="7" fill="#4f7cff" opacity=".9"/>
+            <text x="107" y="93" fill="#fff" font-size="7">🚛</text>
+            <circle cx="160" cy="68" r="7" fill="#00d4b8" opacity=".9"/>
+            <text x="157" y="71" fill="#fff" font-size="7">🚛</text>
+            <circle cx="58" cy="112" r="7" fill="#f5a623" opacity=".9"/>
+            <text x="55" y="115" fill="#fff" font-size="7">🚛</text>
+            <!-- Right panel -->
+            <rect x="258" y="32" width="132" height="118" rx="6" fill="#0a1228"/>
+            <text x="268" y="50" fill="#5c6480" font-size="7.5" font-family="sans-serif">ESTADO FLOTA</text>
+            <rect x="268" y="54" width="110" height="1" fill="#1a2848"/>
+            <circle cx="276" cy="68" r="4" fill="#4f7cff"/>
+            <text x="285" y="72" fill="#eef0f8" font-size="8" font-family="sans-serif">Unidad #A14</text>
+            <text x="285" y="83" fill="#4ade80" font-size="7.5" font-family="sans-serif">En ruta · 92 km/h</text>
+            <circle cx="276" cy="96" r="4" fill="#00d4b8"/>
+            <text x="285" y="100" fill="#eef0f8" font-size="8" font-family="sans-serif">Unidad #B07</text>
+            <text x="285" y="111" fill="#4ade80" font-size="7.5" font-family="sans-serif">En ruta · 78 km/h</text>
+            <circle cx="276" cy="124" r="4" fill="#f5a623"/>
+            <text x="285" y="128" fill="#eef0f8" font-size="8" font-family="sans-serif">Unidad #C03</text>
+            <text x="285" y="139" fill="#f5a623" font-size="7.5" font-family="sans-serif">Parada · 8 min</text>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-header">
+            <div class="product-ico">🚛</div>
+            <div class="product-name">TechLogic</div>
+          </div>
+          <div class="product-cat">Logística & Transporte</div>
+          <div class="product-desc">Sistema integral para empresas de logística y transporte de cargas. Gestión de flotas, rutas optimizadas por IA, trazabilidad de envíos en tiempo real, control de conductores y tablero de métricas operativas.</div>
+          <div class="product-pills"><span class="pill">Flotas</span><span class="pill">Tracking GPS</span><span class="pill pill-ai">Rutas IA</span><span class="pill">Remitos</span></div>
+        </div>
+      </div>
+
+      <!-- AdminFound -->
+      <div class="product-card">
+        <div class="product-screen">
+          <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="160" fill="#060d1f"/>
+            <rect x="0" y="0" width="400" height="28" fill="#0a1228"/>
+            <text x="14" y="18" fill="#9ba3c0" font-size="9" font-family="sans-serif">AdminFound · Panel de Socios</text>
+            <!-- Sidebar -->
+            <rect x="10" y="32" width="100" height="118" rx="6" fill="#0a1228"/>
+            <rect x="20" y="44" width="78" height="18" rx="4" fill="#4f7cff" opacity=".15"/>
+            <text x="28" y="57" fill="#7fa3ff" font-size="8" font-family="sans-serif">👥 Socios</text>
+            <text x="28" y="75" fill="#5c6480" font-size="8" font-family="sans-serif">💰 Cuotas</text>
+            <text x="28" y="93" fill="#5c6480" font-size="8" font-family="sans-serif">🔔 Alertas</text>
+            <text x="28" y="111" fill="#5c6480" font-size="8" font-family="sans-serif">📄 Recibos</text>
+            <text x="28" y="129" fill="#5c6480" font-size="8" font-family="sans-serif">📊 Reportes</text>
+            <!-- Main content -->
+            <rect x="118" y="32" width="272" height="55" rx="6" fill="#0a1228"/>
+            <text x="130" y="50" fill="#5c6480" font-size="7.5" font-family="sans-serif">Total socios</text>
+            <text x="130" y="66" fill="#eef0f8" font-size="14" font-weight="bold" font-family="monospace">1.284</text>
+            <rect x="210" y="32" width="1" height="55" fill="#1a2848"/>
+            <text x="222" y="50" fill="#5c6480" font-size="7.5" font-family="sans-serif">Al día</text>
+            <text x="222" y="66" fill="#4ade80" font-size="14" font-weight="bold" font-family="monospace">1.156</text>
+            <rect x="300" y="32" width="1" height="55" fill="#1a2848"/>
+            <text x="312" y="50" fill="#5c6480" font-size="7.5" font-family="sans-serif">Morosos</text>
+            <text x="312" y="66" fill="#ff4f7b" font-size="14" font-weight="bold" font-family="monospace">128</text>
+            <!-- Table -->
+            <rect x="118" y="93" width="272" height="57" rx="6" fill="#0a1228"/>
+            <rect x="118" y="93" width="272" height="14" rx="0" fill="#0a0e1c" rx="6"/>
+            <text x="126" y="103" fill="#5c6480" font-size="7" font-family="sans-serif">SOCIO</text>
+            <text x="230" y="103" fill="#5c6480" font-size="7" font-family="sans-serif">CATEGORÍA</text>
+            <text x="320" y="103" fill="#5c6480" font-size="7" font-family="sans-serif">ESTADO</text>
+            <text x="126" y="119" fill="#eef0f8" font-size="7.5" font-family="sans-serif">García, Juan Carlos</text>
+            <text x="230" y="119" fill="#9ba3c0" font-size="7.5" font-family="sans-serif">Activo</text>
+            <rect x="318" y="111" width="40" height="11" rx="3" fill="rgba(0,212,184,0.15)"/>
+            <text x="323" y="120" fill="#00d4b8" font-size="7" font-family="sans-serif">Al día</text>
+            <text x="126" y="135" fill="#eef0f8" font-size="7.5" font-family="sans-serif">Rodríguez, María</text>
+            <text x="230" y="135" fill="#9ba3c0" font-size="7.5" font-family="sans-serif">Vitalicio</text>
+            <rect x="318" y="127" width="40" height="11" rx="3" fill="rgba(255,79,123,0.15)"/>
+            <text x="322" y="136" fill="#ff4f7b" font-size="7" font-family="sans-serif">Moroso</text>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-header">
+            <div class="product-ico">🏛️</div>
+            <div class="product-name">AdminFound</div>
+          </div>
+          <div class="product-cat">Administración de Socios</div>
+          <div class="product-desc">La solución definitiva para clubes, mutuales, colegios profesionales y organizaciones. Administrá membresías, categorías, cuotas y cobranzas desde un panel centralizado con notificaciones automáticas y recibos digitales.</div>
+          <div class="product-pills"><span class="pill">Socios</span><span class="pill">Cuotas</span><span class="pill">Cobranza digital</span><span class="pill">Notificaciones</span></div>
+        </div>
+      </div>
+
+      <!-- we-Wallet -->
+      <div class="product-card">
+        <div class="product-screen">
+          <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="160" fill="#060d1f"/>
+            <rect x="0" y="0" width="400" height="28" fill="#0a1228"/>
+            <text x="14" y="18" fill="#9ba3c0" font-size="9" font-family="sans-serif">we-Wallet · Dashboard</text>
+            <!-- Card mockup -->
+            <rect x="10" y="36" width="175" height="100" rx="10" fill="url(#wg)"/>
+            <defs><linearGradient id="wg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4f7cff"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient></defs>
+            <text x="24" y="56" fill="rgba(255,255,255,0.7)" font-size="8" font-family="sans-serif">we-Wallet</text>
+            <text x="24" y="80" fill="#fff" font-size="13" font-weight="bold" font-family="monospace">$ 48.250,00</text>
+            <text x="24" y="94" fill="rgba(255,255,255,0.7)" font-size="7.5" font-family="sans-serif">Saldo disponible</text>
+            <text x="24" y="118" fill="rgba(255,255,255,0.6)" font-size="9" font-family="monospace">**** **** **** 4821</text>
+            <!-- Transactions -->
+            <rect x="195" y="36" width="195" height="118" rx="6" fill="#0a1228"/>
+            <text x="205" y="52" fill="#5c6480" font-size="7.5" font-family="sans-serif">ÚLTIMOS MOVIMIENTOS</text>
+            <rect x="205" y="55" width="175" height="1" fill="#1a2848"/>
+            <text x="205" y="70" fill="#eef0f8" font-size="8" font-family="sans-serif">Transferencia recibida</text>
+            <text x="330" y="70" fill="#4ade80" font-size="8" font-family="monospace">+$5.000</text>
+            <text x="205" y="82" fill="#5c6480" font-size="7" font-family="sans-serif">Hoy 14:32</text>
+            <rect x="205" y="88" width="175" height="1" fill="#1a1e2e"/>
+            <text x="205" y="103" fill="#eef0f8" font-size="8" font-family="sans-serif">Pago con QR</text>
+            <text x="330" y="103" fill="#ff4f7b" font-size="8" font-family="monospace">-$1.200</text>
+            <text x="205" y="115" fill="#5c6480" font-size="7" font-family="sans-serif">Ayer 11:10</text>
+            <rect x="205" y="121" width="175" height="1" fill="#1a1e2e"/>
+            <text x="205" y="136" fill="#eef0f8" font-size="8" font-family="sans-serif">Recarga de saldo</text>
+            <text x="330" y="136" fill="#4ade80" font-size="8" font-family="monospace">+$20.000</text>
+            <text x="205" y="148" fill="#5c6480" font-size="7" font-family="sans-serif">Lun 09:00</text>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-header">
+            <div class="product-ico">💳</div>
+            <div class="product-name">we-Wallet</div>
+          </div>
+          <div class="product-cat">Billetera / Banco White Label</div>
+          <div class="product-desc">Lanzá tu propia billetera digital o banco bajo tu marca en tiempo récord. Plataforma white label personalizable: cuentas virtuales, transferencias, pagos con QR, recarga y panel de administración. Antifraude por IA incluido.</div>
+          <div class="product-pills"><span class="pill">White Label</span><span class="pill">Fintech</span><span class="pill pill-ai">Antifraude IA</span><span class="pill">CVU/CBU</span></div>
+        </div>
+      </div>
+
+      <!-- SmartBalance -->
+      <div class="product-card">
+        <div class="product-screen">
+          <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="160" fill="#060d1f"/>
+            <rect x="0" y="0" width="400" height="28" fill="#0a1228"/>
+            <text x="14" y="18" fill="#9ba3c0" font-size="9" font-family="sans-serif">SmartBalance · Resumen Contable</text>
+            <!-- Donut chart -->
+            <circle cx="80" cy="100" r="44" fill="none" stroke="#1e2a4a" stroke-width="12"/>
+            <circle cx="80" cy="100" r="44" fill="none" stroke="#4f7cff" stroke-width="12" stroke-dasharray="110 166" stroke-dashoffset="-20" stroke-linecap="round"/>
+            <circle cx="80" cy="100" r="44" fill="none" stroke="#00d4b8" stroke-width="12" stroke-dasharray="56 220" stroke-dashoffset="-130" stroke-linecap="round"/>
+            <text x="80" y="96" fill="#eef0f8" font-size="11" text-anchor="middle" font-weight="bold" font-family="monospace">$1.2M</text>
+            <text x="80" y="110" fill="#5c6480" font-size="8" text-anchor="middle" font-family="sans-serif">Total</text>
+            <!-- Legend and data -->
+            <rect x="145" y="36" width="240" height="114" rx="6" fill="#0a1228"/>
+            <text x="157" y="54" fill="#5c6480" font-size="7.5" font-family="sans-serif">ESTADO DE RESULTADOS</text>
+            <rect x="157" y="57" width="215" height="1" fill="#1a2848"/>
+            <text x="157" y="73" fill="#eef0f8" font-size="8" font-family="sans-serif">Ingresos totales</text>
+            <text x="310" y="73" fill="#4ade80" font-size="8" font-family="monospace">$1.842.400</text>
+            <text x="157" y="88" fill="#eef0f8" font-size="8" font-family="sans-serif">Egresos operativos</text>
+            <text x="310" y="88" fill="#ff4f7b" font-size="8" font-family="monospace">$654.200</text>
+            <text x="157" y="103" fill="#eef0f8" font-size="8" font-family="sans-serif">Resultado bruto</text>
+            <text x="310" y="103" fill="#eef0f8" font-size="8" font-family="monospace">$1.188.200</text>
+            <rect x="157" y="107" width="215" height="1" fill="#1a2848"/>
+            <text x="157" y="122" fill="#9ba3c0" font-size="8" font-family="sans-serif">Impuestos estimados</text>
+            <text x="310" y="122" fill="#f5a623" font-size="8" font-family="monospace">$178.230</text>
+            <rect x="157" y="126" width="215" height="2" fill="#1a2848"/>
+            <text x="157" y="143" fill="#eef0f8" font-size="9" font-weight="bold" font-family="sans-serif">Resultado neto</text>
+            <text x="305" y="143" fill="#4ade80" font-size="9" font-weight="bold" font-family="monospace">$1.009.970</text>
+          </svg>
+        </div>
+        <div class="product-body">
+          <div class="product-header">
+            <div class="product-ico">⚖️</div>
+            <div class="product-name">SmartBalance</div>
+          </div>
+          <div class="product-cat">Contabilidad & Balances</div>
+          <div class="product-desc">Sé tu propio contador. SmartBalance te guía para realizar balances profesionales con firma digital incluida. Carga de asientos, conciliación bancaria, estados contables y exportación lista para AFIP, bancos o inversores.</div>
+          <div class="product-pills"><span class="pill">Balances</span><span class="pill">Firma digital</span><span class="pill pill-ai">Sugerencias IA</span><span class="pill">AFIP</span></div>
+        </div>
+      </div>
+
+      <!-- Custom CTA -->
+      <div class="product-card product-cta-card">
+        <div style="font-size:2.2rem;margin-bottom:1.25rem">✦</div>
+        <div class="product-name" style="font-size:1.15rem;margin-bottom:.75rem">¿Necesitás algo a medida?</div>
+        <div class="product-desc" style="margin-bottom:2rem">Si ninguno de nuestros sistemas encaja exactamente, lo construimos desde cero para tu negocio. Contanos el desafío y lo resolvemos juntos.</div>
+        <a href="#contacto" class="btn-primary" style="font-size:.88rem;padding:11px 24px">Hablar con nosotros →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMADORES -->
+<section class="dev-bg" id="programadores">
+  <div class="container">
+    <div class="dev-inner">
+      <div class="fade-up">
+        <span class="section-tag">Talento tecnológico</span>
+        <h2 class="section-title">Programadores listos para sumarse a tu equipo</h2>
+        <p class="section-sub">Accedé a desarrolladores senior con experiencia real en proyectos complejos. Sin proceso de selección largo ni costos de hiring.</p>
+        <div class="dev-feats">
+          <div class="dev-feat">
+            <div class="dev-feat-ico">⚡</div>
+            <div><h4>Disponibles en 48hs</h4><p>Sin procesos de selección largos. El programador ideal para tu stack listo para empezar rápido.</p></div>
+          </div>
+          <div class="dev-feat">
+            <div class="dev-feat-ico">🎯</div>
+            <div><h4>Senior comprobado</h4><p>Todos tienen proyectos reales como respaldo. Mínimo 4 años de experiencia en tecnologías actuales.</p></div>
+          </div>
+          <div class="dev-feat">
+            <div class="dev-feat-ico">🔄</div>
+            <div><h4>Modalidad flexible</h4><p>Part-time, full-time o por proyecto. Escalable según tus necesidades mes a mes.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="code-block">
+          <div class="code-dots"><div class="cd" style="background:#ff5f56"></div><div class="cd" style="background:#ffbd2e"></div><div class="cd" style="background:#27c93f"></div></div>
+          <span class="cm">// team.config.ts</span><br>
+          <span class="cp">const</span> <span class="cb">team</span> = {<br>
+          &nbsp;&nbsp;<span class="co">ubicacion</span>: <span class="cg">"Villa María, Argentina"</span>,<br>
+          &nbsp;&nbsp;<span class="co">stack</span>: [<span class="cg">"React"</span>, <span class="cg">"Node"</span>, <span class="cg">"Python"</span>, <span class="cg">"IA"</span>],<br>
+          &nbsp;&nbsp;<span class="co">experiencia</span>: <span class="cb">"+5 años promedio"</span>,<br>
+          &nbsp;&nbsp;<span class="co">zona</span>: <span class="cg">"GMT-3 · Argentina"</span>,<br>
+          &nbsp;&nbsp;<span class="co">disponibles</span>: <span class="cb">true</span><br>
+          }<br><br>
+          <span class="cp">export default</span> <span class="cb">team</span> <span class="cm">// ✓ ready to join</span>
+        </div>
+        <div class="profile-stack">
+          <div class="profile-card">
+            <div class="avatar">MG</div>
+            <div class="profile-info"><h4>Martín G.</h4><p>Senior Full Stack · React / Node · 6 años</p></div>
+            <span class="profile-badge">Disponible</span>
+          </div>
+          <div class="profile-card">
+            <div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">LR</div>
+            <div class="profile-info"><h4>Laura R.</h4><p>Mobile · React Native & Flutter · 4 años</p></div>
+            <span class="profile-badge">Disponible</span>
+          </div>
+          <div class="profile-card">
+            <div class="avatar" style="background:linear-gradient(135deg,#00d4b8,#4f7cff)">JP</div>
+            <div class="profile-info"><h4>Joaquín P.</h4><p>IA / ML Engineer · Python · 5 años</p></div>
+            <span class="profile-badge">Disponible</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section class="process-bg" id="proceso">
+  <div class="container">
+    <div class="fade-up" style="text-align:center">
+      <span class="section-tag">Cómo trabajamos</span>
+      <h2 class="section-title">Un proceso simple y transparente</h2>
+      <p class="section-sub" style="margin:0 auto">Claridad desde el inicio, iteración constante y resultados medibles en cada proyecto.</p>
+    </div>
+    <div class="process-grid fade-up">
+      <div class="process-step">
+        <div class="step-circle">01</div>
+        <h4>Descubrimiento</h4>
+        <p>Entendemos tu negocio en profundidad antes de escribir una sola línea de código.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">02</div>
+        <h4>Propuesta</h4>
+        <p>Plan claro con alcance, tiempos, tecnología y presupuesto. Sin letra chica.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">03</div>
+        <h4>Desarrollo</h4>
+        <p>Sprints semanales con demos reales. Siempre sabés exactamente cómo va tu proyecto.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">04</div>
+        <h4>Entrega & Soporte</h4>
+        <p>Lanzamos, capacitamos tu equipo y te acompañamos con soporte continuo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="tech-bg" id="tecnologias">
+  <div class="container">
+    <div class="fade-up">
+      <span class="section-tag">Stack tecnológico</span>
+      <h2 class="section-title">Tecnologías que usamos a diario</h2>
+      <div class="tech-chips">
+        <span class="tech-chip">React</span><span class="tech-chip">Next.js</span><span class="tech-chip">Vue.js</span><span class="tech-chip">TypeScript</span>
+        <span class="tech-chip">Node.js</span><span class="tech-chip">Python</span><span class="tech-chip">.NET / C#</span><span class="tech-chip">Java / Spring</span>
+        <span class="tech-chip">React Native</span><span class="tech-chip">Flutter</span><span class="tech-chip">PostgreSQL</span><span class="tech-chip">MongoDB</span>
+        <span class="tech-chip">AWS</span><span class="tech-chip">Docker</span><span class="tech-chip">Kubernetes</span><span class="tech-chip">GitHub Actions</span>
+        <span class="tech-chip">OpenAI API</span><span class="tech-chip">LangChain</span><span class="tech-chip">Claude API</span><span class="tech-chip">RAG / Embeddings</span>
+        <span class="tech-chip">GraphQL</span><span class="tech-chip">Redis</span><span class="tech-chip">Stripe / MercadoPago</span><span class="tech-chip">Figma</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="test-bg" id="testimonios">
+  <div class="container">
+    <div class="fade-up" style="text-align:center">
+      <span class="section-tag">Clientes</span>
+      <h2 class="section-title">Lo que dicen quienes trabajan con nosotros</h2>
+    </div>
+    <div class="test-grid fade-up">
+      <div class="test-card">
+        <div class="stars">★★★★★</div>
+        <p>"AbbyPamm cambió la forma en que gestionamos las carteras de nuestros clientes. Antes vivíamos en planillas de Excel; hoy tenemos todo centralizado con reportes automáticos que me ahorran horas cada semana."</p>
+        <div class="test-author">
+          <div class="test-ava">RC</div>
+          <div><div class="test-name">Roberto C.</div><div class="test-role">Asesor Financiero Independiente</div></div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="stars">★★★★★</div>
+        <p>"Necesitábamos lanzar nuestra billetera digital rápido y we-Wallet fue exactamente lo que buscábamos. En semanas teníamos nuestra propia plataforma funcionando bajo nuestra marca. El equipo de Abby es muy profesional."</p>
+        <div class="test-author">
+          <div class="test-ava" style="background:linear-gradient(135deg,#7c3aed,#4f7cff)">AM</div>
+          <div><div class="test-name">Ana M.</div><div class="test-role">CEO, Startup Fintech</div></div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="stars">★★★★★</div>
+        <p>"SmartComerce nos permitió unificar el negocio físico con la tienda online en un solo sistema. Las ventas crecieron un 40% en el primer trimestre porque dejamos de perder pedidos por falta de sincronización de inventario."</p>
+        <div class="test-author">
+          <div class="test-ava" style="background:linear-gradient(135deg,#f5a623,#ef4444)">FP</div>
+          <div><div class="test-name">Federico P.</div><div class="test-role">Dueño, Casa de electrodomésticos</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACTO -->
+<section class="cta-section" id="contacto">
+  <div class="container" style="position:relative;z-index:1">
+    <div class="fade-up">
+      <h2>¿Listo para llevar tu empresa al siguiente nivel?</h2>
+      <p>Contanos tu proyecto y te respondemos en menos de 24 horas.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <a href="/cdn-cgi/l/email-protection#a3cbcccfc2e3c2c1c1dad0cccfd6c0cacccdc6d08dc0ccce" class="btn-primary">✉ Escribinos</a>
+        <a href="https://wa.me/5493534000000" class="btn-outline">💬 WhatsApp</a>
+      </div>
+      <div class="contact-cards">
+        <div class="contact-card"><div class="cc-ico">📍</div><h4>Ubicación</h4><p>Villa María, Córdoba<br>Argentina</p></div>
+        <div class="contact-card"><div class="cc-ico">✉️</div><h4>Email</h4><p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82eaedeee3c2e3e0e0fbf1edeef7e1ebedece7f1ace1edef">[email&#160;protected]</a></p></div>
+        <div class="contact-card"><div class="cc-ico">🕐</div><h4>Horario</h4><p>Lun–Vie · 9 a 18hs<br>GMT-3</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#inicio" class="logo"><div class="logo-mark">A</div>Abby <em>Soluciones</em></a>
+        <p>Software que transforma empresas. Desarrollo a medida, sistemas con IA y talento tecnológico para cuando lo necesités.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <a href="#servicios">Software Factory</a>
+        <a href="#productos">Sistemas Listos</a>
+        <a href="#programadores">Programadores</a>
+        <a href="#ia">IA & Tendencias</a>
+      </div>
+      <div class="footer-col">
+        <h4>Productos</h4>
+        <a href="#productos">AbbyPamm</a>
+        <a href="#productos">SmartComerce</a>
+        <a href="#productos">Journal Trading</a>
+        <a href="#productos">TechLogic</a>
+        <a href="#productos">AdminFound</a>
+        <a href="#productos">we-Wallet</a>
+        <a href="#productos">SmartBalance</a>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <a href="#proceso">Cómo trabajamos</a>
+        <a href="#tecnologias">Tecnologías</a>
+        <a href="#testimonios">Testimonios</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Abby Soluciones. Todos los derechos reservados. Villa María, Córdoba, Argentina.</p>
+      <div class="social-links">
+        <a href="#">LinkedIn</a>
+        <a href="#">GitHub</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Particles
+const container = document.getElementById('heroParticles');
+for(let i=0;i<18;i++){
+  const s = document.createElement('span');
+  const size = Math.random()*3+1;
+  s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;background:${['#5a7fff','#a855f7','#c084fc','#e6ecf8'][Math.floor(Math.random()*4)]};animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*10}s`;
+  container.appendChild(s);
+}
+
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').style.background =
+    window.scrollY > 50 ? 'rgba(6,13,31,0.99)' : 'rgba(6,13,31,0.85)';
+});
+
+// Mobile menu
+function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('open'); 
+}
+
+// Fade in on scroll
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

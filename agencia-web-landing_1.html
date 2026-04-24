@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebCraft Studio — Sitios Web a Medida + Tienda + App</title>
+  <meta name="description" content="Creamos tu sitio web profesional, tienda online y app móvil a medida. Programador exclusivo asignado a tu proyecto. Presencia digital de alto impacto sin comisiones." />
+  <meta name="keywords" content="diseño web a medida, página web profesional, tienda online, app móvil, desarrollo web Argentina, agencia web" />
+  <link rel="canonical" href="https://webcraftstudio.com.ar/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#09090e;--surface:#101016;--surface2:#161620;
+      --border:rgba(255,255,255,0.07);--text:#eeeef5;--muted:#7878a0;
+      --accent:#7c6fff;--accent2:#00e5b8;--accent3:#ff7262;
+      --font-head:'Fraunces',serif;--font-body:'Plus Jakarta Sans',sans-serif;
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.6;overflow-x:hidden}
+    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+    .scroll-line{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:200;transition:width .1s linear}
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(9,9,14,.85);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+    .nav-logo{font-family:var(--font-head);font-weight:900;font-size:1.4rem;color:var(--text);text-decoration:none;letter-spacing:-.02em;font-style:italic}
+    .nav-logo span{color:var(--accent);font-style:normal}
+    .nav-links{display:flex;gap:32px;list-style:none}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:.875rem;font-weight:500;transition:color .2s}
+    .nav-links a:hover{color:var(--text)}
+    .nav-cta{background:var(--accent);color:#fff;padding:10px 22px;border-radius:8px;text-decoration:none;font-size:.875rem;font-weight:600;transition:opacity .2s,transform .2s}
+    .nav-cta:hover{opacity:.85;transform:translateY(-1px)}
+    /* HERO */
+    .hero{min-height:100vh;display:flex;align-items:center;padding:130px 48px 80px;position:relative;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 72% 38%,rgba(124,111,255,.17) 0%,transparent 60%),radial-gradient(ellipse 35% 45% at 15% 75%,rgba(0,229,184,.09) 0%,transparent 55%)}
+    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:64px 64px}
+    .hero-content{position:relative;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;width:100%}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,111,255,.1);border:1px solid rgba(124,111,255,.3);border-radius:100px;padding:6px 16px;font-size:.78rem;font-weight:600;color:var(--accent);margin-bottom:22px;letter-spacing:.03em}
+    .hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent2);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
+    .hero-title{font-family:var(--font-head);font-size:clamp(2.8rem,5.2vw,4.5rem);font-weight:900;line-height:1.08;letter-spacing:-.02em;margin-bottom:22px}
+    .hero-title em{font-style:italic;font-weight:300;background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-desc{color:var(--muted);font-size:1.05rem;font-weight:400;line-height:1.75;margin-bottom:38px;max-width:460px}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+    .btn-primary{background:linear-gradient(135deg,var(--accent),#a78bfa);color:#fff;padding:14px 30px;border-radius:10px;text-decoration:none;font-weight:700;font-size:.95rem;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 24px rgba(124,111,255,.4)}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(124,111,255,.55)}
+    .btn-secondary{background:transparent;color:var(--text);padding:14px 30px;border-radius:10px;text-decoration:none;font-weight:500;font-size:.95rem;border:1px solid var(--border);transition:border-color .2s,background .2s;display:flex;align-items:center;gap:8px}
+    .btn-secondary:hover{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.04)}
+    .hero-visual{position:relative}
+    .browser-mockup{background:var(--surface);border-radius:16px;border:1px solid var(--border);overflow:hidden;box-shadow:0 36px 80px rgba(0,0,0,.65),0 0 60px rgba(124,111,255,.1);animation:floatAnim 6s ease-in-out infinite}
+    @keyframes floatAnim{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    .browser-bar{background:var(--surface2);padding:11px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+    .browser-dots{display:flex;gap:6px}
+    .bd{width:10px;height:10px;border-radius:50%}
+    .bd:nth-child(1){background:#ff5f57}.bd:nth-child(2){background:#febc2e}.bd:nth-child(3){background:#28c840}
+    .browser-url{background:var(--bg);border-radius:6px;padding:5px 12px;font-size:.72rem;color:var(--muted);flex:1}
+    .browser-body{background:linear-gradient(145deg,#1a1535 0%,#0f2040 60%,#051830 100%);min-height:290px;display:flex;flex-direction:column}
+    .bm-nav{background:rgba(255,255,255,.04);padding:13px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.04)}
+    .bm-logo{width:72px;height:10px;background:var(--accent);border-radius:4px}
+    .bm-links{display:flex;gap:10px}
+    .bm-link{width:38px;height:6px;background:rgba(255,255,255,.18);border-radius:3px}
+    .bm-hero{padding:28px 18px;flex:1}
+    .bm-h1{width:72%;height:13px;background:linear-gradient(90deg,rgba(255,255,255,.88),rgba(255,255,255,.4));border-radius:4px;margin-bottom:9px}
+    .bm-h2{width:52%;height:13px;background:linear-gradient(90deg,var(--accent2),transparent);border-radius:4px;margin-bottom:14px}
+    .bm-p{height:6px;background:rgba(255,255,255,.13);border-radius:3px;margin-bottom:7px}
+    .bm-btn{margin-top:14px;display:inline-block;padding:7px 18px;background:var(--accent);border-radius:6px;font-size:.62rem;color:white;font-family:var(--font-body);font-weight:600}
+    .bm-cards{display:flex;gap:8px;padding:10px 18px}
+    .bm-card{flex:1;background:rgba(255,255,255,.05);border-radius:8px;height:58px;border:1px solid rgba(255,255,255,.05)}
+    /* STATS */
+    .stats-bar{padding:22px 48px;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .stats-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-around;flex-wrap:wrap;gap:20px}
+    .stat{text-align:center}
+    .stat-num{font-family:var(--font-head);font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .stat-label{font-size:.82rem;color:var(--muted);font-weight:500}
+    /* SECTIONS */
+    section{padding:96px 48px}
+    .section-inner{max-width:1200px;margin:0 auto}
+    .section-eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);margin-bottom:10px}
+    .section-title{font-family:var(--font-head);font-size:clamp(1.9rem,3.6vw,3.1rem);font-weight:900;letter-spacing:-.02em;line-height:1.12;margin-bottom:14px}
+    .section-title em{font-style:italic;font-weight:300;color:var(--accent)}
+    .section-desc{color:var(--muted);font-size:1rem;max-width:540px;line-height:1.75}
+    /* SERVICES */
+    .services{background:var(--bg)}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+    .service-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:30px 26px;transition:border-color .3s,transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+    .service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .3s}
+    .service-card:hover{border-color:rgba(124,111,255,.3);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.4)}
+    .service-card:hover::before{opacity:1}
+    .service-icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:18px}
+    .ip{background:rgba(124,111,255,.12)}.it{background:rgba(0,229,184,.1)}.ir{background:rgba(255,114,98,.1)}
+    .service-card h3{font-family:var(--font-head);font-size:1.1rem;font-weight:700;margin-bottom:10px}
+    .service-card p{color:var(--muted);font-size:.875rem;line-height:1.65}
+    .service-tag{display:inline-block;margin-top:14px;font-size:.72rem;font-weight:600;color:var(--accent);background:rgba(124,111,255,.1);border-radius:100px;padding:3px 10px}
+    /* PORTFOLIO */
+    .portfolio{background:var(--surface)}
+    .portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .portfolio-item{border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--bg);transition:transform .35s cubic-bezier(.2,.8,.3,1),box-shadow .35s,border-color .3s;cursor:pointer}
+    .portfolio-item:hover{transform:translateY(-8px) scale(1.012);box-shadow:0 28px 64px rgba(0,0,0,.6);border-color:rgba(124,111,255,.35)}
+    .pb-bar{background:#222230;padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.05)}
+    .pb-dots{display:flex;gap:5px}
+    .pbd{width:8px;height:8px;border-radius:50%}
+    .pbd:nth-child(1){background:#ff5f57}.pbd:nth-child(2){background:#febc2e}.pbd:nth-child(3){background:#28c840}
+    .pb-url{background:rgba(0,0,0,.3);border-radius:5px;padding:3px 10px;font-size:.62rem;color:rgba(255,255,255,.35);flex:1;font-family:var(--font-body)}
+    .pb-screen{height:220px;overflow:hidden;position:relative}
+    .pb-label{padding:14px 16px 12px;display:flex;align-items:center;justify-content:space-between}
+    .pb-cat{font-size:.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px}
+    .pb-title{font-family:var(--font-head);font-size:.95rem;font-weight:700}
+    .pb-arrow{width:28px;height:28px;border-radius:8px;background:rgba(124,111,255,.1);border:1px solid rgba(124,111,255,.2);display:flex;align-items:center;justify-content:center;font-size:.8rem;color:var(--accent);flex-shrink:0}
+
+    /* ─── MOCKUP SCREENS ─── */
+    /* Ropa */
+    .mock-ropa{background:linear-gradient(160deg,#1a0a0a 0%,#2d0e0e 50%,#1a0510 100%);height:100%;display:flex;flex-direction:column}
+    .mr-header{background:rgba(0,0,0,.4);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.06)}
+    .mr-logo{font-family:var(--font-head);font-size:.85rem;font-weight:900;color:#f4c4b8;font-style:italic}
+    .mr-nav{display:flex;gap:8px}
+    .mr-ni{width:30px;height:5px;background:rgba(255,255,255,.2);border-radius:2px}
+    .mr-hero{padding:14px 14px 8px;display:flex;gap:10px;flex:1}
+    .mr-text{flex:1}
+    .mr-tag{font-size:.52rem;color:#f4c4b8;background:rgba(244,196,184,.12);border-radius:100px;padding:2px 7px;display:inline-block;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+    .mr-h{height:11px;background:linear-gradient(90deg,rgba(255,255,255,.9),rgba(255,255,255,.4));border-radius:3px;margin-bottom:5px}
+    .mr-h2{width:65%;height:9px;background:rgba(244,196,184,.6);border-radius:3px;margin-bottom:8px}
+    .mr-p{height:5px;background:rgba(255,255,255,.12);border-radius:2px;margin-bottom:4px}
+    .mr-btn{margin-top:8px;display:inline-block;padding:5px 12px;background:#c84b4b;border-radius:5px;font-size:.52rem;color:white;font-weight:700}
+    .mr-img{width:60px;background:linear-gradient(160deg,#8b3a3a,#c45a5a);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+    .mr-products{display:flex;gap:6px;padding:0 14px 10px}
+    .mr-prod{flex:1;background:rgba(255,255,255,.05);border-radius:8px;height:45px;border:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;justify-content:flex-end;padding:5px}
+    .mr-price{height:4px;width:40%;background:#c84b4b;border-radius:2px;margin-bottom:2px}
+    .mr-name{height:3px;width:70%;background:rgba(255,255,255,.2);border-radius:2px}
+    /* Electrónica */
+    .mock-electro{background:linear-gradient(160deg,#050a14 0%,#0a1428 50%,#060e1e 100%);height:100%;display:flex;flex-direction:column}
+    .me-header{background:rgba(0,20,50,.6);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,100,255,.15)}
+    .me-logo{font-family:var(--font-head);font-size:.82rem;font-weight:900;color:#4da8ff}
+    .me-cart{width:18px;height:18px;background:rgba(77,168,255,.15);border-radius:4px;border:1px solid rgba(77,168,255,.3)}
+    .me-banner{background:linear-gradient(90deg,rgba(0,40,100,.8),rgba(0,60,150,.5));margin:10px 14px;border-radius:10px;padding:12px;border:1px solid rgba(77,168,255,.15)}
+    .me-bt{font-size:.52rem;color:rgba(255,255,255,.5);margin-bottom:4px;text-transform:uppercase;letter-spacing:.08em}
+    .me-bh{height:10px;width:80%;background:linear-gradient(90deg,rgba(255,255,255,.9),rgba(255,255,255,.4));border-radius:3px;margin-bottom:4px}
+    .me-bs{height:7px;width:55%;background:rgba(77,168,255,.7);border-radius:3px;margin-bottom:8px}
+    .me-bbtn{display:inline-block;padding:4px 10px;background:#4da8ff;border-radius:4px;font-size:.5rem;color:#000;font-weight:700}
+    .me-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:0 14px 10px}
+    .me-item{background:rgba(255,255,255,.04);border-radius:7px;padding:6px;border:1px solid rgba(77,168,255,.08)}
+    .me-img-ph{height:28px;background:linear-gradient(135deg,rgba(77,168,255,.15),rgba(0,40,100,.4));border-radius:5px;margin-bottom:4px;display:flex;align-items:center;justify-content:center;font-size:.85rem}
+    .me-price{height:4px;width:60%;background:#4da8ff;border-radius:2px;margin-bottom:3px}
+    .me-nm{height:3px;width:90%;background:rgba(255,255,255,.15);border-radius:2px}
+    /* Taller */
+    .mock-taller{background:linear-gradient(160deg,#0d0a04 0%,#1a1208 50%,#0e0b04 100%);height:100%;display:flex;flex-direction:column}
+    .mt-header{background:rgba(0,0,0,.5);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #e8a020}
+    .mt-logo{font-family:var(--font-head);font-size:.82rem;font-weight:900;color:#e8a020}
+    .mt-phone{font-size:.52rem;color:rgba(255,255,255,.4)}
+    .mt-hero{padding:14px 14px 8px;display:flex;gap:12px;flex:1}
+    .mt-left{flex:1}
+    .mt-badge{display:inline-block;font-size:.5rem;color:#e8a020;background:rgba(232,160,32,.12);border-radius:4px;padding:2px 7px;margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+    .mt-h{height:11px;background:linear-gradient(90deg,rgba(255,255,255,.9),rgba(255,255,255,.4));border-radius:3px;margin-bottom:5px}
+    .mt-h2{width:70%;height:9px;background:rgba(232,160,32,.6);border-radius:3px;margin-bottom:8px}
+    .mt-p{height:5px;background:rgba(255,255,255,.12);border-radius:2px;margin-bottom:4px}
+    .mt-btn{margin-top:8px;display:inline-block;padding:5px 12px;background:#e8a020;border-radius:5px;font-size:.52rem;color:#000;font-weight:700}
+    .mt-icon{width:58px;background:rgba(232,160,32,.08);border-radius:8px;border:1px solid rgba(232,160,32,.2);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+    .mt-services{display:flex;gap:6px;padding:0 14px 10px}
+    .mt-serv{flex:1;background:rgba(255,255,255,.04);border-radius:7px;padding:7px 5px;border:1px solid rgba(232,160,32,.08);display:flex;flex-direction:column;align-items:center;gap:3px}
+    .mt-ico{font-size:.9rem}
+    .mt-sl{height:4px;width:80%;background:rgba(255,255,255,.15);border-radius:2px}
+    /* Profesional */
+    .mock-prof{background:linear-gradient(160deg,#08080f 0%,#0f0f1e 50%,#070713 100%);height:100%;display:flex;flex-direction:column}
+    .mp-header{background:rgba(255,255,255,.03);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.06)}
+    .mp-logo{font-family:var(--font-head);font-size:.82rem;font-weight:700;color:#c9b06c;font-style:italic}
+    .mp-nav{display:flex;gap:7px}
+    .mp-ni{width:28px;height:5px;background:rgba(201,176,108,.25);border-radius:2px}
+    .mp-hero{padding:18px 14px 8px;flex:1;display:flex;gap:12px}
+    .mp-left{flex:1}
+    .mp-eyebrow{height:4px;width:55%;background:rgba(201,176,108,.4);border-radius:2px;margin-bottom:8px}
+    .mp-h{height:12px;background:linear-gradient(90deg,rgba(255,255,255,.85),rgba(255,255,255,.4));border-radius:3px;margin-bottom:5px}
+    .mp-h2{width:60%;height:10px;background:rgba(201,176,108,.5);border-radius:3px;margin-bottom:10px}
+    .mp-divider{height:1px;background:rgba(201,176,108,.2);margin-bottom:8px}
+    .mp-p{height:5px;background:rgba(255,255,255,.1);border-radius:2px;margin-bottom:5px}
+    .mp-btn{margin-top:10px;display:inline-block;padding:5px 12px;background:transparent;border:1px solid #c9b06c;border-radius:5px;font-size:.52rem;color:#c9b06c;font-weight:600}
+    .mp-photo{width:56px;height:56px;background:linear-gradient(135deg,#3a3020,#5a4a30);border-radius:50%;border:2px solid rgba(201,176,108,.3);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;margin-top:4px}
+    .mp-areas{display:flex;gap:5px;padding:0 14px 10px}
+    .mp-area{flex:1;background:rgba(201,176,108,.05);border-radius:7px;padding:6px;border:1px solid rgba(201,176,108,.1)}
+    .mp-icon{font-size:.9rem;margin-bottom:3px}
+    .mp-al{height:3px;background:rgba(201,176,108,.3);border-radius:2px;margin-bottom:2px}
+    .mp-al2{height:3px;width:75%;background:rgba(255,255,255,.1);border-radius:2px}
+    /* Holístico */
+    .mock-holis{background:linear-gradient(160deg,#080b0e 0%,#0c1218 50%,#071010 100%);height:100%;display:flex;flex-direction:column}
+    .mh-header{background:rgba(0,0,0,.3);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(100,200,180,.1)}
+    .mh-logo{font-family:var(--font-head);font-size:.82rem;font-weight:300;color:#8fe8d4;font-style:italic;letter-spacing:.05em}
+    .mh-nav{display:flex;gap:7px}
+    .mh-ni{width:28px;height:4px;background:rgba(143,232,212,.2);border-radius:2px}
+    .mh-hero{padding:14px;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+    .mh-circle{width:44px;height:44px;border-radius:50%;border:1px solid rgba(143,232,212,.3);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin:0 auto 10px;background:rgba(143,232,212,.05)}
+    .mh-h{height:10px;width:75%;background:linear-gradient(90deg,rgba(255,255,255,.8),rgba(255,255,255,.3));border-radius:3px;margin:0 auto 5px}
+    .mh-h2{height:8px;width:55%;background:rgba(143,232,212,.5);border-radius:3px;margin:0 auto 10px}
+    .mh-p{height:5px;width:90%;background:rgba(255,255,255,.1);border-radius:2px;margin:0 auto 4px}
+    .mh-ps{width:70%}
+    .mh-btn{margin-top:10px;display:inline-block;padding:5px 14px;background:rgba(143,232,212,.12);border:1px solid rgba(143,232,212,.35);border-radius:100px;font-size:.5rem;color:#8fe8d4;font-weight:600}
+    .mh-pills{display:flex;gap:5px;padding:0 14px 10px;justify-content:center;flex-wrap:wrap}
+    .mh-pill{padding:3px 8px;background:rgba(143,232,212,.06);border:1px solid rgba(143,232,212,.12);border-radius:100px;font-size:.48rem;color:rgba(143,232,212,.7);font-family:var(--font-body)}
+    /* Ecommerce */
+    .mock-ecom{background:linear-gradient(160deg,#050512 0%,#0b0b22 50%,#060616 100%);height:100%;display:flex;flex-direction:column}
+    .mec-header{background:rgba(0,0,0,.5);padding:8px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.05)}
+    .mec-logo{font-family:var(--font-head);font-size:.85rem;font-weight:900;color:#fff}
+    .mec-logo span{color:#ff6b35}
+    .mec-search{flex:1;margin:0 10px;height:18px;background:rgba(255,255,255,.06);border-radius:100px;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;padding:0 8px;gap:4px}
+    .mec-si{width:6px;height:6px;border-radius:50%;border:1px solid rgba(255,255,255,.3)}
+    .mec-sb{flex:1;height:3px;background:rgba(255,255,255,.08);border-radius:2px}
+    .mec-icons{display:flex;gap:6px}
+    .mec-ic{width:16px;height:16px;background:rgba(255,107,53,.12);border-radius:4px;border:1px solid rgba(255,107,53,.2)}
+    .mec-cats{display:flex;gap:5px;padding:8px 14px 0}
+    .mec-cat{padding:3px 8px;background:rgba(255,255,255,.05);border-radius:100px;font-size:.48rem;color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.07);font-family:var(--font-body)}
+    .mec-cat.active{background:rgba(255,107,53,.12);color:#ff6b35;border-color:rgba(255,107,53,.3)}
+    .mec-products{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:8px 14px}
+    .mec-prod{background:rgba(255,255,255,.04);border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.06)}
+    .mec-pimg{height:36px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+    .mec-pi1{background:linear-gradient(135deg,#1a1a3a,#2a2050)}.mec-pi2{background:linear-gradient(135deg,#1a2a1a,#203020)}.mec-pi3{background:linear-gradient(135deg,#2a1a1a,#3a2020)}
+    .mec-pinfo{padding:4px 5px}
+    .mec-pname{height:4px;background:rgba(255,255,255,.2);border-radius:2px;margin-bottom:3px}
+    .mec-pprice{height:4px;width:50%;background:#ff6b35;border-radius:2px}
+    /* Estética */
+    .mock-estetica{background:linear-gradient(160deg,#0e080e 0%,#1a0e1a 50%,#110811 100%);height:100%;display:flex;flex-direction:column}
+    .mes-header{background:rgba(0,0,0,.3);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(218,112,214,.15)}
+    .mes-logo{font-family:var(--font-head);font-size:.82rem;font-weight:300;color:#e8a0e8;font-style:italic;letter-spacing:.04em}
+    .mes-book{padding:3px 10px;background:rgba(218,112,214,.15);border:1px solid rgba(218,112,214,.3);border-radius:100px;font-size:.5rem;color:#e8a0e8;font-family:var(--font-body);font-weight:600}
+    .mes-hero{padding:14px;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .mes-left{display:flex;flex-direction:column;justify-content:center}
+    .mes-tag{font-size:.48rem;color:rgba(232,160,232,.7);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+    .mes-h{height:10px;background:linear-gradient(90deg,rgba(255,255,255,.85),rgba(255,255,255,.35));border-radius:3px;margin-bottom:5px}
+    .mes-h2{width:70%;height:8px;background:rgba(218,112,214,.5);border-radius:3px;margin-bottom:8px}
+    .mes-p{height:4px;background:rgba(255,255,255,.1);border-radius:2px;margin-bottom:4px}
+    .mes-btn{margin-top:8px;display:inline-block;padding:5px 12px;background:#da70d6;border-radius:5px;font-size:.5rem;color:white;font-weight:700}
+    .mes-right{display:flex;flex-direction:column;gap:5px}
+    .mes-sc{background:rgba(218,112,214,.05);border-radius:8px;padding:6px;border:1px solid rgba(218,112,214,.1)}
+    .mes-sc-title{height:5px;width:80%;background:rgba(255,255,255,.2);border-radius:2px;margin-bottom:3px}
+    .mes-sc-price{height:4px;width:40%;background:rgba(218,112,214,.4);border-radius:2px}
+    /* Restaurante */
+    .mock-rest{background:linear-gradient(160deg,#080605 0%,#140e06 50%,#0a0704 100%);height:100%;display:flex;flex-direction:column}
+    .mres-header{background:rgba(0,0,0,.4);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(210,160,60,.2)}
+    .mres-logo{font-family:var(--font-head);font-size:.85rem;font-weight:900;color:#d2a03c}
+    .mres-res{padding:3px 8px;background:rgba(210,160,60,.12);border:1px solid rgba(210,160,60,.3);border-radius:4px;font-size:.48rem;color:#d2a03c;font-family:var(--font-body);font-weight:600}
+    .mres-hero-img{height:80px;background:linear-gradient(160deg,#2a1a08,#3d2510);display:flex;align-items:center;justify-content:center;font-size:2rem;position:relative}
+    .mres-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(8,6,5,.9))}
+    .mres-tag{position:absolute;bottom:8px;left:14px;font-size:.52rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.08em;z-index:1}
+    .mres-content{padding:10px 14px;flex:1}
+    .mres-h{height:11px;width:75%;background:linear-gradient(90deg,rgba(255,255,255,.85),rgba(255,255,255,.4));border-radius:3px;margin-bottom:5px}
+    .mres-h2{height:9px;width:50%;background:rgba(210,160,60,.55);border-radius:3px;margin-bottom:8px}
+    .mres-menu{display:flex;gap:5px;margin-bottom:8px}
+    .mres-cat{padding:2px 7px;border-radius:4px;font-size:.48rem;font-family:var(--font-body);font-weight:600}
+    .mres-cat.a{background:rgba(210,160,60,.15);color:#d2a03c;border:1px solid rgba(210,160,60,.3)}
+    .mres-cat.i{background:rgba(255,255,255,.05);color:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.06)}
+    .mres-dishes{display:flex;gap:6px}
+    .mres-dish{flex:1;background:rgba(255,255,255,.04);border-radius:7px;height:36px;border:1px solid rgba(210,160,60,.07);display:flex;align-items:center;justify-content:center;font-size:.85rem}
+    /* Gym */
+    .mock-fit{background:linear-gradient(160deg,#060808 0%,#0c1414 50%,#060c0c 100%);height:100%;display:flex;flex-direction:column}
+    .mf-header{background:rgba(0,0,0,.4);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,220,170,.15)}
+    .mf-logo{font-family:var(--font-head);font-size:.85rem;font-weight:900;color:#00dcaa;letter-spacing:.04em}
+    .mf-cta{padding:3px 8px;background:rgba(0,220,170,.12);border:1px solid rgba(0,220,170,.3);border-radius:4px;font-size:.48rem;color:#00dcaa;font-family:var(--font-body);font-weight:700}
+    .mf-hero{padding:14px;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center}
+    .mf-badge{display:inline-block;font-size:.48rem;color:#00dcaa;background:rgba(0,220,170,.1);border-radius:100px;padding:2px 7px;margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+    .mf-h{height:11px;background:linear-gradient(90deg,rgba(255,255,255,.88),rgba(255,255,255,.4));border-radius:3px;margin-bottom:5px}
+    .mf-h2{width:70%;height:9px;background:rgba(0,220,170,.55);border-radius:3px;margin-bottom:8px}
+    .mf-p{height:5px;background:rgba(255,255,255,.1);border-radius:2px;margin-bottom:4px}
+    .mf-btn{margin-top:8px;display:inline-block;padding:5px 12px;background:#00dcaa;border-radius:5px;font-size:.5rem;color:#000;font-weight:700}
+    .mf-stats{display:flex;flex-direction:column;gap:5px}
+    .mf-stat{background:rgba(0,220,170,.05);border-radius:8px;padding:6px;border:1px solid rgba(0,220,170,.1)}
+    .mf-sn{height:8px;width:50%;background:rgba(0,220,170,.6);border-radius:3px;margin-bottom:3px}
+    .mf-sl{height:4px;width:80%;background:rgba(255,255,255,.1);border-radius:2px}
+
+    /* PROCESS */
+    .process{background:var(--bg)}
+    .process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:52px;position:relative}
+    .process-steps::before{content:'';position:absolute;top:27px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,var(--accent),var(--accent2),var(--accent),transparent);opacity:.35}
+    .process-step{text-align:center;padding:0 16px;position:relative}
+    .step-num{width:54px;height:54px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-weight:900;font-size:1.1rem;color:var(--accent);margin:0 auto 18px;position:relative;z-index:1}
+    .process-step h4{font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:7px}
+    .process-step p{font-size:.84rem;color:var(--muted);line-height:1.6}
+    /* FEATURES */
+    .features{background:var(--surface)}
+    .features-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .features-list{display:flex;flex-direction:column;gap:18px;margin-top:36px}
+    .feature-item{display:flex;gap:14px;align-items:flex-start}
+    .feature-check{width:26px;height:26px;border-radius:7px;background:rgba(0,229,184,.1);display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--accent2);flex-shrink:0;margin-top:2px}
+    .feature-item h4{font-weight:600;font-size:.93rem;margin-bottom:3px}
+    .feature-item p{font-size:.84rem;color:var(--muted)}
+    .features-visual{position:relative;display:flex;justify-content:center}
+    .phone-mockup{width:220px;background:var(--surface2);border-radius:36px;border:8px solid #1a1a28;box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 60px rgba(124,111,255,.06);overflow:hidden;animation:floatAnim 7s ease-in-out infinite}
+    .phone-screen{background:linear-gradient(160deg,#1a1040 0%,#0d2137 100%);min-height:400px;display:flex;flex-direction:column}
+    .phone-status{height:34px;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center}
+    .phone-notch{width:72px;height:18px;background:var(--surface2);border-radius:0 0 12px 12px}
+    .phone-hero-section{padding:18px 14px;flex:1}
+    .ph-logo{width:56px;height:7px;background:var(--accent);border-radius:3px;margin-bottom:18px}
+    .ph-h1{width:80%;height:9px;background:rgba(255,255,255,.85);border-radius:3px;margin-bottom:6px}
+    .ph-h2{width:60%;height:9px;background:rgba(124,111,255,.7);border-radius:3px;margin-bottom:12px}
+    .ph-p{width:100%;height:5px;background:rgba(255,255,255,.13);border-radius:2px;margin-bottom:5px}
+    .ph-p.s{width:70%}
+    .ph-cta{margin-top:12px;padding:7px 14px;background:var(--accent);border-radius:7px;font-size:.58rem;color:white;font-family:var(--font-body);font-weight:700;display:inline-block}
+    .ph-cards{display:flex;gap:5px;margin-top:14px}
+    .ph-card{flex:1;background:rgba(255,255,255,.05);border-radius:7px;height:48px;border:1px solid rgba(255,255,255,.05)}
+    .phone-float{position:absolute;right:-16px;top:64px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px;font-size:.72rem;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+    .phone-float .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent2);margin-right:6px}
+    /* PRICING */
+    .pricing{background:var(--bg)}
+    .pricing-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
+    .pricing-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:34px 26px;transition:transform .3s,box-shadow .3s;position:relative}
+    .pricing-card.featured{border-color:rgba(124,111,255,.45);background:linear-gradient(160deg,rgba(124,111,255,.07) 0%,var(--surface) 100%);box-shadow:0 0 56px rgba(124,111,255,.1)}
+    .pricing-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+    .popular-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;font-size:.72rem;font-weight:700;padding:3px 14px;border-radius:100px;white-space:nowrap}
+    .plan-name{font-family:var(--font-head);font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+    .plan-price{font-family:var(--font-head);font-size:2.9rem;font-weight:900;letter-spacing:-.02em;margin-bottom:3px}
+    .plan-period{font-size:.82rem;color:var(--muted);margin-bottom:26px}
+    .plan-features{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:26px}
+    .plan-features li{display:flex;align-items:center;gap:9px;font-size:.875rem}
+    .plan-features .check{color:var(--accent2);font-size:.75rem}
+    .plan-features .x{color:var(--muted);font-size:.75rem}
+    .plan-btn{width:100%;padding:13px;border-radius:10px;text-align:center;text-decoration:none;font-weight:700;font-size:.9rem;transition:all .2s;display:block}
+    .plan-btn.outline{border:1px solid var(--border);color:var(--text)}
+    .plan-btn.outline:hover{border-color:var(--accent);color:var(--accent)}
+    .plan-btn.filled{background:linear-gradient(135deg,var(--accent),#a78bfa);color:white;box-shadow:0 4px 20px rgba(124,111,255,.35)}
+    .plan-btn.filled:hover{box-shadow:0 8px 28px rgba(124,111,255,.5);transform:translateY(-1px)}
+    /* TESTIMONIALS */
+    .testimonials{background:var(--surface)}
+    .testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+    .testimonial-card{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:26px 22px;transition:border-color .3s}
+    .testimonial-card:hover{border-color:rgba(124,111,255,.25)}
+    .stars{color:#fbbf24;font-size:.82rem;margin-bottom:12px;letter-spacing:2px}
+    .testimonial-text{font-size:.875rem;color:var(--muted);line-height:1.7;font-style:italic;margin-bottom:18px}
+    .testimonial-author{display:flex;align-items:center;gap:11px}
+    .author-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;font-family:var(--font-head)}
+    .av1{background:linear-gradient(135deg,var(--accent),#a78bfa)}.av2{background:linear-gradient(135deg,var(--accent2),#0891b2)}.av3{background:linear-gradient(135deg,var(--accent3),#f97316)}
+    .author-name{font-weight:600;font-size:.875rem}
+    .author-role{font-size:.75rem;color:var(--muted)}
+    /* FAQ */
+    .faq{background:var(--bg)}
+    .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:52px}
+    .faq-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;transition:border-color .3s}
+    .faq-item:hover{border-color:rgba(124,111,255,.3)}
+    .faq-q{font-weight:600;font-size:.9rem;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .faq-q::after{content:'+';font-size:1.1rem;color:var(--accent);flex-shrink:0}
+    .faq-a{font-size:.84rem;color:var(--muted);line-height:1.65}
+    /* CTA */
+    .cta-section{background:var(--surface);padding:96px 48px}
+    .cta-box{max-width:880px;margin:0 auto;background:var(--bg);border:1px solid rgba(124,111,255,.22);border-radius:24px;padding:64px;text-align:center;position:relative;overflow:hidden}
+    .cta-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 0%,rgba(124,111,255,.1) 0%,transparent 70%)}
+    .cta-box *{position:relative}
+    .cta-box p.desc{color:var(--muted);font-size:1rem;margin-bottom:36px}
+    .cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .wa-btn{display:flex;align-items:center;gap:9px;background:#25d366;color:white;padding:13px 26px;border-radius:10px;text-decoration:none;font-weight:700;font-size:.9rem;transition:all .2s;box-shadow:0 4px 20px rgba(37,211,102,.3)}
+    .wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,.45)}
+    /* FOOTER */
+    footer{background:var(--surface);border-top:1px solid var(--border);padding:52px 48px 28px}
+    .footer-inner{max-width:1200px;margin:0 auto}
+    .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:44px}
+    .footer-brand p{color:var(--muted);font-size:.85rem;line-height:1.65;margin-top:10px;max-width:260px}
+    .footer-col h5{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+    .footer-col ul{list-style:none}
+    .footer-col li{margin-bottom:9px}
+    .footer-col a{color:var(--muted);text-decoration:none;font-size:.85rem;transition:color .2s}
+    .footer-col a:hover{color:var(--text)}
+    .footer-bottom{padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:var(--muted)}
+    /* ANIMATIONS */
+    .fade-up{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+    .fade-up.visible{opacity:1;transform:translateY(0)}
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      nav{padding:15px 20px}.nav-links{display:none}
+      .hero{padding:100px 20px 60px}.hero-content{grid-template-columns:1fr;gap:40px}.hero-visual{display:none}
+      section{padding:64px 20px}
+      .services-grid{grid-template-columns:1fr}.portfolio-grid{grid-template-columns:1fr}
+      .process-steps{grid-template-columns:repeat(2,1fr);gap:32px}.process-steps::before{display:none}
+      .features-layout{grid-template-columns:1fr}.features-visual{display:none}
+      .pricing-cards{grid-template-columns:1fr}.testimonials-grid{grid-template-columns:1fr}
+      .faq-grid{grid-template-columns:1fr}.cta-box{padding:36px 22px}
+      .footer-top{grid-template-columns:1fr 1fr;gap:28px}.footer-bottom{flex-direction:column;gap:8px;text-align:center}
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-line" id="scrollLine"></div>
+
+  <nav>
+    <a href="#" class="nav-logo">Web<span>Craft</span></a>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#portfolio">Ejemplos</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#planes">Planes</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#contacto" class="nav-cta">Iniciar proyecto →</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div>
+        <div class="hero-badge">Programador exclusivo por proyecto</div>
+        <h1 class="hero-title">Tu web a medida,<br/><em>lista para vender.</em></h1>
+        <p class="hero-desc">Diseñamos y desarrollamos tu sitio web profesional, tienda online y app móvil. 100% autogestionable, con soporte permanente y un programador asignado exclusivamente a tu proyecto.</p>
+        <div class="hero-actions">
+          <a href="#contacto" class="btn-primary">Crear mi sitio web</a>
+          <a href="#portfolio" class="btn-secondary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Ver ejemplos
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="browser-mockup">
+          <div class="browser-bar">
+            <div class="browser-dots"><div class="bd"></div><div class="bd"></div><div class="bd"></div></div>
+            <div class="browser-url">tuempresa.com.ar</div>
+          </div>
+          <div class="browser-body">
+            <div class="bm-nav"><div class="bm-logo"></div><div class="bm-links"><div class="bm-link"></div><div class="bm-link"></div><div class="bm-link"></div></div></div>
+            <div class="bm-hero"><div class="bm-h1"></div><div class="bm-h2"></div><div class="bm-p" style="width:90%"></div><div class="bm-p" style="width:70%"></div><div class="bm-btn">Ver productos →</div></div>
+            <div class="bm-cards"><div class="bm-card"></div><div class="bm-card"></div><div class="bm-card"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat fade-up"><div class="stat-num">+120</div><div class="stat-label">Proyectos desarrollados</div></div>
+      <div class="stat fade-up" style="transition-delay:.08s"><div class="stat-num">+10</div><div class="stat-label">Años de experiencia</div></div>
+      <div class="stat fade-up" style="transition-delay:.16s"><div class="stat-num">100%</div><div class="stat-label">Sitios autogestionables</div></div>
+      <div class="stat fade-up" style="transition-delay:.24s"><div class="stat-num">0%</div><div class="stat-label">Comisión por venta</div></div>
+      <div class="stat fade-up" style="transition-delay:.32s"><div class="stat-num">24/7</div><div class="stat-label">Soporte permanente</div></div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services" id="servicios">
+    <div class="section-inner">
+      <p class="section-eyebrow fade-up">Lo que creamos</p>
+      <h2 class="section-title fade-up">Soluciones digitales <em>completas</em></h2>
+      <p class="section-desc fade-up">Todo lo que necesitás para tener presencia online profesional, en un solo lugar y con un equipo dedicado.</p>
+      <div class="services-grid">
+        <div class="service-card fade-up"><div class="service-icon ip">🌐</div><h3>Sitio Web Profesional</h3><p>Diseño único y a medida. Responsive en todos los dispositivos, optimizado para SEO y con carga ultra-rápida.</p><span class="service-tag">Diseño a medida</span></div>
+        <div class="service-card fade-up" style="transition-delay:.08s"><div class="service-icon it">🛒</div><h3>Tienda Online sin Comisiones</h3><p>Vendé en internet sin pagar comisiones. E-commerce completo con pagos locales, gestión de stock y estadísticas.</p><span class="service-tag">Sin comisiones</span></div>
+        <div class="service-card fade-up" style="transition-delay:.16s"><div class="service-icon ir">📱</div><h3>App Móvil para Android</h3><p>Tu propia aplicación publicada en Google Play. Tus clientes la descargan y acceden desde cualquier dispositivo.</p><span class="service-tag">Google Play</span></div>
+        <div class="service-card fade-up" style="transition-delay:.1s"><div class="service-icon ip">📧</div><h3>Emails Corporativos</h3><p>Cuentas de email con tu dominio en cantidad ilimitada para toda tu empresa.</p><span class="service-tag">Ilimitadas</span></div>
+        <div class="service-card fade-up" style="transition-delay:.18s"><div class="service-icon it">🔒</div><h3>Hosting + SSL Incluido</h3><p>Servidores premium con certificado SSL gratuito. Nos encargamos de toda la infraestructura técnica.</p><span class="service-tag">SSL gratis</span></div>
+        <div class="service-card fade-up" style="transition-delay:.26s"><div class="service-icon ir">🤖</div><h3>Chatbot con IA</h3><p>Atendé consultas automáticamente las 24hs. Inteligencia artificial integrada a tu sitio web.</p><span class="service-tag">Nuevo</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="portfolio" id="portfolio">
+    <div class="section-inner">
+      <p class="section-eyebrow fade-up">Ejemplos reales</p>
+      <h2 class="section-title fade-up">Un diseño <em>único</em> para cada rubro</h2>
+      <p class="section-desc fade-up" style="margin-bottom:52px">Así lucen los sitios que creamos. Cada uno diseñado desde cero según el rubro, la identidad y los objetivos de cada cliente.</p>
+
+      <div class="portfolio-grid">
+
+        <!-- 1 ROPA -->
+        <div class="portfolio-item fade-up">
+          <div class="pb-bar"><div class="pb-dots"><div class="pbd"></div><div class="pbd"></div><div class="pbd"></div></div><div class="pb-url">modaverde.com.ar</div></div>
+          <div class="pb-screen">
+            <div class="mock-ropa">
+              <div class="mr-header"><div class="mr-logo">Moda Verde</div><div class="mr-nav"><div class="mr-ni"></div><div class="mr-ni"></div><div class="mr-ni"></div></div></div>
+              <div class="mr-hero">
+                <div class="mr-text"><div class="mr-tag">Nueva colección</div><div class="mr-h" style="width:80%"></div><div class="mr-h2"></div><div class="mr-p" style="width:95%"></div><div class="mr-p" style="width:75%"></div><div class="mr-btn">Ver colección →</div></div>
+                <div class="mr-img">👗</div>
+              </div>
+              <div class="mr-products"><div class="mr-prod"><div class="mr-price"></div><div class="mr-name"></div></div><div class="mr-prod"><div class="mr-price"></div><div class="mr-name"></div></div><div class="mr-prod"><div class="mr-price"></div><div class="mr-name"></div></div></div>
+            </div>
+          </div>
+          <div class="pb-label"><div><div class="pb-cat">Indumentaria</div><div class="pb-title">Tienda de Ropa</div></div><div class="pb-arrow">→</div></div>
+        </div>
+
+        <!-- 2 ELECTRÓNICA -->
+        <div class="portfolio-item fade-up" style="transition-delay:.08s">
+          <div class="pb-bar"><div class="pb-dots"><div class="pbd"></div><div class="pbd"></div><div class="pbd"></div></div><div class="pb-url">techstore.com.ar</div></div>
+          <div class="pb-screen">
+            <div class="mock-electro">
+              <div class="me-header"><div class="me-logo">TechStore</div><div class="me-cart"></div></div>
+              <div class="me-banner"><div class="me-bt">Oferta del día</div><div class="me-bh"></div><div class="me-bs"></div><div class="me-bbtn">Ver ofertas →</div></div>
+              <div class="me-grid"><div class="me-item"><div class="me-img-ph">💻</div><div class="me-price"></div><div class="me-nm"></div></div><div class="me-item"><div class="me-img-ph">📱</div><div class="me-price"></div><div class="me-nm"></div></div><div class="me-item"><div class="me-img-ph">🎧</div><div class="me-price"></div><div class="me-nm"></div></div></div>
+            </div>
+          </div>
+          <div class="pb-label"><div><div class="pb-cat">Tecnología</div><div class="pb-title">Tienda de Electrónica</div></div><div class="pb-arrow">→</div></div>
+        </div>
+
+        <!-- 3 TALLER -->
+        <div class="portfolio-item fade-up" style="transition-delay:.16s">
+          <div class="pb-bar"><div class="pb-dots"><div class="pbd"></div><div class="pbd"></div><div class="pbd"></div></div><div class="pb-url">tallergarcia.com.ar</div></div>
+          <div class="pb-screen">
+            <div class="mock-taller">
+              <div class="mt-header"><div class="mt-logo">Taller García</div><div class="mt-phone">📞 Llamanos</div></div>
+              <div class="mt-hero">
+                <div class="mt-left"><div class="mt-badge">+15 años de experiencia</div><div class="mt-h" style="width:85%"></div><div class="mt-h2"></div><div class="mt-p" style="width:95%"></div><div class="mt-p" style="width:70%"></div><div class="mt-btn">Pedir turno</div></div>
+                <div class="mt-icon">🔧</div>
+              </div>
+              <div class="mt-services"><div class="mt-serv"><div class="mt-ico">⚙️</div><div class="mt-sl"></div></div><div class="mt-serv"><div class="mt-ico">🛢️</div><div class="mt-sl"></div></div><div class="mt-serv"><div class="mt-ico">🔋</div><div class="mt-sl"></div></div><div class="mt-serv"><div class="mt-ico">🛞</div><div class="mt-sl"></div></div></div>
+            </div>
+          </div>
+          <div class="pb-label"><div><div class="pb-cat">Automotriz</div><div class="pb-title">Taller Mecánico</div></div><div class="pb-arrow">→</div></div>
+        </div>
+
+        <!-- 4 PROFESIONAL -->
+        <div class="portfolio-item fade-up" style="transition-delay:.04s">
+          <div class="pb-bar"><div class="pb-dots"><div class="pbd"></div><div class="pbd"></div><div class="pbd"></div></div><div class="pb-url">estudiomartinez.com.ar</div></div>
+          <div class="pb-screen">
+            <div class="mock-prof">
+              <div class="mp-header"><div class="mp-logo">Estudio Martínez</div><div class="mp-nav"><div class="mp-ni"></div><div class="mp-ni"></div><div class="mp-ni"></div></div></div>
+              <div class="mp-hero">
+                <div class="mp-left"><div class="mp-eyebrow"></div><div class="mp-h" style="width:80%"></div><div class="mp-h2"></div><div class="mp-divider"></div><div class="mp-p" style="width:95%"></div><div class="mp-p" style="width:80%"></div><div class="mp-btn">Consulta gratuita</div></div>
+                <div class="mp-photo">⚖️</div>
+              </div>
+              <div class="mp-areas"><div class="mp-area"><div class="mp-icon">📋</div><div class="mp-al"></div><div class="mp-al2"></div></div><div class="mp-area"><div class="mp-icon">🏛️</div><div class="mp-al"></div><div class="mp-al2"></div></div><div class="mp-area"><div class="mp-icon">💼</div><div class="mp-al"></div><div class="mp-al2"></div></div></div>
+            </div>
+          </div>
+          <div class="pb-label"><div><div class="pb-cat">Profesional</div><div class="pb-title">Abogado / Contador</div></div><div class="pb-arrow">→</div></div>
+        </div>
+
+        <!-- 5 HOLÍSTICO -->
+        <div class="portfolio-item fade-up" style="transition-delay:.12s">
+          <div class="pb-bar"><div class="pb-dots"><div class="pbd"></div><div class="pbd"></div><div class="pbd"></div></div><div class="pb-url">lunazenbienestar.com.ar</div></div>
+          <div class="pb-screen">
+            <div class="mock-holis">
+              <div class="mh-header"><div class="mh-logo">Luna Zen</div><div class="mh-nav"><div class="mh-ni"></div><div class="mh-ni"></div><div class="mh-ni"></div></div></div>
+              <div class="mh-hero"><div class="mh-circle">🌿</div><div class="mh-h"></div><div class="mh-h2"></div><div class="mh-p"></div><div class="mh-p mh-ps"></div><div class="mh-btn">Reservar sesión</div></div>
+              <div class="mh-pills"><div class="mh-pill">Reiki</div><div class="mh-pill">Meditación</div><div class="mh-pill">Yoga</div><div class="mh-pill">Thetahealing</div></div>
+            </div>
+          </div>
+          <div class="pb-label"><div><div class="pb-cat">Bienestar</div><div class="pb-title">Servicios Holísticos</div></div><div class="pb-arrow">→</div></div>
+        </div>
+
+        <!-- 6 ECOMMERCE -->
+        <div class="portfolio-item fade-up" style="transition-delay:.2s">
+          <div class="pb-bar"><div class="pb-dots"><div class="pbd"></div><div class="pbd"></div><div class="pbd"></div></div><div class="pb-url">shopexpress.com.ar</div></div>
+          <div class="pb-screen">
+            <div class="mock-ecom">
+              <div class="mec-header"><div class="mec-logo">Shop<span>Express</span></div><div class="mec-search"><div class="mec-si"></div><div class="mec-sb"></div></div><div class="mec-icons"><div class="mec-ic"></div><div class="mec-ic"></div></div></div>
+              <div class="mec-cats"><div class="mec-cat active">Todo</div><div class="mec-cat">Hogar</div><div class="mec-cat">Jardín</div><div class="mec-cat">Mascotas</div></div>
+              <div class="mec-products"><div class="mec-prod"><div class="mec-pimg mec-pi1">🪴</div><div class="mec-pinfo"><div class="mec-pname"></div><div class="mec-pprice"></div></div></div><div class="mec-prod"><div class="mec-pimg mec-pi2">🏮</div><div class="mec-pinfo"><div class="mec-pname"></div><div class="mec-pprice"></div></div></div><div class="mec-prod"><div class="mec-pimg mec-pi3">🐾</div><div class="mec-pinfo"><div class="mec-pname"></div><div class="mec-pprice"></div></div></div></div>
+            </div>
+          </div>
+          <div class="pb-label"><div><div class="pb-cat">Comercio Digital</div><div class="pb-title">E-Commerce Completo</div></div><div class="pb-arrow">→</div></div>
+        </div>
+
+        <!-- 7 ESTÉTICA -->
+        <div class="portfolio-item fade-up" style="transition-delay:.08s">
+          <div class="pb-bar"><div class="pb-dots"><div class="pbd"></div><div class="pbd"></div><div class="pbd"></div></div><div class="pb-url">bellapielestetica.com.ar</div></div>
+          <div class="pb-screen">
+            <div class="mock-estetica">
+              <div class="mes-header"><div class="mes-logo">Bella Piel</div><div class="mes-book">Turnos online</div></div>
+              <div class="mes-hero">
+                <div class="mes-left"><div class="mes-tag">Centro de Estética</div><div class="mes-h" style="width:85%"></div><div class="mes-h2"></div><div class="mes-p" style="width:95%"></div><div class="mes-p" style="width:70%"></div><div class="mes-btn">Reservar turno</div></div>
+                <div class="mes-right"><div class="mes-sc"><div class="mes-sc-title"></div><div class="mes-sc-price"></div></div><div class="mes-sc"><div class="mes-sc-title"></div><div class="mes-sc-price"></div></div><div class="mes-sc"><div class="mes-sc-title"></div><div class="mes-sc-price"></div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="pb-label"><div><div class="pb-cat">Belleza & Salud</div><div class="pb-title">Centro de Estética</div></div><div class="pb-arrow">→</div></div>
+        </div>
+
+        <!-- 8 RESTAURANTE -->
+        <div class="portfolio-item fade-up" style="transition-delay:.16s">
+          <div class="pb-bar"><div class="pb-dots"><div class="pbd"></div><div class="pbd"></div><div class="pbd"></div></div><div class="pb-url">latavernarestaurant.com.ar</div></div>
+          <div class="pb-screen">
+            <div class="mock-rest">
+              <div class="mres-header"><div class="mres-logo">La Taverna</div><div class="mres-res">Reservas</div></div>
+              <div class="mres-hero-img">🍷<div class="mres-overlay"></div><div class="mres-tag">Cocina italiana · Vinos de autor</div></div>
+              <div class="mres-content"><div class="mres-h"></div><div class="mres-h2"></div><div class="mres-menu"><div class="mres-cat a">Menú</div><div class="mres-cat i">Carta vinos</div><div class="mres-cat i">Eventos</div></div><div class="mres-dishes"><div class="mres-dish">🍝</div><div class="mres-dish">🥩</div><div class="mres-dish">🍮</div></div></div>
+            </div>
+          </div>
+          <div class="pb-label"><div><div class="pb-cat">Gastronomía</div><div class="pb-title">Restaurante / Bodega</div></div><div class="pb-arrow">→</div></div>
+        </div>
+
+        <!-- 9 GYM -->
+        <div class="portfolio-item fade-up" style="transition-delay:.24s">
+          <div class="pb-bar"><div class="pb-dots"><div class="pbd"></div><div class="pbd"></div><div class="pbd"></div></div><div class="pb-url">maximusgym.com.ar</div></div>
+          <div class="pb-screen">
+            <div class="mock-fit">
+              <div class="mf-header"><div class="mf-logo">MAXIMUS</div><div class="mf-cta">Clase de prueba</div></div>
+              <div class="mf-hero">
+                <div><div class="mf-badge">Gym & CrossFit</div><div class="mf-h" style="width:85%"></div><div class="mf-h2"></div><div class="mf-p" style="width:95%"></div><div class="mf-p" style="width:70%"></div><div class="mf-btn">Inscribirme →</div></div>
+                <div class="mf-stats"><div class="mf-stat"><div class="mf-sn"></div><div class="mf-sl"></div></div><div class="mf-stat"><div class="mf-sn"></div><div class="mf-sl"></div></div><div class="mf-stat"><div class="mf-sn"></div><div class="mf-sl"></div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="pb-label"><div><div class="pb-cat">Deporte & Salud</div><div class="pb-title">Gym / Fitness</div></div><div class="pb-arrow">→</div></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="proceso">
+    <div class="section-inner">
+      <p class="section-eyebrow fade-up">Cómo trabajamos</p>
+      <h2 class="section-title fade-up">Tu proyecto, <em>paso a paso</em></h2>
+      <p class="section-desc fade-up">Un proceso claro y transparente. Pagás una seña para empezar y el resto cuando estés 100% conforme.</p>
+      <div class="process-steps">
+        <div class="process-step fade-up"><div class="step-num">01</div><h4>Consulta inicial</h4><p>Nos contás tu proyecto y rubro. Te asignamos un programador exclusivo.</p></div>
+        <div class="process-step fade-up" style="transition-delay:.1s"><div class="step-num">02</div><h4>Diseño y desarrollo</h4><p>Creamos tu sitio web a medida. Podés seguir el avance en tiempo real.</p></div>
+        <div class="process-step fade-up" style="transition-delay:.2s"><div class="step-num">03</div><h4>Revisión y ajustes</h4><p>Revisás el resultado y hacemos todos los ajustes hasta que estés conforme.</p></div>
+        <div class="process-step fade-up" style="transition-delay:.3s"><div class="step-num">04</div><h4>Lanzamiento</h4><p>Publicamos tu sitio, configuramos el dominio y entregamos todos los accesos.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="caracteristicas">
+    <div class="section-inner">
+      <div class="features-layout">
+        <div>
+          <p class="section-eyebrow fade-up">Por qué elegirnos</p>
+          <h2 class="section-title fade-up">Todo incluido,<br/><em>sin sorpresas</em></h2>
+          <div class="features-list">
+            <div class="feature-item fade-up"><div class="feature-check">✓</div><div><h4>Sitio 100% autogestionable</h4><p>Editá textos, imágenes y productos desde un panel simple, sin saber programar.</p></div></div>
+            <div class="feature-item fade-up" style="transition-delay:.05s"><div class="feature-check">✓</div><div><h4>Programador exclusivo asignado</h4><p>No sos un número. Tenés un programador dedicado que conoce tu negocio.</p></div></div>
+            <div class="feature-item fade-up" style="transition-delay:.1s"><div class="feature-check">✓</div><div><h4>Soporte vía WhatsApp</h4><p>Consultas técnicas y administrativas por WhatsApp. Respuesta rápida y cercana.</p></div></div>
+            <div class="feature-item fade-up" style="transition-delay:.15s"><div class="feature-check">✓</div><div><h4>SEO técnico optimizado</h4><p>Sitios estructurados para posicionarse en Google desde el primer día.</p></div></div>
+            <div class="feature-item fade-up" style="transition-delay:.2s"><div class="feature-check">✓</div><div><h4>Pago al finalizar</h4><p>Seña para arrancar. El resto cuando el proyecto esté finalizado y estés 100% conforme.</p></div></div>
+          </div>
+        </div>
+        <div class="features-visual fade-up">
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <div class="phone-status"><div class="phone-notch"></div></div>
+              <div class="phone-hero-section"><div class="ph-logo"></div><div class="ph-h1"></div><div class="ph-h2"></div><div class="ph-p"></div><div class="ph-p s"></div><div class="ph-cta">Ver tienda →</div><div class="ph-cards"><div class="ph-card"></div><div class="ph-card"></div><div class="ph-card"></div></div></div>
+            </div>
+          </div>
+          <div class="phone-float"><span class="dot"></span>Tu app en Google Play</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="planes">
+    <div class="section-inner">
+      <p class="section-eyebrow fade-up">Planes</p>
+      <h2 class="section-title fade-up">Precio único,<br/><em>sin costos ocultos</em></h2>
+      <p class="section-desc fade-up">Elegí el plan que mejor se adapta a tu negocio. Sin comisiones ni funciones bloqueadas.</p>
+      <div class="pricing-cards">
+        <div class="pricing-card fade-up">
+          <div class="plan-name">Presencia</div><div class="plan-price">USD 149</div><div class="plan-period">pago único · sin hosting</div>
+          <ul class="plan-features"><li><span class="check">✓</span>Sitio web profesional</li><li><span class="check">✓</span>Diseño responsive</li><li><span class="check">✓</span>SEO técnico básico</li><li><span class="check">✓</span>Formulario de contacto</li><li><span class="check">✓</span>SSL incluido</li><li><span class="x">–</span>Tienda online</li><li><span class="x">–</span>App móvil</li></ul>
+          <a href="#contacto" class="plan-btn outline">Empezar →</a>
+        </div>
+        <div class="pricing-card featured fade-up" style="transition-delay:.1s">
+          <div class="popular-badge">⭐ Más elegido</div>
+          <div class="plan-name">Completo</div><div class="plan-price">USD 250</div><div class="plan-period">pago único · sin comisiones</div>
+          <ul class="plan-features"><li><span class="check">✓</span>Sitio web a medida</li><li><span class="check">✓</span>Tienda online completa</li><li><span class="check">✓</span>App móvil en Google Play</li><li><span class="check">✓</span>SEO técnico avanzado</li><li><span class="check">✓</span>Emails corporativos</li><li><span class="check">✓</span>Programador exclusivo</li><li><span class="check">✓</span>Soporte permanente</li></ul>
+          <a href="#contacto" class="plan-btn filled">Crear mi sitio →</a>
+        </div>
+        <div class="pricing-card fade-up" style="transition-delay:.2s">
+          <div class="plan-name">Enterprise</div><div class="plan-price">A medida</div><div class="plan-period">según requerimientos</div>
+          <ul class="plan-features"><li><span class="check">✓</span>Todo el plan Completo</li><li><span class="check">✓</span>Integraciones especiales</li><li><span class="check">✓</span>ERP / Sistema GES</li><li><span class="check">✓</span>Chatbot con IA</li><li><span class="check">✓</span>Múltiples usuarios</li><li><span class="check">✓</span>Soporte prioritario</li><li><span class="check">✓</span>SLA garantizado</li></ul>
+          <a href="#contacto" class="plan-btn outline">Consultar →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonios">
+    <div class="section-inner">
+      <p class="section-eyebrow fade-up">Clientes</p>
+      <h2 class="section-title fade-up">Lo que dicen<br/><em>nuestros clientes</em></h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card fade-up"><div class="stars">★★★★★</div><p class="testimonial-text">"Teníamos miedo de dar el paso digital pero el proceso fue clarísimo. En semanas teníamos la web y la tienda funcionando. Las ventas crecieron desde el primer mes."</p><div class="testimonial-author"><div class="author-avatar av1">MR</div><div><div class="author-name">Marcos Rodríguez</div><div class="author-role">Indumentaria · Mendoza</div></div></div></div>
+        <div class="testimonial-card fade-up" style="transition-delay:.1s"><div class="stars">★★★★★</div><p class="testimonial-text">"Lo mejor fue tener un programador exclusivo que entendió exactamente lo que necesitaba. El sitio quedó exactamente como lo imaginé."</p><div class="testimonial-author"><div class="author-avatar av2">SV</div><div><div class="author-name">Sofía Vega</div><div class="author-role">Estudio jurídico · Buenos Aires</div></div></div></div>
+        <div class="testimonial-card fade-up" style="transition-delay:.2s"><div class="stars">★★★★★</div><p class="testimonial-text">"La tienda sin comisiones fue un cambio enorme. Antes pagaba un porcentaje por cada venta, ahora no pago nada extra. El soporte por WhatsApp es muy rápido."</p><div class="testimonial-author"><div class="author-avatar av3">LP</div><div><div class="author-name">Luis Ponce</div><div class="author-role">Tecnología · Córdoba</div></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="section-inner">
+      <p class="section-eyebrow fade-up">Preguntas frecuentes</p>
+      <h2 class="section-title fade-up">Todo lo que necesitás <em>saber</em></h2>
+      <div class="faq-grid">
+        <div class="faq-item fade-up"><div class="faq-q">¿Cuánto tarda en estar lista mi web?</div><div class="faq-a">El tiempo varía según la complejidad. Un sitio estándar suele estar listo en 2 a 4 semanas. Te informamos el tiempo estimado al inicio del proyecto.</div></div>
+        <div class="faq-item fade-up" style="transition-delay:.05s"><div class="faq-q">¿Puedo editar el contenido yo mismo?</div><div class="faq-a">Sí, todos nuestros sitios son 100% autogestionables. Podés modificar textos, imágenes, precios y productos desde un panel intuitivo sin saber programar.</div></div>
+        <div class="faq-item fade-up" style="transition-delay:.1s"><div class="faq-q">¿Cómo funciona el pago?</div><div class="faq-a">Abonás una seña para iniciar el proyecto. El resto lo pagás cuando esté finalizado y estés 100% conforme con el resultado.</div></div>
+        <div class="faq-item fade-up" style="transition-delay:.15s"><div class="faq-q">¿La tienda cobra comisión por venta?</div><div class="faq-a">No. A diferencia de otras plataformas, nuestra tienda no cobra ningún porcentaje. Cada peso que vendés es tuyo.</div></div>
+        <div class="faq-item fade-up" style="transition-delay:.2s"><div class="faq-q">¿El sitio va a aparecer en Google?</div><div class="faq-a">Sí. Todos nuestros sitios se desarrollan con SEO técnico desde la base: estructura de URLs, velocidad de carga, metadatos y accesibilidad optimizados.</div></div>
+        <div class="faq-item fade-up" style="transition-delay:.25s"><div class="faq-q">¿Tienen soporte post-lanzamiento?</div><div class="faq-a">Sí, soporte permanente por WhatsApp para consultas técnicas y administrativas. Tu programador sigue disponible después del lanzamiento.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contacto">
+    <div class="section-inner">
+      <div class="cta-box fade-up">
+        <p class="section-eyebrow" style="text-align:center">¿Listo para empezar?</p>
+        <h2 class="section-title" style="text-align:center">Hablemos de tu <em>proyecto</em> hoy</h2>
+        <p class="desc">Escribinos por WhatsApp. Tendrás un programador exclusivo asignado a tu proyecto en menos de 24 horas.</p>
+        <div class="cta-actions">
+          <a href="https://wa.me/5492613426028?text=Hola,%20quiero%20crear%20mi%20sitio%20web" class="wa-btn" target="_blank" rel="noopener">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Escribir por WhatsApp
+          </a>
+          <a href="mailto:hola@webcraftstudio.com.ar" class="btn-secondary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+            Enviar email
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand"><a href="#" class="nav-logo">Web<span>Craft</span></a><p>Creamos sitios web profesionales, tiendas online y apps móviles a medida. Programador exclusivo por proyecto y soporte permanente.</p></div>
+        <div class="footer-col"><h5>Servicios</h5><ul><li><a href="#servicios">Sitio Web</a></li><li><a href="#servicios">Tienda Online</a></li><li><a href="#servicios">App Móvil</a></li><li><a href="#servicios">Chatbot IA</a></li></ul></div>
+        <div class="footer-col"><h5>Empresa</h5><ul><li><a href="#proceso">Proceso</a></li><li><a href="#planes">Planes</a></li><li><a href="#testimonios">Clientes</a></li><li><a href="#portfolio">Portfolio</a></li></ul></div>
+        <div class="footer-col"><h5>Contacto</h5><ul><li><a href="https://wa.me/5492613426028" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:hola@webcraftstudio.com.ar">Email</a></li><li><a href="#contacto">Iniciar proyecto</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><span>© 2025 WebCraft Studio · Todos los derechos reservados</span><span>Diseño y desarrollo web a medida · Argentina 🇦🇷</span></div>
+    </div>
+  </footer>
+
+  <script>
+    const scrollLine = document.getElementById('scrollLine');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      scrollLine.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+    });
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+  </script>
+</body>
+</html>
