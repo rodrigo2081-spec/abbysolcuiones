@@ -10,28 +10,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #060d1f;
-  --bg2: #0a1228;
-  --bg3: #0f1830;
-  --surface: rgba(255,255,255,0.032);
-  --surface2: rgba(255,255,255,0.055);
-  --accent: #5a7fff;
-  --accent-dim: rgba(90,127,255,0.14);
-  --accent2: #a855f7;
-  --teal: #c084fc;
-  --teal-dim: rgba(192,132,252,0.1);
-  --amber: #f5a623;
-  --rose: #ff4f7b;
-  --text: #e6ecf8;
-  --text2: #7888b0;
-  --text3: #404d70;
-  --border: rgba(160,180,255,0.09);
-  --border2: rgba(90,127,255,0.3);
+  --bg: #ffffff;
+  --bg2: #f7f8fc;
+  --bg3: #eef0f8;
+  --surface: rgba(10,15,40,0.04);
+  --surface2: rgba(10,15,40,0.07);
+  --accent: #4f63ff;
+  --accent-dim: rgba(79,99,255,0.1);
+  --accent2: #8b5cf6;
+  --teal: #7c3aed;
+  --teal-dim: rgba(124,58,237,0.08);
+  --amber: #d97706;
+  --rose: #e11d48;
+  --text: #0f0f1a;
+  --text2: #4b5563;
+  --text3: #9ca3af;
+  --border: rgba(10,15,40,0.1);
+  --border2: rgba(79,99,255,0.3);
   --r: 14px;
   --r2: 20px;
   --font-head: 'Playfair Display', Georgia, serif;
   --font-body: 'Inter', system-ui, sans-serif;
-  --shadow: 0 24px 60px rgba(0,0,0,0.55);
+  --shadow: 0 12px 40px rgba(79,99,255,0.12);
 }
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -43,7 +43,7 @@ nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
   height: 68px; padding: 0 2.5rem;
   display: flex; align-items: center; justify-content: space-between;
-  background: rgba(6,13,31,0.85); backdrop-filter: blur(20px) saturate(1.4);
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(20px) saturate(1.4);
   border-bottom: 1px solid var(--border);
   transition: background .3s;
 }
@@ -54,10 +54,10 @@ nav {
 }
 .logo-mark {
   width: 36px; height: 36px; border-radius: 10px;
-  background: linear-gradient(135deg, #5a7fff, #a855f7);
+  background: linear-gradient(135deg, #4f63ff, #8b5cf6);
   display: flex; align-items: center; justify-content: center;
   font-size: 1.05rem; font-weight: 800; color: #fff; flex-shrink: 0;
-  box-shadow: 0 0 24px rgba(168,85,247,0.5);
+  box-shadow: 0 4px 14px rgba(79,99,255,0.25);
 }
 .logo em { color: var(--accent); font-style: normal; }
 .nav-links { display: flex; align-items: center; gap: 2rem; }
@@ -68,7 +68,7 @@ nav {
 .btn-nav:hover { background: #3a68f0; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(79,124,255,.35); }
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 5px; }
 .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all .3s; }
-.mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(6,9,18,0.98); backdrop-filter: blur(20px); padding: 2rem 2.5rem; flex-direction: column; gap: 1.5rem; z-index: 199; border-bottom: 1px solid var(--border); }
+.mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(255,255,255,0.99); backdrop-filter: blur(20px); padding: 2rem 2.5rem; flex-direction: column; gap: 1.5rem; z-index: 199; border-bottom: 1px solid var(--border); }
 .mobile-menu a { color: var(--text); text-decoration: none; font-size: 1.1rem; font-weight: 500; font-family: var(--font-head); }
 .mobile-menu.open { display: flex; }
 
@@ -80,9 +80,9 @@ nav {
 .hero-bg {
   position: absolute; inset: 0; pointer-events: none;
   background:
-    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(90,127,255,0.2) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 85% 60%, rgba(168,85,247,0.16) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 35% at 12% 70%, rgba(192,132,252,0.07) 0%, transparent 55%);
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(79,99,255,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 60%, rgba(139,92,246,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 35% at 12% 70%, rgba(124,58,237,0.05) 0%, transparent 55%);
 }
 .hero-grid {
   position: absolute; inset: 0; pointer-events: none;
@@ -106,8 +106,8 @@ nav {
 }
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(90,127,255,0.1); border: 1px solid rgba(160,180,255,0.25);
-  color: #a0b4ff; padding: 6px 18px; border-radius: 100px;
+  background: rgba(79,99,255,0.08); border: 1px solid rgba(79,99,255,0.22);
+  color: #4f63ff; padding: 6px 18px; border-radius: 100px;
   font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
   margin-bottom: 2rem; font-family: var(--font-body);
 }
@@ -119,7 +119,7 @@ nav {
   max-width: 900px;
 }
 .hero h1 .grad {
-  background: linear-gradient(120deg, #5a7fff 0%, #a855f7 60%, #c084fc 100%);
+  background: linear-gradient(120deg, #4f63ff 0%, #8b5cf6 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .hero-sub { font-size: 1.08rem; color: var(--text2); max-width: 560px; margin: 0 auto 2.75rem; font-weight: 300; line-height: 1.9; }
@@ -180,15 +180,15 @@ section { padding: 6.5rem 2rem; }
 
 /* ===== AI SECTION ===== */
 .ai-strip {
-  background: linear-gradient(135deg, rgba(90,127,255,.08), rgba(168,85,247,.07), rgba(192,132,252,.06));
-  border-top: 1px solid rgba(90,127,255,.12); border-bottom: 1px solid rgba(168,85,247,.1);
+  background: linear-gradient(135deg, rgba(79,99,255,.05), rgba(124,58,237,.04), rgba(139,92,246,.04));
+  border-top: 1px solid rgba(79,99,255,.12); border-bottom: 1px solid rgba(124,58,237,.08);
   padding: 6rem 2rem;
 }
 .ai-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; max-width: 1160px; margin: 0 auto; }
 .ai-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(168,85,247,.1); border: 1px solid rgba(168,85,247,.28);
-  color: #c084fc; padding: 6px 15px; border-radius: 100px;
+  background: rgba(124,58,237,.08); border: 1px solid rgba(124,58,237,.25);
+  color: #7c3aed; padding: 6px 15px; border-radius: 100px;
   font-size: 0.72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
   margin-bottom: 1.5rem; font-family: var(--font-body);
 }
@@ -245,12 +245,12 @@ section { padding: 6.5rem 2rem; }
 .product-desc { color: var(--text2); font-size: 0.875rem; line-height: 1.8; font-weight: 300; flex: 1; }
 .product-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 1.25rem; }
 .pill { background: rgba(255,255,255,.04); color: var(--text3); font-size: 0.68rem; padding: 3px 10px; border-radius: 100px; border: 1px solid var(--border); }
-.pill-ai { background: rgba(168,85,247,.1); color: #c084fc; border-color: rgba(168,85,247,.25); }
+.pill-ai { background: rgba(124,58,237,.08); color: #7c3aed; border-color: rgba(124,58,237,.22); }
 
 /* Product card custom */
 .product-cta-card {
-  background: linear-gradient(135deg, rgba(79,124,255,.1), rgba(124,58,237,.1));
-  border-color: rgba(79,124,255,.25);
+  background: linear-gradient(135deg, rgba(79,99,255,.07), rgba(139,92,246,.07));
+  border-color: rgba(79,99,255,.25);
   justify-content: center; align-items: flex-start; padding: 2.5rem;
 }
 
@@ -267,7 +267,7 @@ section { padding: 6.5rem 2rem; }
 .dev-feat h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 3px; }
 .dev-feat p { color: var(--text2); font-size: 0.87rem; font-weight: 300; line-height: 1.65; }
 .code-block {
-  background: var(--bg3); border: 1px solid var(--border);
+  background: #eef0f8; border: 1px solid var(--border);
   border-radius: var(--r); padding: 1.5rem; font-family: 'Courier New', monospace;
   font-size: 0.82rem; line-height: 1.9; margin-bottom: 1rem;
 }
@@ -281,17 +281,17 @@ section { padding: 6.5rem 2rem; }
   display: flex; align-items: center; gap: 1rem; transition: border-color .22s;
 }
 .profile-card:hover { border-color: rgba(79,124,255,.3); }
-.avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #5a7fff, #a855f7); display: flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 700; font-size: 0.8rem; flex-shrink: 0; color: #fff; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #4f63ff, #8b5cf6); display: flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 700; font-size: 0.8rem; flex-shrink: 0; color: #fff; }
 .profile-info h4 { font-size: 0.88rem; font-weight: 600; margin-bottom: 2px; }
 .profile-info p { font-size: 0.77rem; color: var(--text2); font-weight: 300; }
-.profile-badge { margin-left: auto; background: rgba(90,127,255,.12); color: #a0b4ff; border: 1px solid rgba(90,127,255,.25); font-size: 0.67rem; padding: 3px 11px; border-radius: 100px; font-weight: 600; white-space: nowrap; }
+.profile-badge { margin-left: auto; background: rgba(16,185,129,.1); color: #059669; border: 1px solid rgba(16,185,129,.25); font-size: 0.67rem; padding: 3px 11px; border-radius: 100px; font-weight: 600; white-space: nowrap; }
 
 /* ===== PROCESS ===== */
 .process-bg { background: var(--bg); }
 .process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; margin-top: 4.5rem; position: relative; }
 .process-grid::before { content: ''; position: absolute; top: 26px; left: 14%; right: 14%; height: 1px; background: linear-gradient(90deg, transparent, var(--border), rgba(79,124,255,.4), var(--border), transparent); }
 .process-step { text-align: center; padding: 0 1.5rem; position: relative; }
-.step-circle { width: 52px; height: 52px; border-radius: 50%; background: var(--bg3); border: 1px solid rgba(160,180,255,.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-family: var(--font-head); font-weight: 800; font-size: 0.9rem; color: var(--accent); position: relative; z-index: 1; }
+.step-circle { width: 52px; height: 52px; border-radius: 50%; background: #ffffff; border: 1px solid rgba(79,99,255,.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-family: var(--font-head); font-weight: 800; font-size: 0.9rem; color: var(--accent); position: relative; z-index: 1; }
 .process-step h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: .5rem; }
 .process-step p { color: var(--text2); font-size: 0.84rem; font-weight: 300; line-height: 1.7; }
 
@@ -319,13 +319,13 @@ section { padding: 6.5rem 2rem; }
 
 /* ===== CTA ===== */
 .cta-section {
-  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(90,127,255,.14), transparent 70%), radial-gradient(ellipse 40% 30% at 80% 50%, rgba(168,85,247,.1), transparent 60%), var(--bg2);
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(79,99,255,.07), transparent 70%), var(--bg2);
   border-top: 1px solid rgba(79,124,255,.1); padding: 7rem 2rem; text-align: center;
   position: relative; overflow: hidden;
 }
 .cta-section::before {
   content: ''; position: absolute; inset: 0; pointer-events: none;
-  background-image: linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(10,15,40,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(10,15,40,0.04) 1px, transparent 1px);
   background-size: 55px 55px;
 }
 .cta-section h2 { font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem; max-width: 680px; margin-left: auto; margin-right: auto; }
@@ -349,6 +349,15 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
 .social-links { display: flex; gap: 1.25rem; }
 .social-links a { color: var(--text3); text-decoration: none; font-size: 0.82rem; transition: color .2s; }
 .social-links a:hover { color: var(--accent); }
+
+
+.product-link-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 1.25rem; color: var(--accent); font-size: 0.82rem;
+  font-weight: 600; text-decoration: none; font-family: var(--font-body);
+  transition: gap .2s, opacity .2s;
+}
+.product-link-btn:hover { gap: 10px; opacity: .8; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
@@ -413,7 +422,7 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
     <a href="#contacto" class="btn-outline">Hablar con nosotros →</a>
   </div>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-num">7<em>+</em></div><div class="stat-label">Productos propios</div></div>
+    <div class="stat"><div class="stat-num">5<em>+</em></div><div class="stat-label">Productos propios</div></div>
     <div class="stat"><div class="stat-num">50<em>+</em></div><div class="stat-label">Proyectos entregados</div></div>
     <div class="stat"><div class="stat-num">5<em>+</em></div><div class="stat-label">Años en el mercado</div></div>
     <div class="stat"><div class="stat-num">100<em>%</em></div><div class="stat-label">Remoto & presencial</div></div>
@@ -438,7 +447,7 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
       <div class="svc-card c2">
         <div class="svc-icon icon-purple">📦</div>
         <h3>Sistemas Listos con IA</h3>
-        <p>7 plataformas empresariales desarrolladas internamente, probadas en el mercado y listas para implementar. Personalizables bajo tu marca con configuración en días, no meses.</p>
+        <p>5 plataformas empresariales desarrolladas internamente, probadas en el mercado y listas para implementar. Personalizables bajo tu marca con configuración en días, no meses.</p>
         <span class="svc-pill">Deploy rápido</span>
       </div>
       <div class="svc-card c3">
@@ -482,7 +491,7 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
     <div class="fade-up products-header">
       <div>
         <span class="section-tag">Nuestros sistemas</span>
-        <h2 class="section-title">7 plataformas propias, listas para tu empresa</h2>
+        <h2 class="section-title">5 plataformas propias, listas para tu empresa</h2>
         <p class="section-sub">Desarrollados internamente, probados en el mercado y mejorados continuamente con feedback real de usuarios.</p>
       </div>
     </div>
@@ -494,23 +503,23 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
           <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
             <rect width="400" height="160" fill="#090d1a"/>
             <!-- Top bar -->
-            <rect x="0" y="0" width="400" height="28" fill="#0a1228"/>
-            <rect x="10" y="8" width="60" height="12" rx="3" fill="#1a2848"/>
-            <rect x="78" y="8" width="50" height="12" rx="3" fill="#1a2848"/>
-            <rect x="136" y="8" width="50" height="12" rx="3" fill="#1a2848"/>
+            <rect x="0" y="0" width="400" height="28" fill="#eef0f8"/>
+            <rect x="10" y="8" width="60" height="12" rx="3" fill="#dde1f0"/>
+            <rect x="78" y="8" width="50" height="12" rx="3" fill="#dde1f0"/>
+            <rect x="136" y="8" width="50" height="12" rx="3" fill="#dde1f0"/>
             <circle cx="376" cy="14" r="8" fill="#4f7cff" opacity=".5"/>
             <!-- Chart area -->
             <polyline points="20,110 60,85 100,95 140,60 180,75 220,45 260,55 300,30 340,40 380,25" fill="none" stroke="#4f7cff" stroke-width="2" opacity=".8"/>
             <polyline points="20,110 60,85 100,95 140,60 180,75 220,45 260,55 300,30 340,40 380,25 380,160 20,160" fill="url(#g1)" opacity=".2"/>
             <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4f7cff"/><stop offset="100%" stop-color="transparent"/></linearGradient></defs>
             <!-- Stats row -->
-            <rect x="10" y="128" width="80" height="22" rx="5" fill="#0d1632"/>
-            <rect x="100" y="128" width="80" height="22" rx="5" fill="#0d1632"/>
-            <rect x="190" y="128" width="80" height="22" rx="5" fill="#0d1632"/>
-            <rect x="280" y="128" width="80" height="22" rx="5" fill="#0d1632"/>
+            <rect x="10" y="128" width="80" height="22" rx="5" fill="#eef0f8"/>
+            <rect x="100" y="128" width="80" height="22" rx="5" fill="#eef0f8"/>
+            <rect x="190" y="128" width="80" height="22" rx="5" fill="#eef0f8"/>
+            <rect x="280" y="128" width="80" height="22" rx="5" fill="#eef0f8"/>
             <text x="18" y="143" fill="#4f7cff" font-size="8" font-family="monospace">+18.4%</text>
             <text x="108" y="143" fill="#00d4b8" font-size="8" font-family="monospace">$2.4M ARS</text>
-            <text x="198" y="143" fill="#9ba3c0" font-size="8" font-family="monospace">12 Carteras</text>
+            <text x="198" y="143" fill="#6b7280" font-size="8" font-family="monospace">12 Carteras</text>
             <text x="288" y="143" fill="#f5a623" font-size="8" font-family="monospace">Rend. anual</text>
             <!-- Dots on line -->
             <circle cx="220" cy="45" r="4" fill="#4f7cff"/>
@@ -525,6 +534,7 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
           <div class="product-cat">Gestión de Inversiones</div>
           <div class="product-desc">Plataforma completa para administrar carteras de inversión de manera profesional. Seguí múltiples activos financieros, gestioná portfolios de varios clientes, analizá rendimientos históricos y generá reportes en tiempo real. Ideal para asesores financieros, fondos y family offices.</div>
           <div class="product-pills"><span class="pill">Multi-cartera</span><span class="pill">Reportes PDF</span><span class="pill pill-ai">IA Predictiva</span><span class="pill">API Financiera</span></div>
+          <a href="https://abbysolcuiones.vercel.app/abby-trading-manager_1.html" target="_blank" rel="noopener" class="product-link-btn">Ver especificaciones →</a>
         </div>
       </div>
 
@@ -532,9 +542,9 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
       <div class="product-card">
         <div class="product-screen">
           <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#060d1f"/>
-            <rect x="0" y="0" width="400" height="28" fill="#0a1228"/>
-            <text x="14" y="18" fill="#9ba3c0" font-size="9" font-family="sans-serif">SmartComerce · Panel de Ventas</text>
+            <rect width="400" height="160" fill="#f7f8fc"/>
+            <rect x="0" y="0" width="400" height="28" fill="#eef0f8"/>
+            <text x="14" y="18" fill="#6b7280" font-size="9" font-family="sans-serif">SmartComerce · Panel de Ventas</text>
             <rect x="330" y="6" width="60" height="16" rx="4" fill="#4f7cff" opacity=".8"/>
             <text x="340" y="18" fill="#fff" font-size="8" font-family="sans-serif">+ Nuevo</text>
             <!-- Bars chart -->
@@ -546,14 +556,14 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
             <rect x="170" y="70" width="22" height="60" rx="3" fill="#4f7cff" opacity=".7"/>
             <rect x="200" y="45" width="22" height="85" rx="3" fill="#4f7cff"/>
             <!-- Side stats -->
-            <rect x="260" y="35" width="120" height="110" rx="8" fill="#0a1228"/>
-            <text x="272" y="55" fill="#9ba3c0" font-size="8" font-family="sans-serif">Ventas del mes</text>
-            <text x="272" y="72" fill="#eef0f8" font-size="14" font-weight="bold" font-family="monospace">$482.500</text>
-            <rect x="272" y="78" width="90" height="1" fill="#1a2848"/>
-            <text x="272" y="95" fill="#9ba3c0" font-size="8" font-family="sans-serif">Stock crítico</text>
+            <rect x="260" y="35" width="120" height="110" rx="8" fill="#eef0f8"/>
+            <text x="272" y="55" fill="#6b7280" font-size="8" font-family="sans-serif">Ventas del mes</text>
+            <text x="272" y="72" fill="#0f0f1a" font-size="14" font-weight="bold" font-family="monospace">$482.500</text>
+            <rect x="272" y="78" width="90" height="1" fill="#dde1f0"/>
+            <text x="272" y="95" fill="#6b7280" font-size="8" font-family="sans-serif">Stock crítico</text>
             <text x="272" y="110" fill="#ff4f7b" font-size="11" font-family="monospace">4 artículos</text>
-            <rect x="272" y="116" width="90" height="1" fill="#1a2848"/>
-            <text x="272" y="132" fill="#9ba3c0" font-size="8" font-family="sans-serif">Online / Físico</text>
+            <rect x="272" y="116" width="90" height="1" fill="#dde1f0"/>
+            <text x="272" y="132" fill="#6b7280" font-size="8" font-family="sans-serif">Online / Físico</text>
             <text x="272" y="144" fill="#00d4b8" font-size="10" font-family="monospace">68% / 32%</text>
           </svg>
         </div>
@@ -565,6 +575,7 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
           <div class="product-cat">Gestión + eCommerce</div>
           <div class="product-desc">El todo-en-uno para negocios con presencia digital. Administrá empresa, stock y ventas desde un único lugar con tienda online integrada. Sincronización automática entre punto de venta físico y canal digital — sin doble carga.</div>
           <div class="product-pills"><span class="pill">eCommerce</span><span class="pill">POS</span><span class="pill">Stock</span><span class="pill pill-ai">Recomendaciones IA</span></div>
+          <a href="https://abbysolcuiones.vercel.app/smartadmin_landing_3.html" target="_blank" rel="noopener" class="product-link-btn">Ver especificaciones →</a>
         </div>
       </div>
 
@@ -572,56 +583,56 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
       <div class="product-card">
         <div class="product-screen">
           <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#060d1f"/>
-            <rect x="0" y="0" width="400" height="28" fill="#0a1228"/>
-            <text x="14" y="18" fill="#9ba3c0" font-size="9" font-family="sans-serif">Trading Journal · Mis Operaciones</text>
+            <rect width="400" height="160" fill="#f7f8fc"/>
+            <rect x="0" y="0" width="400" height="28" fill="#eef0f8"/>
+            <text x="14" y="18" fill="#6b7280" font-size="9" font-family="sans-serif">Trading Journal · Mis Operaciones</text>
             <!-- Table header -->
-            <rect x="10" y="32" width="380" height="18" rx="3" fill="#0a1228"/>
-            <text x="16" y="44" fill="#5c6480" font-size="7.5" font-family="sans-serif">Par</text>
-            <text x="80" y="44" fill="#5c6480" font-size="7.5" font-family="sans-serif">Tipo</text>
-            <text x="130" y="44" fill="#5c6480" font-size="7.5" font-family="sans-serif">Entrada</text>
-            <text x="195" y="44" fill="#5c6480" font-size="7.5" font-family="sans-serif">Salida</text>
-            <text x="260" y="44" fill="#5c6480" font-size="7.5" font-family="sans-serif">P&L</text>
-            <text x="320" y="44" fill="#5c6480" font-size="7.5" font-family="sans-serif">Estado</text>
+            <rect x="10" y="32" width="380" height="18" rx="3" fill="#eef0f8"/>
+            <text x="16" y="44" fill="#9ca3af" font-size="7.5" font-family="sans-serif">Par</text>
+            <text x="80" y="44" fill="#9ca3af" font-size="7.5" font-family="sans-serif">Tipo</text>
+            <text x="130" y="44" fill="#9ca3af" font-size="7.5" font-family="sans-serif">Entrada</text>
+            <text x="195" y="44" fill="#9ca3af" font-size="7.5" font-family="sans-serif">Salida</text>
+            <text x="260" y="44" fill="#9ca3af" font-size="7.5" font-family="sans-serif">P&L</text>
+            <text x="320" y="44" fill="#9ca3af" font-size="7.5" font-family="sans-serif">Estado</text>
             <!-- Rows -->
-            <rect x="10" y="52" width="380" height="17" rx="2" fill="#08112a"/>
-            <text x="16" y="64" fill="#eef0f8" font-size="8" font-family="monospace">EUR/USD</text>
+            <rect x="10" y="52" width="380" height="17" rx="2" fill="#f0f2fa"/>
+            <text x="16" y="64" fill="#0f0f1a" font-size="8" font-family="monospace">EUR/USD</text>
             <rect x="78" y="54" width="30" height="12" rx="3" fill="rgba(79,124,255,0.2)"/>
             <text x="82" y="64" fill="#7fa3ff" font-size="7.5" font-family="sans-serif">LONG</text>
-            <text x="130" y="64" fill="#9ba3c0" font-size="7.5" font-family="monospace">1.0842</text>
-            <text x="195" y="64" fill="#9ba3c0" font-size="7.5" font-family="monospace">1.0891</text>
+            <text x="130" y="64" fill="#6b7280" font-size="7.5" font-family="monospace">1.0842</text>
+            <text x="195" y="64" fill="#6b7280" font-size="7.5" font-family="monospace">1.0891</text>
             <text x="260" y="64" fill="#4ade80" font-size="8" font-family="monospace">+$248</text>
             <rect x="318" y="54" width="40" height="12" rx="3" fill="rgba(0,212,184,0.15)"/>
             <text x="324" y="64" fill="#00d4b8" font-size="7" font-family="sans-serif">WIN ✓</text>
 
             <rect x="10" y="71" width="380" height="17" rx="2" fill="transparent"/>
-            <text x="16" y="83" fill="#eef0f8" font-size="8" font-family="monospace">GBP/USD</text>
+            <text x="16" y="83" fill="#0f0f1a" font-size="8" font-family="monospace">GBP/USD</text>
             <rect x="78" y="73" width="32" height="12" rx="3" fill="rgba(255,79,123,0.18)"/>
             <text x="81" y="83" fill="#ff4f7b" font-size="7.5" font-family="sans-serif">SHORT</text>
-            <text x="130" y="83" fill="#9ba3c0" font-size="7.5" font-family="monospace">1.2654</text>
-            <text x="195" y="83" fill="#9ba3c0" font-size="7.5" font-family="monospace">1.2698</text>
+            <text x="130" y="83" fill="#6b7280" font-size="7.5" font-family="monospace">1.2654</text>
+            <text x="195" y="83" fill="#6b7280" font-size="7.5" font-family="monospace">1.2698</text>
             <text x="260" y="83" fill="#ff4f7b" font-size="8" font-family="monospace">-$112</text>
             <rect x="318" y="73" width="40" height="12" rx="3" fill="rgba(255,79,123,0.15)"/>
             <text x="323" y="83" fill="#ff4f7b" font-size="7" font-family="sans-serif">LOSS ✗</text>
 
-            <rect x="10" y="90" width="380" height="17" rx="2" fill="#08112a"/>
-            <text x="16" y="102" fill="#eef0f8" font-size="8" font-family="monospace">XAU/USD</text>
+            <rect x="10" y="90" width="380" height="17" rx="2" fill="#f0f2fa"/>
+            <text x="16" y="102" fill="#0f0f1a" font-size="8" font-family="monospace">XAU/USD</text>
             <rect x="78" y="92" width="30" height="12" rx="3" fill="rgba(79,124,255,0.2)"/>
             <text x="82" y="102" fill="#7fa3ff" font-size="7.5" font-family="sans-serif">LONG</text>
-            <text x="130" y="102" fill="#9ba3c0" font-size="7.5" font-family="monospace">2312.4</text>
-            <text x="195" y="102" fill="#9ba3c0" font-size="7.5" font-family="monospace">2341.0</text>
+            <text x="130" y="102" fill="#6b7280" font-size="7.5" font-family="monospace">2312.4</text>
+            <text x="195" y="102" fill="#6b7280" font-size="7.5" font-family="monospace">2341.0</text>
             <text x="260" y="102" fill="#4ade80" font-size="8" font-family="monospace">+$580</text>
             <rect x="318" y="92" width="40" height="12" rx="3" fill="rgba(0,212,184,0.15)"/>
             <text x="324" y="102" fill="#00d4b8" font-size="7" font-family="sans-serif">WIN ✓</text>
             <!-- Stats -->
-            <rect x="10" y="115" width="115" height="35" rx="6" fill="#0a1228"/>
-            <text x="20" y="128" fill="#5c6480" font-size="7.5" font-family="sans-serif">Win Rate</text>
+            <rect x="10" y="115" width="115" height="35" rx="6" fill="#eef0f8"/>
+            <text x="20" y="128" fill="#9ca3af" font-size="7.5" font-family="sans-serif">Win Rate</text>
             <text x="20" y="144" fill="#4ade80" font-size="13" font-weight="bold" font-family="monospace">68.4%</text>
-            <rect x="135" y="115" width="115" height="35" rx="6" fill="#0a1228"/>
-            <text x="145" y="128" fill="#5c6480" font-size="7.5" font-family="sans-serif">Profit Factor</text>
-            <text x="145" y="144" fill="#eef0f8" font-size="13" font-weight="bold" font-family="monospace">2.31</text>
-            <rect x="260" y="115" width="130" height="35" rx="6" fill="#0a1228"/>
-            <text x="270" y="128" fill="#5c6480" font-size="7.5" font-family="sans-serif">P&L Neto</text>
+            <rect x="135" y="115" width="115" height="35" rx="6" fill="#eef0f8"/>
+            <text x="145" y="128" fill="#9ca3af" font-size="7.5" font-family="sans-serif">Profit Factor</text>
+            <text x="145" y="144" fill="#0f0f1a" font-size="13" font-weight="bold" font-family="monospace">2.31</text>
+            <rect x="260" y="115" width="130" height="35" rx="6" fill="#eef0f8"/>
+            <text x="270" y="128" fill="#9ca3af" font-size="7.5" font-family="sans-serif">P&L Neto</text>
             <text x="270" y="144" fill="#4ade80" font-size="13" font-weight="bold" font-family="monospace">+$2,840</text>
           </svg>
         </div>
@@ -633,57 +644,7 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
           <div class="product-cat">Bitácora de Operaciones</div>
           <div class="product-desc">Bitácora profesional para traders. Registrá cada trade con contexto, tags y notas. Analizá tus patrones de comportamiento, identificá errores recurrentes y medí el rendimiento individual y grupal de tu equipo con estadísticas accionables.</div>
           <div class="product-pills"><span class="pill">Multi-operador</span><span class="pill">Estadísticas</span><span class="pill pill-ai">Análisis IA</span><span class="pill">Exportación</span></div>
-        </div>
-      </div>
-
-      <!-- TechLogic -->
-      <div class="product-card">
-        <div class="product-screen">
-          <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#060d1f"/>
-            <rect x="0" y="0" width="400" height="28" fill="#0a1228"/>
-            <text x="14" y="18" fill="#9ba3c0" font-size="9" font-family="sans-serif">TechLogic · Mapa de Flotas en Vivo</text>
-            <!-- Map background -->
-            <rect x="10" y="32" width="240" height="118" rx="6" fill="#080e22"/>
-            <!-- Grid lines (map) -->
-            <line x1="10" y1="60" x2="250" y2="60" stroke="#1a2440" stroke-width="1"/>
-            <line x1="10" y1="90" x2="250" y2="90" stroke="#1a2440" stroke-width="1"/>
-            <line x1="10" y1="120" x2="250" y2="120" stroke="#1a2440" stroke-width="1"/>
-            <line x1="70" y1="32" x2="70" y2="150" stroke="#1a2440" stroke-width="1"/>
-            <line x1="130" y1="32" x2="130" y2="150" stroke="#1a2440" stroke-width="1"/>
-            <line x1="190" y1="32" x2="190" y2="150" stroke="#1a2440" stroke-width="1"/>
-            <!-- Route line -->
-            <polyline points="30,120 70,105 110,90 150,70 190,58 230,48" fill="none" stroke="#4f7cff" stroke-width="1.5" stroke-dasharray="4,3" opacity=".7"/>
-            <!-- Trucks -->
-            <circle cx="110" cy="90" r="7" fill="#4f7cff" opacity=".9"/>
-            <text x="107" y="93" fill="#fff" font-size="7">🚛</text>
-            <circle cx="160" cy="68" r="7" fill="#00d4b8" opacity=".9"/>
-            <text x="157" y="71" fill="#fff" font-size="7">🚛</text>
-            <circle cx="58" cy="112" r="7" fill="#f5a623" opacity=".9"/>
-            <text x="55" y="115" fill="#fff" font-size="7">🚛</text>
-            <!-- Right panel -->
-            <rect x="258" y="32" width="132" height="118" rx="6" fill="#0a1228"/>
-            <text x="268" y="50" fill="#5c6480" font-size="7.5" font-family="sans-serif">ESTADO FLOTA</text>
-            <rect x="268" y="54" width="110" height="1" fill="#1a2848"/>
-            <circle cx="276" cy="68" r="4" fill="#4f7cff"/>
-            <text x="285" y="72" fill="#eef0f8" font-size="8" font-family="sans-serif">Unidad #A14</text>
-            <text x="285" y="83" fill="#4ade80" font-size="7.5" font-family="sans-serif">En ruta · 92 km/h</text>
-            <circle cx="276" cy="96" r="4" fill="#00d4b8"/>
-            <text x="285" y="100" fill="#eef0f8" font-size="8" font-family="sans-serif">Unidad #B07</text>
-            <text x="285" y="111" fill="#4ade80" font-size="7.5" font-family="sans-serif">En ruta · 78 km/h</text>
-            <circle cx="276" cy="124" r="4" fill="#f5a623"/>
-            <text x="285" y="128" fill="#eef0f8" font-size="8" font-family="sans-serif">Unidad #C03</text>
-            <text x="285" y="139" fill="#f5a623" font-size="7.5" font-family="sans-serif">Parada · 8 min</text>
-          </svg>
-        </div>
-        <div class="product-body">
-          <div class="product-header">
-            <div class="product-ico">🚛</div>
-            <div class="product-name">TechLogic</div>
-          </div>
-          <div class="product-cat">Logística & Transporte</div>
-          <div class="product-desc">Sistema integral para empresas de logística y transporte de cargas. Gestión de flotas, rutas optimizadas por IA, trazabilidad de envíos en tiempo real, control de conductores y tablero de métricas operativas.</div>
-          <div class="product-pills"><span class="pill">Flotas</span><span class="pill">Tracking GPS</span><span class="pill pill-ai">Rutas IA</span><span class="pill">Remitos</span></div>
+          <a href="https://abbysolcuiones.vercel.app/trading-journal-landing.html" target="_blank" rel="noopener" class="product-link-btn">Ver especificaciones →</a>
         </div>
       </div>
 
@@ -691,39 +652,39 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
       <div class="product-card">
         <div class="product-screen">
           <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#060d1f"/>
-            <rect x="0" y="0" width="400" height="28" fill="#0a1228"/>
-            <text x="14" y="18" fill="#9ba3c0" font-size="9" font-family="sans-serif">AdminFound · Panel de Socios</text>
+            <rect width="400" height="160" fill="#f7f8fc"/>
+            <rect x="0" y="0" width="400" height="28" fill="#eef0f8"/>
+            <text x="14" y="18" fill="#6b7280" font-size="9" font-family="sans-serif">AdminFound · Panel de Socios</text>
             <!-- Sidebar -->
-            <rect x="10" y="32" width="100" height="118" rx="6" fill="#0a1228"/>
+            <rect x="10" y="32" width="100" height="118" rx="6" fill="#eef0f8"/>
             <rect x="20" y="44" width="78" height="18" rx="4" fill="#4f7cff" opacity=".15"/>
             <text x="28" y="57" fill="#7fa3ff" font-size="8" font-family="sans-serif">👥 Socios</text>
-            <text x="28" y="75" fill="#5c6480" font-size="8" font-family="sans-serif">💰 Cuotas</text>
-            <text x="28" y="93" fill="#5c6480" font-size="8" font-family="sans-serif">🔔 Alertas</text>
-            <text x="28" y="111" fill="#5c6480" font-size="8" font-family="sans-serif">📄 Recibos</text>
-            <text x="28" y="129" fill="#5c6480" font-size="8" font-family="sans-serif">📊 Reportes</text>
+            <text x="28" y="75" fill="#9ca3af" font-size="8" font-family="sans-serif">💰 Cuotas</text>
+            <text x="28" y="93" fill="#9ca3af" font-size="8" font-family="sans-serif">🔔 Alertas</text>
+            <text x="28" y="111" fill="#9ca3af" font-size="8" font-family="sans-serif">📄 Recibos</text>
+            <text x="28" y="129" fill="#9ca3af" font-size="8" font-family="sans-serif">📊 Reportes</text>
             <!-- Main content -->
-            <rect x="118" y="32" width="272" height="55" rx="6" fill="#0a1228"/>
-            <text x="130" y="50" fill="#5c6480" font-size="7.5" font-family="sans-serif">Total socios</text>
-            <text x="130" y="66" fill="#eef0f8" font-size="14" font-weight="bold" font-family="monospace">1.284</text>
-            <rect x="210" y="32" width="1" height="55" fill="#1a2848"/>
-            <text x="222" y="50" fill="#5c6480" font-size="7.5" font-family="sans-serif">Al día</text>
+            <rect x="118" y="32" width="272" height="55" rx="6" fill="#eef0f8"/>
+            <text x="130" y="50" fill="#9ca3af" font-size="7.5" font-family="sans-serif">Total socios</text>
+            <text x="130" y="66" fill="#0f0f1a" font-size="14" font-weight="bold" font-family="monospace">1.284</text>
+            <rect x="210" y="32" width="1" height="55" fill="#dde1f0"/>
+            <text x="222" y="50" fill="#9ca3af" font-size="7.5" font-family="sans-serif">Al día</text>
             <text x="222" y="66" fill="#4ade80" font-size="14" font-weight="bold" font-family="monospace">1.156</text>
-            <rect x="300" y="32" width="1" height="55" fill="#1a2848"/>
-            <text x="312" y="50" fill="#5c6480" font-size="7.5" font-family="sans-serif">Morosos</text>
+            <rect x="300" y="32" width="1" height="55" fill="#dde1f0"/>
+            <text x="312" y="50" fill="#9ca3af" font-size="7.5" font-family="sans-serif">Morosos</text>
             <text x="312" y="66" fill="#ff4f7b" font-size="14" font-weight="bold" font-family="monospace">128</text>
             <!-- Table -->
-            <rect x="118" y="93" width="272" height="57" rx="6" fill="#0a1228"/>
-            <rect x="118" y="93" width="272" height="14" rx="0" fill="#0a0e1c" rx="6"/>
-            <text x="126" y="103" fill="#5c6480" font-size="7" font-family="sans-serif">SOCIO</text>
-            <text x="230" y="103" fill="#5c6480" font-size="7" font-family="sans-serif">CATEGORÍA</text>
-            <text x="320" y="103" fill="#5c6480" font-size="7" font-family="sans-serif">ESTADO</text>
-            <text x="126" y="119" fill="#eef0f8" font-size="7.5" font-family="sans-serif">García, Juan Carlos</text>
-            <text x="230" y="119" fill="#9ba3c0" font-size="7.5" font-family="sans-serif">Activo</text>
+            <rect x="118" y="93" width="272" height="57" rx="6" fill="#eef0f8"/>
+            <rect x="118" y="93" width="272" height="14" rx="0" fill="#e4e7f5" rx="6"/>
+            <text x="126" y="103" fill="#9ca3af" font-size="7" font-family="sans-serif">SOCIO</text>
+            <text x="230" y="103" fill="#9ca3af" font-size="7" font-family="sans-serif">CATEGORÍA</text>
+            <text x="320" y="103" fill="#9ca3af" font-size="7" font-family="sans-serif">ESTADO</text>
+            <text x="126" y="119" fill="#0f0f1a" font-size="7.5" font-family="sans-serif">García, Juan Carlos</text>
+            <text x="230" y="119" fill="#6b7280" font-size="7.5" font-family="sans-serif">Activo</text>
             <rect x="318" y="111" width="40" height="11" rx="3" fill="rgba(0,212,184,0.15)"/>
             <text x="323" y="120" fill="#00d4b8" font-size="7" font-family="sans-serif">Al día</text>
-            <text x="126" y="135" fill="#eef0f8" font-size="7.5" font-family="sans-serif">Rodríguez, María</text>
-            <text x="230" y="135" fill="#9ba3c0" font-size="7.5" font-family="sans-serif">Vitalicio</text>
+            <text x="126" y="135" fill="#0f0f1a" font-size="7.5" font-family="sans-serif">Rodríguez, María</text>
+            <text x="230" y="135" fill="#6b7280" font-size="7.5" font-family="sans-serif">Vitalicio</text>
             <rect x="318" y="127" width="40" height="11" rx="3" fill="rgba(255,79,123,0.15)"/>
             <text x="322" y="136" fill="#ff4f7b" font-size="7" font-family="sans-serif">Moroso</text>
           </svg>
@@ -736,6 +697,7 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
           <div class="product-cat">Administración de Socios</div>
           <div class="product-desc">La solución definitiva para clubes, mutuales, colegios profesionales y organizaciones. Administrá membresías, categorías, cuotas y cobranzas desde un panel centralizado con notificaciones automáticas y recibos digitales.</div>
           <div class="product-pills"><span class="pill">Socios</span><span class="pill">Cuotas</span><span class="pill">Cobranza digital</span><span class="pill">Notificaciones</span></div>
+          <a href="https://abbysolcuiones.vercel.app/socium-landing%20(2).html" target="_blank" rel="noopener" class="product-link-btn">Ver especificaciones →</a>
         </div>
       </div>
 
@@ -743,9 +705,9 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
       <div class="product-card">
         <div class="product-screen">
           <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#060d1f"/>
-            <rect x="0" y="0" width="400" height="28" fill="#0a1228"/>
-            <text x="14" y="18" fill="#9ba3c0" font-size="9" font-family="sans-serif">we-Wallet · Dashboard</text>
+            <rect width="400" height="160" fill="#f7f8fc"/>
+            <rect x="0" y="0" width="400" height="28" fill="#eef0f8"/>
+            <text x="14" y="18" fill="#6b7280" font-size="9" font-family="sans-serif">we-Wallet · Dashboard</text>
             <!-- Card mockup -->
             <rect x="10" y="36" width="175" height="100" rx="10" fill="url(#wg)"/>
             <defs><linearGradient id="wg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4f7cff"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient></defs>
@@ -754,20 +716,20 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
             <text x="24" y="94" fill="rgba(255,255,255,0.7)" font-size="7.5" font-family="sans-serif">Saldo disponible</text>
             <text x="24" y="118" fill="rgba(255,255,255,0.6)" font-size="9" font-family="monospace">**** **** **** 4821</text>
             <!-- Transactions -->
-            <rect x="195" y="36" width="195" height="118" rx="6" fill="#0a1228"/>
-            <text x="205" y="52" fill="#5c6480" font-size="7.5" font-family="sans-serif">ÚLTIMOS MOVIMIENTOS</text>
-            <rect x="205" y="55" width="175" height="1" fill="#1a2848"/>
-            <text x="205" y="70" fill="#eef0f8" font-size="8" font-family="sans-serif">Transferencia recibida</text>
+            <rect x="195" y="36" width="195" height="118" rx="6" fill="#eef0f8"/>
+            <text x="205" y="52" fill="#9ca3af" font-size="7.5" font-family="sans-serif">ÚLTIMOS MOVIMIENTOS</text>
+            <rect x="205" y="55" width="175" height="1" fill="#dde1f0"/>
+            <text x="205" y="70" fill="#0f0f1a" font-size="8" font-family="sans-serif">Transferencia recibida</text>
             <text x="330" y="70" fill="#4ade80" font-size="8" font-family="monospace">+$5.000</text>
-            <text x="205" y="82" fill="#5c6480" font-size="7" font-family="sans-serif">Hoy 14:32</text>
+            <text x="205" y="82" fill="#9ca3af" font-size="7" font-family="sans-serif">Hoy 14:32</text>
             <rect x="205" y="88" width="175" height="1" fill="#1a1e2e"/>
-            <text x="205" y="103" fill="#eef0f8" font-size="8" font-family="sans-serif">Pago con QR</text>
+            <text x="205" y="103" fill="#0f0f1a" font-size="8" font-family="sans-serif">Pago con QR</text>
             <text x="330" y="103" fill="#ff4f7b" font-size="8" font-family="monospace">-$1.200</text>
-            <text x="205" y="115" fill="#5c6480" font-size="7" font-family="sans-serif">Ayer 11:10</text>
+            <text x="205" y="115" fill="#9ca3af" font-size="7" font-family="sans-serif">Ayer 11:10</text>
             <rect x="205" y="121" width="175" height="1" fill="#1a1e2e"/>
-            <text x="205" y="136" fill="#eef0f8" font-size="8" font-family="sans-serif">Recarga de saldo</text>
+            <text x="205" y="136" fill="#0f0f1a" font-size="8" font-family="sans-serif">Recarga de saldo</text>
             <text x="330" y="136" fill="#4ade80" font-size="8" font-family="monospace">+$20.000</text>
-            <text x="205" y="148" fill="#5c6480" font-size="7" font-family="sans-serif">Lun 09:00</text>
+            <text x="205" y="148" fill="#9ca3af" font-size="7" font-family="sans-serif">Lun 09:00</text>
           </svg>
         </div>
         <div class="product-body">
@@ -778,48 +740,53 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
           <div class="product-cat">Billetera / Banco White Label</div>
           <div class="product-desc">Lanzá tu propia billetera digital o banco bajo tu marca en tiempo récord. Plataforma white label personalizable: cuentas virtuales, transferencias, pagos con QR, recarga y panel de administración. Antifraude por IA incluido.</div>
           <div class="product-pills"><span class="pill">White Label</span><span class="pill">Fintech</span><span class="pill pill-ai">Antifraude IA</span><span class="pill">CVU/CBU</span></div>
+          <a href="https://abbysolcuiones.vercel.app/agencia-web-landing_1.html" target="_blank" rel="noopener" class="product-link-btn">Ver especificaciones →</a>
         </div>
       </div>
 
-      <!-- SmartBalance -->
+      <!-- Creamos tu Web -->
       <div class="product-card">
         <div class="product-screen">
           <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="160" fill="#060d1f"/>
-            <rect x="0" y="0" width="400" height="28" fill="#0a1228"/>
-            <text x="14" y="18" fill="#9ba3c0" font-size="9" font-family="sans-serif">SmartBalance · Resumen Contable</text>
-            <!-- Donut chart -->
-            <circle cx="80" cy="100" r="44" fill="none" stroke="#1e2a4a" stroke-width="12"/>
-            <circle cx="80" cy="100" r="44" fill="none" stroke="#4f7cff" stroke-width="12" stroke-dasharray="110 166" stroke-dashoffset="-20" stroke-linecap="round"/>
-            <circle cx="80" cy="100" r="44" fill="none" stroke="#00d4b8" stroke-width="12" stroke-dasharray="56 220" stroke-dashoffset="-130" stroke-linecap="round"/>
-            <text x="80" y="96" fill="#eef0f8" font-size="11" text-anchor="middle" font-weight="bold" font-family="monospace">$1.2M</text>
-            <text x="80" y="110" fill="#5c6480" font-size="8" text-anchor="middle" font-family="sans-serif">Total</text>
-            <!-- Legend and data -->
-            <rect x="145" y="36" width="240" height="114" rx="6" fill="#0a1228"/>
-            <text x="157" y="54" fill="#5c6480" font-size="7.5" font-family="sans-serif">ESTADO DE RESULTADOS</text>
-            <rect x="157" y="57" width="215" height="1" fill="#1a2848"/>
-            <text x="157" y="73" fill="#eef0f8" font-size="8" font-family="sans-serif">Ingresos totales</text>
-            <text x="310" y="73" fill="#4ade80" font-size="8" font-family="monospace">$1.842.400</text>
-            <text x="157" y="88" fill="#eef0f8" font-size="8" font-family="sans-serif">Egresos operativos</text>
-            <text x="310" y="88" fill="#ff4f7b" font-size="8" font-family="monospace">$654.200</text>
-            <text x="157" y="103" fill="#eef0f8" font-size="8" font-family="sans-serif">Resultado bruto</text>
-            <text x="310" y="103" fill="#eef0f8" font-size="8" font-family="monospace">$1.188.200</text>
-            <rect x="157" y="107" width="215" height="1" fill="#1a2848"/>
-            <text x="157" y="122" fill="#9ba3c0" font-size="8" font-family="sans-serif">Impuestos estimados</text>
-            <text x="310" y="122" fill="#f5a623" font-size="8" font-family="monospace">$178.230</text>
-            <rect x="157" y="126" width="215" height="2" fill="#1a2848"/>
-            <text x="157" y="143" fill="#eef0f8" font-size="9" font-weight="bold" font-family="sans-serif">Resultado neto</text>
-            <text x="305" y="143" fill="#4ade80" font-size="9" font-weight="bold" font-family="monospace">$1.009.970</text>
+            <rect width="400" height="160" fill="#f7f8fc"/>
+            <rect x="0" y="0" width="400" height="28" fill="#eef0f8"/>
+            <text x="14" y="18" fill="#6b7280" font-size="9" font-family="sans-serif">Abby Agency · Propuesta Web</text>
+            <!-- Browser mockup -->
+            <rect x="10" y="34" width="380" height="116" rx="8" fill="#eef0f8"/>
+            <rect x="10" y="34" width="380" height="22" rx="8" fill="#eef0f8"/>
+            <circle cx="24" cy="45" r="4" fill="#ff5f56" opacity=".7"/>
+            <circle cx="36" cy="45" r="4" fill="#ffbd2e" opacity=".7"/>
+            <circle cx="48" cy="45" r="4" fill="#27c93f" opacity=".7"/>
+            <rect x="70" y="38" width="260" height="14" rx="4" fill="#131c38"/>
+            <text x="200" y="48" fill="#9ca3af" font-size="7" text-anchor="middle" font-family="monospace">abbysoluciones.com</text>
+            <!-- Hero section preview -->
+            <rect x="20" y="62" width="170" height="78" rx="4" fill="#eef0f8"/>
+            <rect x="30" y="72" width="100" height="8" rx="3" fill="#dde1f0"/>
+            <rect x="30" y="84" width="140" height="14" rx="3" fill="#5a7fff" opacity=".3"/>
+            <rect x="30" y="102" width="120" height="8" rx="3" fill="#dde1f0"/>
+            <rect x="30" y="114" width="60" height="14" rx="5" fill="#5a7fff" opacity=".7"/>
+            <rect x="96" y="114" width="55" height="14" rx="5" fill="#dde1f0"/>
+            <!-- Right side blocks -->
+            <rect x="200" y="62" width="85" height="36" rx="4" fill="#eef0f8"/>
+            <rect x="210" y="70" width="40" height="6" rx="2" fill="#dde1f0"/>
+            <rect x="210" y="80" width="60" height="10" rx="2" fill="#a855f7" opacity=".3"/>
+            <rect x="295" y="62" width="85" height="36" rx="4" fill="#eef0f8"/>
+            <rect x="305" y="70" width="40" height="6" rx="2" fill="#dde1f0"/>
+            <rect x="305" y="80" width="60" height="10" rx="2" fill="#5a7fff" opacity=".3"/>
+            <rect x="200" y="104" width="180" height="36" rx="4" fill="#eef0f8"/>
+            <rect x="210" y="112" width="80" height="6" rx="2" fill="#dde1f0"/>
+            <rect x="210" y="122" width="140" height="10" rx="2" fill="#dde1f0"/>
           </svg>
         </div>
         <div class="product-body">
           <div class="product-header">
-            <div class="product-ico">⚖️</div>
-            <div class="product-name">SmartBalance</div>
+            <div class="product-ico">🌐</div>
+            <div class="product-name">Creamos tu Web</div>
           </div>
-          <div class="product-cat">Contabilidad & Balances</div>
-          <div class="product-desc">Sé tu propio contador. SmartBalance te guía para realizar balances profesionales con firma digital incluida. Carga de asientos, conciliación bancaria, estados contables y exportación lista para AFIP, bancos o inversores.</div>
-          <div class="product-pills"><span class="pill">Balances</span><span class="pill">Firma digital</span><span class="pill pill-ai">Sugerencias IA</span><span class="pill">AFIP</span></div>
+          <div class="product-cat">Diseño & Desarrollo Web</div>
+          <div class="product-desc">¿Necesitás presencia digital profesional? Diseñamos y desarrollamos tu sitio web desde cero — landing pages, sitios corporativos, portfolios y más. Rápido, moderno y optimizado para convertir visitantes en clientes.</div>
+          <div class="product-pills"><span class="pill">Landing Page</span><span class="pill">Sitio Corporativo</span><span class="pill pill-ai">SEO</span><span class="pill">Responsive</span></div>
+          <a href="https://abbysolcuiones.vercel.app/agencia-web-landing_1.html" target="_blank" rel="noopener" class="product-link-btn">Ver especificaciones →</a>
         </div>
       </div>
 
@@ -1019,11 +986,9 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 4r
         <a href="#productos">AbbyPamm</a>
         <a href="#productos">SmartComerce</a>
         <a href="#productos">Journal Trading</a>
-        <a href="#productos">TechLogic</a>
         <a href="#productos">AdminFound</a>
         <a href="#productos">we-Wallet</a>
-        <a href="#productos">SmartBalance</a>
-      </div>
+        </div>
       <div class="footer-col">
         <h4>Empresa</h4>
         <a href="#proceso">Cómo trabajamos</a>
@@ -1049,14 +1014,14 @@ const container = document.getElementById('heroParticles');
 for(let i=0;i<18;i++){
   const s = document.createElement('span');
   const size = Math.random()*3+1;
-  s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;background:${['#5a7fff','#a855f7','#c084fc','#e6ecf8'][Math.floor(Math.random()*4)]};animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*10}s`;
+  s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;background:${['#4f63ff','#8b5cf6','#7c3aed','#c4b5fd'][Math.floor(Math.random()*4)]};animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*10}s`;
   container.appendChild(s);
 }
 
 // Nav scroll
 window.addEventListener('scroll', () => {
   document.getElementById('mainNav').style.background =
-    window.scrollY > 50 ? 'rgba(6,13,31,0.99)' : 'rgba(6,13,31,0.85)';
+    window.scrollY > 50 ? 'rgba(255,255,255,0.99)' : 'rgba(255,255,255,0.92)';
 });
 
 // Mobile menu
